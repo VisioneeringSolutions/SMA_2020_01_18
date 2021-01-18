@@ -1,0 +1,98 @@
+<div class="container-fluid fixed">
+    <div class="row">
+        <div class="report-tab col-md-12 col-lg-12 col-sm-12 col-xs-12">
+
+            <div class="report-content">
+                <ul>
+                    <li class="tab animate" id="1"
+                        ng-click="generalReport.enablePage('studentDetails', 1, $event)"><span translate="STUDENT_DETAILS"></span></li>
+                    <li class="tab animate" id="2"
+                        ng-click="generalReport.enablePage('teacherDetails', 2, $event)"><span translate="TEACHER_DETAILS"></span></li>
+                    <!--<li class="tab animate" id="3"
+                        ng-click="generalReport.enablePage('ratingPage', 3, $event)"><span translate="RATINGS"></span></li>
+                    <li class="tab animate" id="4"
+                        ng-click="generalReport.enablePage('overallRating', 4, $event)"><span translate="OVERALL_RATINGS"></span></li>-->
+                    <li class="tab animate" id="3"
+                        ng-click="generalReport.enablePage('paymentHistory', 3, $event)"><span translate="STUDENT_INVOICE"></span></li>
+                    <li class="tab animate" id="4"
+                        ng-click="generalReport.enablePage('salaryHistory' ,4, $event)"><span translate="TEACHER_SALARY_HISTORY"></span></li>
+                    <li class="tab animate" id="5"
+                        ng-click="generalReport.enablePage('notConvertStudentReport', 5, $event)"><span translate="STUDENT_NOT_CONVERT_REPORT"></span></li>
+                    <!--<li class="tab animate" id="8"
+                        ng-click="generalReport.enablePage('studentTeacherRating', 8, $event)"><span translate="STUDENT_AND_TEACHER_RATING"></span></li>-->
+
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row report-body" ng-if="generalReport.enable.studentTeacherRating == true">
+        <div ng-controller="studentTeacherRatingCtrl as studentTeacherRating">
+            <ng-include src="'modules/report/generalreport/reports/studentandteacherrating.html'"></ng-include>
+        </div>
+    </div>
+
+    <div class="row report-body" ng-if="generalReport.enable.studentDetails == true">
+        <div ng-controller="studentDetailsCtrl as studentDetails">
+            <ng-include src="'modules/report/generalreport/reports/studentdetails.html'"></ng-include>
+        </div>
+    </div>
+
+    <div class="row report-body" ng-if="generalReport.enable.teacherDetails == true">
+        <div ng-controller="teacherDetailsCtrl as teacherDetails">
+            <ng-include src="'modules/report/generalreport/reports/teacherdetails.html'"></ng-include>
+        </div>
+    </div>
+
+    <div class="row report-body" ng-if="generalReport.enable.competition == true">
+        <div ng-controller="competitionCtrl as competition">
+            <ng-include src="'modules/report/generalreport/reports/competition.html'"></ng-include>
+        </div>
+    </div>
+
+    <div class="row report-body" ng-if="generalReport.enable.ratingPage == true">
+        <div ng-controller="ratingCtrl as rating">
+            <ng-include src="'modules/report/generalreport/reports/rating.html'"></ng-include>
+        </div>
+    </div>
+
+    <div class="row report-body" ng-if="generalReport.enable.overallRating == true">
+        <div ng-controller="overallRatingCtrl as overallRating">
+            <ng-include src="'modules/report/generalreport/reports/overallrating.html'"></ng-include>
+        </div>
+    </div>
+
+    <div class="row report-body" ng-if="generalReport.enable.paymentHistory == true">
+        <div ng-controller="paymentHistoryCtrl as paymentHistory">
+            <ng-include src="'modules/report/generalreport/reports/paymenthistory.html'"></ng-include>
+        </div>
+    </div>
+
+    <div class="row report-body" ng-if="generalReport.enable.salaryHistory == true">
+        <div ng-controller="salaryHistoryCtrl as salaryHistory">
+            <ng-include src="'modules/report/generalreport/reports/salaryhistory.html'"></ng-include>
+        </div>
+    </div>
+
+    <div class="row report-body" ng-if="generalReport.enable.salarySlip == true">
+        <div ng-controller="salarySlipCtrl as salarySlip">
+            <ng-include src="'modules/report/generalreport/reports/salaryslip.html'"></ng-include>
+        </div>
+    </div>
+
+   <!-- <div class="row report-body" ng-if="generalReport.enable.sessionReport == true">
+        <div ng-controller="sessionReportCtrl as sessionReport">
+            <ng-include src="'modules/report/generalreport/reports/sessionreport.html'"></ng-include>
+        </div>
+    </div>-->
+
+    <div class="row report-body" ng-if="generalReport.enable.notConvertStudentReport == true">
+        <div ng-controller="notConvertStudentReportCtrl as studentDetails">
+            <ng-include src="'modules/report/generalreport/reports/notconvertreport.html'"></ng-include>
+        </div>
+    </div>
+
+
+</div>

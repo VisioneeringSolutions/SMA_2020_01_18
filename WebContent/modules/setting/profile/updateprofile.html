@@ -1,0 +1,221 @@
+<div class="container-fluid" >
+    <div class="row"  ng-if="profile.role == 'EOManagementUser'">
+
+        <div class="main-container profile-box col-lg-12 col-md-12 col-sm-12 sol-xs-12 no-padding">
+            <div class="form-group profile-sec col-lg-5 col-md-5 col-sm-12 sol-xs-12 no-padding">
+                <div class="profile-img-container">
+                    <label for="UploadAvatar" id="preview">
+
+                        <img src="images/avatar.png"
+                             id="managementProfileImage"
+                             name="managementProfileImage"
+                             style="height: 300px;width: 300px;border-radius: 50%;cursor: pointer">
+                    <span>
+                       {{profile.formModel.firstName}} {{' '}} {{profile.formModel.lastName}}
+                    </span>
+
+                    </label>
+                    <vfile-upload-drct ng-model="profile.uploadConfig.model"
+                                       style="display: none;"
+                                       accept="image/jpeg, image/jpg, image/png"
+                                       config="profile.uploadConfig" fsize="16000027"
+                                       preview-class="img-thumbnail"
+                                       preview-container="preview">
+                    </vfile-upload-drct>
+                    <div class="change-password"
+                         title="Change Password"
+                         ng-click="profile.toggle()">
+                        <i class="fas fa-unlock-alt"></i>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="profile-sec-2 col-lg-7 col-md-7 col-sm-12 sol-xs-12 no-padding" id="update-form" style="display: block">
+                <div class="profile-form col-lg-12 col-md-12 col-sm-12 sol-xs-12" id="scroll-bar">
+
+                    <vform name="studentsRegistrationForm" config="profile.formConfig">
+                        <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="TITLE"></span>
+                            <span class="mandatory">*</span></span>
+                            <vinput type="input"
+                                    name="title"
+                                    capitalize=""
+                                    required=""
+                                    ng-model="profile.formModel.prefix"
+                                    placeholder="title"
+                                    id="title"
+                                    class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            </vinput>
+                        </div>
+
+                        <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="FIRST_NAME"></span>
+                            <span class="mandatory">*</span></span>
+                            <vinput type="input"
+                                    name="firstName"
+                                    capitalize=""
+                                    required=""
+                                    ng-model="profile.formModel.firstName"
+                                    placeholder="Name"
+                                    id="firstName"
+                                    class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            </vinput>
+                        </div>
+                        <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="LAST_NAME"></span></span>
+                            <vinput type="input"
+                                    name="lastName"
+                                    capitalize=""
+                                    ng-model="profile.formModel.lastName"
+                                    placeholder="LastName"
+                                    id="lastName"
+                                    class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            </vinput>
+                        </div>
+                    <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="GENDER"></span>
+                            <span class="mandatory">*</span></span>
+                            <ul class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <li>
+                                    <input type="radio"
+                                           value="Male"
+                                           ng-model="profile.formModel.gender"
+                                           id="f-option" name="selector-2">
+                                <label for="f-option"><span translate="MALE"></span></label>
+                                    <div class="check"></div>
+                                </li>
+
+                                <li>
+                                    <input type="radio"
+                                           value="Female"
+                                           ng-model="profile.formModel.gender"
+                                           id="s-option" name="selector-2">
+                                <label for="s-option"><span translate="FEMALE"></span></label>
+                                    <div class="check"><div class="inside"></div></div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="PHONE"></span></span>
+                            <vinput vtype="positiveirrational"
+                                    only-numbers=""
+                                    max-limit="10"
+                                    charminlength="10"
+                                    charmaxlength="10"
+                                    name="phone"
+
+                                    required=""
+                                    ng-model="profile.formModel.phone"
+                                    placeholder="Phone"
+                                    id="phone"
+                                    ng-blur="studentAddModal.validatePhoneNo()"
+                                    class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            </vinput>
+                        </div>
+                        <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="EMAIL_ID"></span></span>
+                            <vinput type="input"
+                                    name="email"
+                                    ng-model="profile.formModel.email"
+                                    placeholder="Email Id"
+                                    readonly="true"
+                                    id="email"
+                                    class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            </vinput>
+                        </div>
+                        <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="ADDRESS_LINE_1"></span>
+                            </span>
+                            <vinput type="input"
+                                    name="address1"
+                                    ng-model="profile.formModel.address1"
+                                    placeholder="Address Line 1"
+                                    id="address1"
+                                    class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            </vinput>
+                        </div>
+                        <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="ADDRESS_LINE_2"></span>
+                            </span>
+                            <vinput type="input"
+                                    name="address2"
+                                    ng-model="profile.formModel.address2"
+                                    placeholder="Address Line 2"
+                                    id="address2"
+                                    class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            </vinput>
+                        </div>
+                    </vform>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 center" style="margin-top: 20px">
+                        <button class="btn-custom btn-custom-primary"
+                                title="Update"
+                                ng-click="profile.formConfig.submit($event);">
+                            <span translate="UPDATE"></span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="profile-sec-3 col-lg-7 col-md-7 col-sm-12 sol-xs-12 no-padding" id="change-pass-form" style="display: none">
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 change-pass-form">
+                    <h3 class="font-family center"><span translate="CHANGE_PASSWORD"></span></h3>
+
+                    <form>
+                        <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700">Current Password
+                            <span class="mandatory">*</span></span>
+                            <vinput type="password"
+                                    name="title"
+                                    required=""
+                                    ng-model="profile.formPassword.currentPassword"
+                                    placeholder="Current Password"
+                                    class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            </vinput>
+                        </div>
+
+                        <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700">New Password
+                            <span class="mandatory">*</span></span>
+                            <vinput type="password"
+                                    name="firstName"
+                                    id="newPass"
+                                    required=""
+                                    ng-disabled="profile.formPassword.currentPassword == ''"
+                                    ng-model="profile.formPassword.newPassword"
+                                    placeholder="New Password"
+                                    class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            </vinput>
+                        </div>
+                        <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700">Confirm Password
+                            <span class="mandatory">*</span></span>
+                            <vinput type="password"
+                                    name="lastName"
+                                    id="confirmPass"
+                                    required=""
+                                    ng-disabled="profile.formPassword.newPassword == ''"
+                                    ng-model="profile.formPassword.confirmPassword"
+                                    placeholder="Confirm Password"
+                                    ng-change="profile.matchNewPassword()"
+                                    class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            </vinput>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 center" style="margin-top: 15px">
+                            <button class="btn-custom btn-custom-primary"
+                                    title="Change Password"
+                                    ng-disabled="profile.formPassword.currentPassword == ''"
+                                    ng-click="profile.changePassword();">
+                                <span translate="CHANGE_PASSWORD"></span>
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

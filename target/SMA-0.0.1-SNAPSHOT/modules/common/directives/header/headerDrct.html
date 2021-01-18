@@ -1,0 +1,306 @@
+<header>
+    <nav class="header-container navbar  navbar-fixed-top menu ">
+        <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 no-padding header-bar">
+            <!--ADMIN-->
+            <ul class="main-header animate-mobile" id="main-header" ng-if="role=='EOManagementUser'">     <!--  Admin-->
+
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-1', 12); route('DashboardAdmin');showHeader()"><span translate="DASHBOARD"></span></li>
+               <!-- <li class="animate-menu" ng-click="showSubMenu('sub-menu-2', 13)"><span translate="ATTRIBUTES"></span>
+                    <i class="fas fa-angle-down" style="margin-left: 5px"></i>
+                    <i class="fas fa-angle-right"></i>
+                    <ul class="sub-menu" id="sub-menu-2">
+                        <li ng-click="route('course'); showHeader()"><span translate="COURSE"></span></li>
+                        <li ng-click="route('batchRegistration'); showHeader()"> <span translate="BATCH"></span></li>
+                        <li ng-click="route('studentBatchRegistration'); showHeader()"><span translate="STUDENT_BATCH"></span></li>
+                        <li ng-click="route('musicRoom'); showHeader()"><span translate="MUSIC_ROOM"></span></li>
+                    </ul>
+                </li>-->
+
+                <!--<li class="animate-menu" ng-click="showSubMenu('sub-menu-3', 13)"><span translate="REGISTRATION"></span>
+                    <i class="fas fa-angle-down" style="margin-left: 5px"></i>
+                    <i class="fas fa-angle-right"></i>
+                    <ul class="sub-menu" id="sub-menu-3">
+                        <li ng-click="route('StudentRegistration'); showHeader()"><span translate="STUDENT"></span></li>
+                        <li ng-click="route('TeacherRegistration'); showHeader()"><span translate="TEACHER"></span></li>
+                    </ul>
+                </li>-->
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-2', 12); route('QueryForm');showHeader()"><span translate="QUERY_FORM"></span></li>
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-3', 12); route('TrialStudents');showHeader()"><span translate="TRIAL_STUDENTS"></span></li>
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-4', 12); route('StudentInvoice');showHeader()"><span translate="INVOICE"></span></li>
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-5', 12)"><span translate="SALARY"></span>
+                    <i class="fas fa-angle-down" style="margin-left: 5px"></i>
+                    <i class="fas fa-angle-right"></i>
+                    <ul class="sub-menu" id="sub-menu-5">
+                        <li ng-click="route('CreateSalary'); showHeader()"><span translate="CREATE_SALARY"></span></li>
+                        <li ng-click="route('GenerateSlip'); showHeader()"><span translate="GENERATE_SLIP"></span></li>
+                    </ul>
+                </li>
+
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-6', 12);route('Competition');showHeader()"><span translate="COMPETITIONS"></span></li>
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-7', 12);route('News');showHeader()"><span translate="NEWS"></span></li>
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-8', 12)"><span translate="REPORTS"></span>
+                    <i class="fas fa-angle-down" style="margin-left: 5px"></i>
+                    <i class="fas fa-angle-right"></i>
+                    <ul class="sub-menu" id="sub-menu-8">
+                        <li ng-click="route('Statistics'); showHeader()"><span translate="STATISTICS"></span></li>
+                        <li ng-click="route('General'); showHeader()"><span translate="GENERAL"></span></li>
+                    </ul>
+                </li>
+              <!--  vishuja code-->
+                <!--<li class="animate-menu" ng-click="showSubMenu('sub-menu-9', 12);route('Register Expenses');showHeader()"><span translate="EXPENSES"></span></li>-->
+
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-9', 12)"><span translate="EXPENSES"></span>
+                    <i class="fas fa-angle-down" style="margin-left: 5px"></i>
+                    <i class="fas fa-angle-right"></i>
+                    <ul class="sub-menu" id="sub-menu-9">
+                        <li ng-click="route('Register Expenses'); showHeader()"><span translate="REGISTER_EXPENSES"></span></li>
+                        <li ng-click="route('Add Expenses'); showHeader()"><span translate="ADD_EXPENSES"></span></li>
+                        <li ng-click="route('Expense Sheet'); showHeader()"><span translate="EXPENSE_SHEET"></span></li>
+                    </ul>
+                </li>
+                <!--end code-->
+
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-10', 12)" id="hidden-pc">Language
+                    <i class="fas fa-angle-down" style="margin-left: 5px"></i>
+                    <i class="fas fa-angle-right"></i>
+                    <ul class="sub-menu" id="sub-menu-11">
+                        <li ng-click="changeLanguage('en-US'); showHeader()">English</li>
+                        <li ng-click="changeLanguage('jap-JAP'); showHeader()">日本語</li>
+                    </ul>
+                </li>
+
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-11', 12);showHeader();route('Profile')" id="hidden-pc">Setting
+                    <i class="fas fa-user-cog"></i>
+                </li>
+
+                <a href="logout" ng-click="logout.submit();">
+                    <li class="animate-menu" ng-click="showSubMenu('sub-menu-12', 12);showHeader();logout.submit()" id="hidden-pc">
+                        <span translate="LOGOUT"></span>
+                        <i class="fas fa-sign-out-alt"></i>
+                    </li>
+                </a>
+
+            </ul>
+            <ul class="side-header" ng-if="role=='EOManagementUser'">
+                <li>
+                    <a href="javascript:void(0)" ng-click="route('Message');hideHeader()" class="isolate no-border">
+                        <div class="header-icon-name isolate-content">
+                            <i class="fas fa-envelope"></i>
+                                <span id="countManagementMessage"
+                                      ng-if="$root.messageCount > 0"
+                                      style="right: 0; top: 0;"
+                                      class="label label-warning">{{$root.messageCount}}</span>
+                        </div>
+                    </a>
+                </li>
+                <li ng-click="showSideSubMenu('side-sub-menu-1', 2, 13)" id="hidden-mb">Lang
+                    <i class="fas fa-angle-down" style="margin-left: 5px"></i>
+                    <ul class="side-sub-menu" id="side-sub-menu-1">
+
+                        <a href="javascript:void(0)" ng-click="changeLanguage('en-US')">
+                            <li>
+                                English
+                            </li>
+                        </a>
+
+                        <a href="javascript:void(0)" ng-click="changeLanguage('jap-JAP')">
+                            <li>
+                                日本語
+                            </li>
+                        </a>
+                    </ul>
+                </li>
+                <li class="animate-menu" ng-click="showSideSubMenu('side-sub-menu-2', 2,13)" id="hidden-mb">
+                    <a href="javascript:void(0)" class="no-border">
+                        <img ng-src={{$root.imageUrl}} height="40px" width="40px" style="border-radius: 50%;margin-top: -10px">
+                        <span style="color: black"><span translate="HELLO"></span>{{firstName}} </span>
+                    </a>
+
+                    <ul class="side-sub-menu" id="side-sub-menu-2">
+                        <a href="javascript:void(0)" ng-click="route('Profile')">
+                            <li>
+                                Setting <i class="fas fa-user-cog"></i>
+                            </li>
+                        </a>
+                        <a href="logout" ng-click="logout.submit();">
+                            <li>
+                                <span translate="LOGOUT"></span> <i class="fas fa-sign-out-alt"></i>
+                            </li>
+                        </a>
+                    </ul>
+                </li>
+            </ul>
+
+            <!--TEACHER-->
+            <ul class="main-header animate-mobile" id="main-header" ng-if="role=='EOTeacherUser'">                                  <!--  teacher-->
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-1', 8);route('DashboardTeacher');showHeader()"> <span translate="DASHBOARD"></span></li>
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-2', 8);route('BatchForTeacher');showHeader()" id="feedback-reviews-t"><span translate="FEEDBACK_AND_REVIEWS"></span></li>
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-3', 8);route('SalaryView');showHeader()"><span translate="SALARY"></span></li>
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-4', 8);route('CompetitionForTeachers');showHeader()"><span translate="COMPETITIONS"></span></li>
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-5', 8);route('NewsForTeachers');showHeader()"><span translate="NEWS"></span></li>
+                <!--<li class="animate-menu" ng-click="showSubMenu('sub-menu-5', 8);showHeader()">News</li>-->
+
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-6', 8)" id="hidden-pc">Language
+                    <i class="fas fa-angle-down" style="margin-left: 5px"></i>
+                    <i class="fas fa-angle-right"></i>
+                    <ul class="sub-menu" id="sub-menu-6">
+                        <li ng-click="changeLanguage('en-US'); showHeader()">English</li>
+                        <li ng-click="changeLanguage('jap-JAP'); showHeader()">日本語</li>
+                    </ul>
+                </li>
+
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-7', 8);showHeader();route('TeacherProfile')" id="hidden-pc">
+                    Setting<i class="fas fa-user-cog"></i>
+                </li>
+                <a href="logout" ng-click="logout.submit();">
+                    <li class="animate-menu" ng-click="showSubMenu('sub-menu-8', 8);showHeader();logout.submit()" id="hidden-pc">
+                        <span translate="LOGOUT"></span>
+                        <i class="fas fa-sign-out-alt"></i>
+                    </li>
+                </a>
+            </ul>
+            <ul class="side-header" ng-if="role=='EOTeacherUser'">
+                <li>
+                    <a href="javascript:void(0)" ng-click="route('Message');hideHeader()" class="isolate no-border">
+                        <div class="header-icon-name isolate-content">
+                            <i class="fas fa-envelope"></i>
+                                <span id="countManagementMessage"
+                                      ng-if="$root.messageCount > 0"
+                                      style="right: 0; top: 0;"
+                                      class="label label-warning">{{$root.messageCount}}</span>
+                        </div>
+                    </a>
+                </li>
+                <li ng-click="showSideSubMenu('side-sub-menu-1', 2, 13)" id="hidden-mb">Lang
+                    <i class="fas fa-angle-down" style="margin-left: 5px"></i>
+                    <ul class="side-sub-menu" id="side-sub-menu-1">
+
+                        <a href="javascript:void(0)" ng-click="changeLanguage('en-US')">
+                            <li>
+                                English
+                            </li>
+                        </a>
+
+                        <a href="javascript:void(0)" ng-click="changeLanguage('jap-JAP')">
+                            <li>
+                                日本語
+                            </li>
+                        </a>
+                    </ul>
+                </li>
+                <li class="animate-menu" ng-click="showSideSubMenu('side-sub-menu-2', 2,13)" id="hidden-mb">
+                    <a href="javascript:void(0)" class="no-border">
+                        <img ng-src={{$root.imageUrl}}
+                             height="40px"
+                             width="40px"
+                             style="border-radius: 50%;margin-top: -10px"
+                             id="pro-img">
+                        <span style="color: black"><span translate="HELLO"></span>{{firstName}} </span>
+                    </a>
+
+                    <ul class="side-sub-menu" id="side-sub-menu-2">
+                        <a href="javascript:void(0)" ng-click="route('TeacherProfile')">
+                            <li>
+                                Setting <i class="fas fa-user-cog"></i>
+                            </li>
+                        </a>
+                        <a href="logout" ng-click="logout.submit();">
+                            <li>
+                                <span translate="LOGOUT"></span><i class="fas fa-sign-out-alt"></i>
+                            </li>
+                        </a>
+                    </ul>
+                </li>
+            </ul>
+
+            <!--STUDENT-->
+            <ul class="main-header animate-mobile" id="main-header" ng-if="role=='EOStudentUser'">                                  <!--  Student-->
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-1', 8);route('DashboardStudent');showHeader()"><span translate="DASHBOARD"></span></li>
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-2', 8);route('FeedBackOfTeacher');showHeader()" id="feedback-reviews-s"><span translate="FEEDBACK_AND_REVIEWS"></span></li>
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-3', 8);route('StudentInvoiceView');showHeader()"><span translate="INVOICE"></span></li>
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-4', 8);route('CompetitionForStudents');showHeader()"><span translate="COMPETITIONS"></span></li>
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-5', 8);route('NewsForStudents');showHeader()"><span translate="NEWS"></span></li>
+                <!--<li class="animate-menu" ng-click="showSubMenu('sub-menu-5', 8);showHeader()">News</li>-->
+
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-6', 8)" id="hidden-pc">Language
+                    <i class="fas fa-angle-down" style="margin-left: 5px"></i>
+                    <i class="fas fa-angle-right"></i>
+                    <ul class="sub-menu" id="sub-menu-6">
+                        <li ng-click="changeLanguage('en-US'); showHeader()">English</li>
+                        <li ng-click="changeLanguage('jap-JAP'); showHeader()">日本語</li>
+                    </ul>
+                </li>
+
+                <li class="animate-menu" ng-click="showSubMenu('sub-menu-7', 8);showHeader();route('StudentProfile')" id="hidden-pc">
+                    Setting<i class="fas fa-user-cog"></i>
+                </li>
+                <a href="logout" ng-click="logout.submit();">
+                    <li class="animate-menu" ng-click="showSubMenu('sub-menu-8', 8);showHeader();logout.submit()" id="hidden-pc">
+                        <span translate="LOGOUT"></span>
+                        <i class="fas fa-sign-out-alt"></i>
+                    </li>
+                </a>
+            </ul>
+            <ul class="side-header" ng-if="role=='EOStudentUser'">
+                <li>
+                    <a href="javascript:void(0)" ng-click="route('Message');hideHeader()" class="isolate no-border">
+                        <div class="header-icon-name isolate-content">
+                            <i class="fas fa-envelope"></i>
+                                <span id="countManagementMessage"
+                                      ng-if="$root.messageCount > 0"
+                                      style="right: 0; top: 0;"
+                                      class="label label-warning">{{$root.messageCount}}</span>
+                        </div>
+                    </a>
+                </li>
+                <li ng-click="showSideSubMenu('side-sub-menu-1', 2, 13)" id="hidden-mb">Lang
+                    <i class="fas fa-angle-down" style="margin-left: 5px"></i>
+                    <ul class="side-sub-menu" id="side-sub-menu-1">
+
+                        <a href="javascript:void(0)" ng-click="changeLanguage('en-US')">
+                            <li>
+                                English
+                            </li>
+                        </a>
+
+                        <a href="javascript:void(0)" ng-click="changeLanguage('jap-JAP')">
+                            <li>
+                                日本語
+                            </li>
+                        </a>
+                    </ul>
+                </li>
+                <li class="animate-menu" ng-click="showSideSubMenu('side-sub-menu-2', 2,13)" id="hidden-mb">
+                    <a href="javascript:void(0)" class="no-border">
+                        <img ng-src={{$root.imageUrl}} height="40px" width="40px" style="border-radius: 50%;margin-top: -10px">
+                        <span style="color: black"><span translate="HELLO"></span> {{firstName}} </span>
+                    </a>
+
+                    <ul class="side-sub-menu" id="side-sub-menu-2">
+                        <a href="javascript:void(0)" ng-click="route('StudentProfile')">
+                            <li>
+                                Setting <i class="fas fa-user-cog"></i>
+                            </li>
+                        </a>
+                        <a href="logout" ng-click="logout.submit();">
+                            <li>
+                                <span translate="LOGOUT"></span><i class="fas fa-sign-out-alt"></i>
+                            </li>
+                        </a>
+                    </ul>
+                </li>
+            </ul>
+
+            <i class="fas fa-bars" ng-click="showHeader(13)"></i>  <!---put max no---->
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+
+
+

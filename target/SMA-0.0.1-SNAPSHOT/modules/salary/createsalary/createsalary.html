@@ -1,0 +1,147 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="main-container col-lg-12 col-md-12 col-sm-12 sol-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12"
+                 style="border-bottom: 1px solid #a9a6a6;margin-bottom: 10px;padding-bottom: 10px;">
+
+                <span class="header-name"><span translate="CREATE_SALARY"></span></span>
+
+            </div>
+            <hr>
+            <div class="col-md-4">
+                <select type="input" name="teacher" id="teacher"
+                        class="input-box form-input font-family font-700 font-12 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                        ng-model="createSalary.eoTeacherUser"
+                        ng-change="d.lkClassDuration = null; createSalary.showTeacherSalary(createSalary.eoTeacherUser)">
+                    <option value="" disabled>Select Teacher</option>
+                    <option value="All">All</option>
+                    <option value="{{d.eoTeacherUser}}" ng-repeat="d in createSalary.respData  | orderBy:'teacherfullname'">{{d.teacherfullname}}</option>
+                </select>
+            </div>
+
+            <div class="col-md-12" ng-if="createSalary.respData">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover table-bordered table-striped">
+
+                        <colgroup>
+                            <col width="5%"/>
+                            <col width="10%"/>
+                            <col width="10%"/>
+                            <col width="10%"/>
+                            <col width="45%"/>
+                            <col width="10%"/>
+                            <col width="10%"/>
+                        </colgroup>
+
+                        <thead>
+                        <th><span translate="SERIAL_NUMBER"></span></th>
+                        <th><span translate="NAME"></span></th>
+                        <th><span translate="JOINING_DATE"></span></th>
+                        <th><span translate="SALARY_TYPE"></span></th>
+                        <th><span translate="MUSIC_TYPE"></span> |
+                            <span translate="CATEGORY_TYPE"></span> |
+                            <span translate="DURATION"></span> |
+                            <span translate="AMOUNT"></span>
+                        </th>
+                        <th><span translate="TRANSPORT"></span> /
+                            <span translate="PER_DAY"></span>
+                        </th>
+                        <th><span translate="STATUS"></span></th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="d in createSalary.teacherData  | orderBy:'teacherfullname'">
+                                <td class="font-14">{{$index+1}}</td>
+                                <td class="font-14">{{d.teacherfullname}}</td>
+
+                                <td class="font-14">{{d.joiningDate}}</td>
+                                <td class="font-14">{{d.salaryType}}</td>
+
+                                <td ng-if="d.salaryType == 'Per session'">
+                                    <table class="table table-condensed table-hover table-bordered table-striped" style="margin-bottom: 0px">
+                                        <colgroup>
+                                            <col width="25%"/>
+                                            <col width="25%"/>
+                                            <col width="20%"/>
+                                            <col width="30%"/>
+                                        </colgroup>
+                                        <tbody>
+                                            <tr ng-repeat="data in d.courseData">
+                                                <td>{{data.musicType}}</td>
+                                                <td>{{data.description}}</td>
+                                                <td>{{data.duration}}</td>
+                                                <td>
+                                                    <vinput vtype="positiveirrational"
+                                                            only-numbers=""
+                                                            ng-model="data.amount"
+                                                            placeholder="Amount (‎¥)"
+                                                            ng-change="createSalary.setTransportAmount(d)"
+                                                            id="rate"
+                                                            class="input-box font-14 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                    </vinput>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+
+                                <td ng-if="d.salaryType == 'Per month'">
+                                    <table class="table table-condensed table-hover table-bordered table-striped" style="margin-bottom: 0px">
+                                        <colgroup>
+                                            <col width="25%"/>
+                                            <col width="25%"/>
+                                            <col width="20%"/>
+                                            <col width="30%"/>
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <vinput vtype="positiveirrational"
+                                                        only-numbers=""
+                                                        ng-model="d.amount"
+                                                        placeholder="Amount (‎¥)"
+                                                        ng-change="createSalary.setTransportAmount(d)"
+                                                        id="rate"
+                                                        class="input-box font-14 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                </vinput>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                    <vinput vtype="positiveirrational"
+                                            only-numbers=""
+                                            ng-model="d.transportAmount"
+                                            placeholder="Transport (‎¥)"
+                                            ng-change="createSalary.setTransportAmount(d)"
+                                            id="rate"
+                                            class="input-box font-14 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    </vinput>
+                                </td>
+
+                                <td>
+                                    <!--<button class="btn-custom-sm btn-custom-success font-14"
+                                            title="create"
+                                            ng-style="createSalary.getButtonType(d)"
+
+                                            ng-click="createSalary.createSalary(d,'created');">
+                                        create</i>
+                                    </button>-->
+
+                                    <div class="pointer"
+                                         ng-style="createSalary.getColor(d)"
+                                         ng-click="createSalary.createSalary(d,'Created');">
+                                        {{d.status == null ? 'Submit' : 'Update'}}
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

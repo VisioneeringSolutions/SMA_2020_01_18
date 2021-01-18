@@ -1,0 +1,248 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="chat-room">
+            <div class="row" style="margin: 0">
+                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 no-padding message-right-border">
+
+                <div id="message-header-pc">
+                        <div class="chat-add-contact col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+                            <div class="col-md-8">
+                                <selectize config='message.myConfig' options='message.availableContactList'
+                                           class='contacts'
+                                           ng-model="message.contacts">
+                                </selectize>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn-custom btn-custom-primary"
+                                        ng-click="message.addContact();">
+                                    <span translate="ADD_CONTACT"></span><i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                        <div class="chat-search-contact col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <form action="#" method="post" class="form">
+                                <div class="inner-addon right-addon">
+                                    <i class="fa fa-search search-icon"></i>
+                                    <input type="text" name="customFilter" id="customFilter"
+                                           class="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                                           ng-model="message.customFilter.$"
+                                           autocomplete="off"
+                                           ng-change="message.setItemsPerPageOnSearch()"
+                                           class="form-control" placeholder="Name or message for search">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                <div id="message-header-mb">
+                    <span class="center chat col-lg-5 col-md-5 col-sm-12 col-xs-12 ">Chats</span>
+
+                    <div class="chat-search-contact col-lg-12 col-md-12 col-sm-12 col-xs-12" id="search-contact-mb">
+                        <form action="#" method="post" class="form">
+                            <div class="inner-addon right-addon">
+                                <i class="fa fa-search search-icon"></i>
+                                <input type="text" name="customFilter" id="customFilter"
+                                       class="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                                       ng-model="message.customFilter.$"
+                                       autocomplete="off"
+                                       ng-change="message.setItemsPerPageOnSearch()"
+                                       class="form-control" placeholder="Name or message for search">
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="chat-add-contact-text col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+                        <i class="far fa-address-book" ng-click="message.showAddedContact()"></i>
+                        <h5 class="text-muted message-list-pc"><span translate="MESSAGE_CONTACT_LIST"></span></h5>
+                        <h5 class="text-muted message-list-mb" id="add-contact-mb"
+                            ng-click="message.showContactBlock()"
+                            style="cursor: pointer"><span translate="ADD_CONTACT"></span></h5>
+                    </div>
+
+                    <div class="chat-selectize-container col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding"
+                         id="add-contact"
+                         style="display: none">
+                        <div class="chat-selectize col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                            <selectize config='message.myConfig' options='message.availableContactList'
+                                       class='contacts'
+                                       ng-model="message.contacts">
+                            </selectize>
+                        </div>
+                        <div class="chat-add-contact-button col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <span ng-click="message.addContact();">
+                                Add
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+                    <!-- Contact List in Left-->
+                    <div class="chat-contact-list-container col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding"
+                         id="added-contact-list-pc">
+                        <ul class="animate-menu nav nav-tabs contact-list scrollbar-wrapper scrollbar-outer" id="contact-repeater">
+                            <li ng-repeat="d in message.contactList | filter:message.customFilter | orderBy: 'createdDateTime'"
+                                ng-click="message.getMessage(d, $index)" ng-class="{active: $index===message.selectedIndex}">
+                                <a href="#contact" data-toggle="tab">
+                                    <div class="contact">
+                                        <!--<img ng-src="{{message.baseImgUrl}}{{d.imageUrl}}" alt=""
+                                             class="profile-photo-sm pull-left"/>-->
+
+                                        <div ng-if="d.imageUrl != null">
+                                            <img ng-src="{{message.baseImgUrl}}{{d.imageUrl}}" height="40" width="40"
+                                                 class="profile-photo-sm pull-left img-circle"/>
+                                        </div>
+
+                                        <div ng-if="d.imageUrl == null" class="std-prof-image float-left">
+                                            <span class="std-prof-image-id">{{d.id}}</span>
+                                        </div>
+
+
+                                        <div class="msg-preview">
+                                            <h6>{{d.fullName}}</h6>
+
+                                            <p class="text-muted">{{d.lastMessage != undefined ? d.lastMessage : 'Send message to start conversation'}}</p>
+                                            <small class="text-muted">{{d.createdDateTime | timeAgo}}</small>
+                                            <div class="chat-alert" ng-show="d.unreadCount > 0">{{d.unreadCount}}</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul><!--Contact List in Left End-->
+                    </div>
+
+
+                    <div class="chat-contact-list-container col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding"
+                         id="added-contact-list-mb">
+                        <ul class="animate-menu nav nav-tabs contact-list scrollbar-wrapper scrollbar-outer" id="contact-repeater">
+                            <li ng-repeat="d in message.contactList | filter:message.customFilter | orderBy: 'createdDateTime'"
+                                ng-click="message.getMessage(d, $index);message.showChatBox(d, $index)"
+                                ng-class="{active: $index===message.selectedIndex}">
+                                <a href="#contact" data-toggle="tab">
+                                    <div class="contact">
+                                        <!--<img ng-src="{{message.baseImgUrl}}{{d.imageUrl}}" alt=""
+                                             class="profile-photo-sm pull-left"/>-->
+
+                                        <div ng-if="d.imageUrl != null">
+                                            <img ng-src="{{message.baseImgUrl}}{{d.imageUrl}}" height="40" width="40"
+                                                 class="profile-photo-sm pull-left img-circle"/>
+                                        </div>
+
+                                        <div ng-if="d.imageUrl == null" class="std-prof-image float-left">
+                                            <span class="std-prof-image-id">{{d.id}}</span>
+                                        </div>
+
+
+                                        <div class="msg-preview">
+                                            <h6>{{d.fullName}}</h6>
+
+                                            <p class="text-muted">{{d.lastMessage != undefined ? d.lastMessage : 'Send message to start conversation'}}</p>
+                                            <small class="text-muted">{{d.createdDateTime | timeAgo}}</small>
+                                            <div class="chat-alert" ng-show="d.unreadCount > 0">{{d.unreadCount}}</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul><!--Contact List in Left End-->
+                    </div>
+                </div>
+
+                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 no-padding animate-chat" id="chat-box-pc">
+
+                    <div class="tab-content scrollbar-wrapper wrapper scrollbar-outer bottom-scroll"  scroll-bottom="bottom">
+                        <div class="tab-pane active" id="contact">
+                            <div class="chat-body" >
+                                <ul class="chat-message">
+                                    <li ng-repeat="d in message.messageArr | orderBy:'createdDateTime'"
+                                        ng-class="(d.sender == message.userKey && d.senderClassName == message.role) ? 'right' : 'left'">
+                                        <img ng-src="{{message.baseImgUrl}}{{d.imageUrl}}" alt=""
+                                             ng-class="(d.sender == message.userKey && d.senderClassName == message.role) ? 'profile-photo-sm pull-right' : 'profile-photo-sm pull-left'"/>
+
+                                        <div class="chat-item">
+                                            <div class="chat-item-header">
+                                                <h6 ng-if="d.sender == message.userKey && d.senderClassName == message.role">
+                                                    You</h6>
+                                                <h6 ng-if="d.sender != message.userKey || d.senderClassName != message.role">
+                                                    {{d.fullName}}</h6>
+                                                <small class="text-muted">{{d.createdDateTime | timeAgo}}</small>
+                                            </div>
+                                            <p>{{d.message}}</p>
+                                        </div>
+                                    </li>
+                                    <div id="pageTop"></div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div><!--Chat Messages in Right End-->
+
+                </div>
+
+
+                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 no-padding animate-chat chat-box-mb-style" id="chat-box-mb">
+
+                    <div class="tab-content scrollbar-wrapper wrapper scrollbar-outer bottom-scroll"  scroll-bottom="bottom">
+                        <div class="tab-pane active" id="contact">
+                            <div class="chat-body" >
+                                <ul class="chat-message">
+                                    <li ng-repeat="d in message.messageArr | orderBy:'createdDateTime'"
+                                        ng-class="(d.sender == message.userKey && d.senderClassName == message.role) ? 'right' : 'left'">
+                                        <img ng-src="{{message.baseImgUrl}}{{d.imageUrl}}" alt=""
+                                             ng-class="(d.sender == message.userKey && d.senderClassName == message.role) ? 'profile-photo-sm pull-right' : 'profile-photo-sm pull-left'"/>
+
+                                        <div class="chat-item">
+                                            <div class="chat-item-header">
+                                                <h6 ng-if="d.sender == message.userKey && d.senderClassName == message.role">
+                                                    You</h6>
+                                                <h6 ng-if="d.sender != message.userKey || d.senderClassName != message.role">
+                                                    {{d.fullName}}</h6>
+                                                <small class="text-muted">{{d.createdDateTime | timeAgo}}</small>
+                                            </div>
+                                            <p>{{d.message}}</p>
+                                        </div>
+                                    </li>
+                                    <div id="pageTop"></div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div><!--Chat Messages in Right End-->
+
+
+                </div>
+                <div class="send-message animate-chat" id="chat-box-send-pc">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="inputMessage" ng-model="message.messageData"
+                               placeholder="Type your message">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default"
+                                type="button"
+                                id="sendButton"
+                                style=" background: none;
+                                        color: black;"
+                                ng-click="message.sendMessage()"><span translate="SEND"></span></button>
+                      </span>
+                    </div>
+                </div>
+
+                <div class="send-message animate-chat" id="chat-box-send-mb">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="inputMessage" ng-model="message.messageData"
+                               placeholder="Type your message">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default"
+                                type="button"
+                                id="sendButton"
+                                style=" background: none;
+                                        color: black;"
+                                ng-click="message.sendMessage()"><span translate="SEND"></span></button>
+                      </span>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+
+</div>

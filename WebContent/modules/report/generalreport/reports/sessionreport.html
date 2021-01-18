@@ -1,0 +1,73 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="form-input col-md-3 col-sm-12 col-xs-12">
+                <select name="year" class="input-box font-family font-700 font-14 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                        ng-init="sessionReport.getSessionDetails()"
+                        ng-change="sessionReport.getSessionDetails()"
+                        ng-model="sessionReport.year"
+                        id="year">
+                    <option value="" disabled>Select year</option>
+                    <option ng-repeat="d in sessionReport.yearArray"
+                            value={{d}}>{{d}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-input col-md-3 col-sm-12 col-xs-12">
+                <select name="month" class="input-box font-family font-700 font-14 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                        ng-model="sessionReport.month"
+                        ng-change="sessionReport.getSessionDetails()"
+                        id="month">
+                    <option value="" disabled>Select month</option>
+                    <option value=''>All</option>
+                    <option ng-repeat="d in generalReport.monthArr"
+                            value={{d.sMonth}}>{{d.monthName}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-input col-md-3 col-sm-12 col-xs-12">
+                <select name="musicType" class="input-box font-family font-700 font-14 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                        ng-model="sessionReport.musicPk"
+                        ng-change="sessionReport.getSessionDetails()"
+                        id="musicType">
+                    <option value="" disabled>Select Music Type</option>
+                    <option value=''>All</option>
+                    <option ng-repeat="d in sessionReport.musicTypeArr"
+                            value={{d.primaryKey}}>{{d.musicType}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div ng-if="sessionReport.musicSessionLength > 0">
+        <hr>
+    </div>
+    <div class="row" ng-if="sessionReport.musicSessionLength > 0">
+        <div class="col-md-12 no-padding">
+            <div class="table-responsive">
+                <table class="table table-condensed table-hover table-bordered table-striped">
+
+                    <thead>
+                    <th><span translate="SERIAL_NUMBER"></span></th>
+                    <th><span translate="MUSIC_TYPE"></span></th>
+                    <th>45 min Session</th>
+                    <th>60 min Session</th>
+
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(key,value) in sessionReport.musicSessionDetails">
+                        <td class="font-14">{{$index+1}}</td>
+                        <td class="font-14">{{value.musicType}}</td>
+                        <td class="font-14">{{value.slot45}}</td>
+                        <td class="font-14">{{value.slot60}}</td>
+
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>

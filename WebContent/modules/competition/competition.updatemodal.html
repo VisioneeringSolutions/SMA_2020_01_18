@@ -1,0 +1,177 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="competitionUpdateModal.modalInstance.close({},'cancel')"
+            style="color: red" title="close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="modal-title" translate="UPDATE_COMPETITION"><span translate="UPDATE_COMPETITION"></span></h3>
+</div>
+
+<div class="modal-body">
+
+    <div class="competition-from col-lg-12 col-md-12 col-sm-12 sol-xs-12 animate" id="student-reg">
+
+        <vform name="competitionForm" config="competitionUpdateModal.formConfig"
+               class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0">
+
+
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="NAME"></span>
+                            <span class="mandatory">*</span></span>
+                <vinput type="input"
+                        name="name"
+                        capitalize=""
+                        form-config="competitionUpdateModal.formConfig"
+                        required=""
+                        ng-model="competitionUpdateModal.formModel.name"
+                        placeholder="Name"
+                        id="name"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+
+            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-600 font-12"><span translate="DATE"></span>
+                            <span class="mandatory">*</span></span>
+                <div class="form-group">
+                    <p class="input-group ">
+                        <input type="text" name="competitionDate"
+                               ng-init="competi = competitionUpdateModal.createDateMap()"
+                               class="form-control date"
+                               uib-datepicker-popup="{{competi.format}}"
+                               show-button-bar="false"
+                               readonly="true"
+                               ng-model="competitionUpdateModal.competitionDate"
+                               form-config="competitionUpdateModal.formConfig"
+                               is-open="competi.popup.opened"
+                               placeholder="yyyy-mm-dd"
+                               datepicker-options="competi.dateOptions"
+                               id="competitionDate"
+                               ng-click="competi.open()"
+                               ng-required="true"
+                               ng-change="competitionUpdateModal.dateFormat(competitionUpdateModal.formModel.competitionDate);"/>
+                        <span class="input-group-btn ">
+                                <button type="button" class="btn btn-default calender" ng-click="competi.open()"><i
+                                        class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700">  <span translate="DETAILS"></span>
+                            <span class="mandatory">*</span></span>
+                <!--<vinput type="input"
+                        name="details"
+                        capitalize=""
+                        form-config="competitionUpdateModal.formConfig"
+                        required=""
+                        ng-model="competitionUpdateModal.formModel.details"
+                        placeholder="Details"
+                        id="details"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>-->
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 no-padding">
+                <summernote config="summerConfig"
+                            name="details"
+                            ng-model="competitionUpdateModal.formModel.details"
+                            form-config="competitionUpdateModal.formConfig"
+                            required=""
+                            id="details"></summernote>
+                    </div>
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="MUSIC_TYPE"></span>
+                            <span class="mandatory">*</span></span>
+                <div>
+                    <selectize config='competitionUpdateModal.musicCategoryConfig' options='competitionUpdateModal.musicArray'
+                               class="contect input-box font-family font-700 font-14 col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                               ng-model="competitionUpdateModal.formModel.musicCategoryArray">
+                    </selectize>
+                </div>
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="PREREQUISITE"></span></span>
+                <vinput type="input"
+                        name="prerequisite"
+                        ng-model="competitionUpdateModal.formModel.prerequisite"
+                        placeholder="Prerequisite"
+                        id="prerequisite"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700 font-12"><span translate="ORGANIZING_AUTHORITY"></span></span>
+
+                    <vinput type="input"
+                            name="organizingAuthority"
+                            ng-model="competitionUpdateModal.formModel.organizingAuthority"
+                            placeholder="Organizing Authority"
+                            id="organizingAuthority"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="VENUE"></span></span>
+                <vinput type="input"
+                        name="venue"
+                        ng-model="competitionUpdateModal.formModel.venue"
+                        placeholder="Venue"
+                        id="venue"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="BROUCHURE_URL"></span></span>
+                <vinput type="input"
+                        name="brochureUrl"
+                        ng-model="competitionUpdateModal.formModel.brochureUrl"
+                        placeholder="Brochure Url"
+                        id="brochureUrl"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="STUDENT"></span>
+                            </span>
+                <div>
+                    <selectize config='competitionUpdateModal.studentConfig' options='competitionUpdateModal.StudentArray'
+                               class="contect input-box font-family font-700 font-14 col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                               ng-model="competitionUpdateModal.formModel.selectedStudentArray">
+                    </selectize>
+                </div>
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="TEACHER"></span>
+                            </span>
+                <div>
+                    <selectize config='competitionUpdateModal.teacherConfig' options='competitionUpdateModal.teacherArray'
+                               class="contect input-box font-family font-700 font-14 col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                               ng-model="competitionUpdateModal.formModel.selectedTeacherArray">
+                    </selectize>
+                </div>
+            </div>
+
+
+
+        </vform>
+
+    </div>
+</div>
+
+<div class="modal-footer">
+    <div class="center col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <button class="btn-custom btn-custom-success"
+                ng-click="competitionUpdateModal.formSubmit($event );">
+            <span translate="SUBMIT"></span>
+        </button>
+    </div>
+</div>

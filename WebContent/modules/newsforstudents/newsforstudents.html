@@ -1,0 +1,59 @@
+<div class="container-fluid" >
+    <div class="row">
+        <div class="main-container col-lg-12 col-md-12 col-sm-12 sol-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12"
+                 style="border-bottom: 1px solid #a9a6a6; margin-bottom: 10px">
+                <span class="header-name" style="margin-bottom: 10px"><span translate="NEWS"></span></span>
+            </div>
+            <div class="col-md-2 no-padding">
+                <input type="text" name="customFilter" class="form-control"
+                       ng-model="newsForStudents.customFilter.$"
+                       ng-change="newsForStudents.setItemsPerPageOnSearch()"
+                       placeholder="Search" id="customFilter" >
+
+            </div>
+
+            <form name="newsForm" id="newsList">
+                <div class="row">
+                    <div class="col-md-12" ng-if="newsForStudents.StudNewsData.length > 0" style="padding-top:5px;">
+                        <div class="table-responsive">
+                            <table class="table table-condensed table-hover table-bordered table-striped">
+                                <colgroup>
+                                    <col width="5%">
+                                    <col width="5%">
+                                    <col width="5%">
+                                </colgroup>
+                                <thead>
+                                <th><span translate="SERIAL_NUMBER"></span></th>
+                                <th ng-click='newsForStudents.sortColumn("news_desc")' ng-class='newsForStudents.sortClass("news_desc")'><span translate="NEWS"></span></th>
+                                <th ng-click='newsForStudents.sortColumn("news_date")' ng-class='newsForStudents.sortClass("news_date")'><span translate="DATE"></span></th>
+                                <!--<th>Details</th>
+                                <th>Organizing Authority</th>
+                                <th>Venue</th>-->
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="d in newsForStudents.StudNewsData | filter:newsForStudents.customFilter|orderBy:newsForStudents.column:newsForStudents.reverse ">
+                                    <td>{{$index+1}}</td>
+                                    <td ng-bind-html="d.news_desc | trusted"> </td>
+                                    <td>{{newsForStudents.getDateFormat(d.news_date)}}</td>
+                                    <!--<td>
+                                        <a href="javascript:void(0);"
+                                           ng-click="newsForStudents.viewDetailsModel(d);">
+                                            <b><u>{{d.name}}</u></b></a>
+                                    </td>
+                                    <td>{{d.competition_date}}</td>-->
+                                    <!--<td ng-bind-html="d.details | trusted">  </td>
+                                    <td>{{d.organizing_authority}}</td>
+                                    <td>{{d.venue}}</td>-->
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

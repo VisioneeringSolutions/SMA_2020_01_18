@@ -1,0 +1,100 @@
+<div class="container-fluid" >
+    <div class="row">
+        <div class="main-container col-lg-12 col-md-12 col-sm-12 sol-xs-12 ">
+            <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12 no-padding" >
+                <button class="btn-custom btn-custom-primary"
+                        ng-click="competition.addCompetitionModal();">
+                    <span translate="ADD_COMPETITION"></span><i class="fas fa-plus"></i>
+                </button>
+                <span class="header-name"><span translate="COMPETITIONS"></span></span>
+                <hr style="border-top: 1px solid #a9a6a6;margin-left: 0;width: 100%">
+
+            </div>
+
+            <div class="col-md-2 no-padding">
+                <input type="text" name="customFilter" class="form-control"
+                       ng-model="competition.customFilter.$"
+                       ng-change="competition.setItemsPerPageOnSearch()"
+                       placeholder="Search" id="customFilter">
+
+            </div>
+
+
+            <form name="competitionForm" id="competitionList">
+                <div class="row">
+                    <div class="col-md-12" ng-if="competition.CompetitionData.length > 0" style="padding-top: 5px;">
+                        <div class="table-responsive">
+                            <table class="table table-condensed table-hover table-bordered table-striped">
+                                <colgroup>
+                                    <col width="5%">
+                                    <col width="10%">
+                                    <col width="10%">
+                                    <col width="10%">
+                                    <!--<col width="10%">
+                                    <col width="10%">-->
+                                    <col width="5%">
+                                </colgroup>
+                                <thead>
+                                <th><span translate="SERIAL_NUMBER"></span></th>
+                                <th ng-click='competition.sortColumn("name")' ng-class='competition.sortClass("name")'><span translate="NAME"></span></th>
+                                <th ng-click='competition.sortColumn("competition_date")' ng-class='competition.sortClass("competition_date")'><span translate="COMPETITION_DATE"></span></th>
+                                <th ng-click='competition.sortColumn("details")' ng-class='competition.sortClass("details")'><span translate="DETAILS"></span></th>
+                               <!-- <th>Organizing Authority</th>
+                                <th>Venue</th>-->
+                                <th><span translate="UPDATE"></span></th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="d in competition.CompetitionData | orderBy:competition.column:competition.reverse">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{d.name}}</td>
+                                    <td>{{competition.getDateFormat(d.competition_date)}}</td>
+                                    <!-- //<td>{{d.details}}</td>-->
+                                    <td ng-bind-html="d.details | trusted">  </td>
+                                    <!--<td>{{d.organizing_authority}}</td>
+                                    <td>{{d.venue}}</td>-->
+                                    <td>
+                                        <button class="btn-custom-sm btn-custom-primary"
+                                                ng-click="competition.updateModal(d)"
+                                                title="Update Competition">
+                                            <i class="fas fa-pen-nib"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-12 text-center" style="position: absolute;bottom: 0;height: 30px;" id="pageTop">
+                            <ul uib-pagination total-items="competition.paginationTotalItems"
+                                ng-model="competition.paginationCurrentPage"
+                                ng-change="competition.pageScrollTop()"
+                                max-size="competition.paginationMaxSize"
+                                class="pagination-sm" items-per-page="competition.paginationMaxSize"
+                                boundary-link-numbers="true" rotate="false"></ul>
+                        </div>
+                        <div class="col-md-2" style="position: absolute;bottom: 0;height: 20px;">
+                            <div class="form-group" style="margin-top: 5px;">
+                                <label class="col-md-3 pagination" style="margin-top: 5px;"><span translate="VIEW"></span></label>
+
+                                <div class="col-md-1" style="width:auto;">
+                                    <select ng-model="competition.viewBy" ng-init="competition.viewBy='10'"
+                                            ng-change="competition.setItemsPerPage(competition.viewBy)"
+                                            class="form-control input-sm">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                                <label class="col-md-2 pagination" style="margin-top: 5px;padding-left: 0px;"><span
+                                        translate="RECORDS"></span></label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>

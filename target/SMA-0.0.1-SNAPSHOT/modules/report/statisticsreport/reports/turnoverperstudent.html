@@ -1,0 +1,82 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="form-input col-md-2 col-sm-12 col-xs-12">
+                <select name="year" class="input-box font-family font-700 font-14 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                        ng-model="turnoverPerStudent.year"
+                        id="year">
+                    <option value="" disabled>Select year</option>
+                    <option ng-repeat="d in turnoverPerStudent.yearArray"
+                            value={{d}}>{{d}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-input col-md-3 col-sm-12 col-xs-12">
+                <select name="instrument" class="input-box font-family font-700 font-14 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                        ng-model="turnoverPerStudent.studentData"
+                        ng-change="turnoverPerStudent.getTurnOver(turnoverPerStudent.studentData)"
+                        id="instrument">
+                    <option value="" disabled>Select student</option>
+                    <option ng-repeat="d in statisticsReport.studentDetailsArr | orderBy : 'studentfullName'"
+                            value={{d}}>{{d.studentfullName}}
+                    </option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+    <div ng-show="turnoverPerStudent.respData.length > 0">
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12" ng-show="turnoverPerStudent.respData.length > 0">
+            <div class="col-md-6 padding-10">
+                <div class="box box-success">
+                    <div class="box-header box-header-table with-border">
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                <h3 class="box-title">
+                                    Turnover By {{ turnoverPerStudent.student.studentfullName}}
+                                </h3>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <table class="table table-condensed table-hover table-bordered table-striped table-font">
+                                <thead>
+                                <th><span translate="MONTH"></span></th>
+                                <th><span translate="TURNOVER"></span></th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="(key,value) in turnoverPerStudent.turnOverByStudentArr">
+                                    <td>{{value.month}}</td>
+                                    <td>{{value.monthlyTurnOver}}</td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-md-6 padding-10">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            Turnover By {{ turnoverPerStudent.student.studentfullName}}
+                        </h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <canvas id="turnOverCanvas" width="230px" height="74"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>

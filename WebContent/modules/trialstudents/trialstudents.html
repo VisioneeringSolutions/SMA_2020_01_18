@@ -1,0 +1,141 @@
+<div class="container-fluid" >
+    <div class="row">
+        <div class="main-container col-lg-12 col-md-12 col-sm-12 sol-xs-12">
+           <!-- <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12 no-padding" >
+                <button class="btn-custom btn-custom-primary"
+                        ng-click="queryForm.addStudentModal();">
+                    <span translate="ADD_QUERY_FORM" class="ng-scope"></span><i class="fas fa-plus"></i>
+                </button>
+                <span class="header-name"><span translate="QUERY_FORM"></span></span>
+                <hr style="border-top: 1px solid #a9a6a6;margin-left: 0;width: 100%">
+            </div>-->
+
+            <div class="col-md-2 no-padding">
+                <input type="text" name="customFilter" class="form-control"
+                       ng-model="trialStudents.customFilter.$"
+                       ng-change="trialStudents.setItemsPerPageOnSearch()"
+                       placeholder="Search" id="customFilter" >
+
+            </div>
+
+            <form name="qryForm" id="studentList">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12 no-padding" ng-if="trialStudents.trialStudentsData.length > 0" style="padding-top: 5px;">
+                        <div class="table-responsive container-table" scrollable-table-drct fixed-columns="0" id="scroll-bar">
+                            <table class="table table-condensed table-hover table-bordered table-striped">
+                                <colgroup>
+                                    <col width="5%">
+                                    <col width="10%">
+                                    <col width="10%">
+                                    <col width="10%">
+                                    <col width="10%">
+                                    <col width="5%">
+                                    <col width="5%">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th><span translate="SERIAL_NUMBER"></span></th>
+                                    <th ng-click='trialStudents.sortColumn("studentfullName")' ng-class='trialStudents.sortClass("studentfullName")'><span translate="NAME"></span></th>
+                                    <th ng-click='trialStudents.sortColumn("enrollmentDate")' ng-class='trialStudents.sortClass("enrollmentDate")'><span translate="ENROLLMENT_DATE"></span></th>
+                                    <th ng-click='trialStudents.sortColumn("email")' ng-class='trialStudents.sortClass("email")'>Email</th>
+                                    <th ng-click='trialStudents.sortColumn("phone")' ng-class='trialStudents.sortClass("phone")'><span translate="PHONE"></span></th>
+                                    <!--<th><span translate="UPDATE"></span></th>-->
+                                   <th><span translate="VISIBLE_TO_DASHBOARD"></span></th>
+                                </tr>
+                                <!--  <th ng-click="queryForm.sortData('name')">Name<span class="fas fa-angle-up" ></span>
+                                      <span class="fas fa-angle-down" ng-show="sort==='firstName' && !reverse"></span>
+                                  </th></th>
+                                  <th>Enquiry Date</th>
+                                  <th>Email</th>
+                                  <th>Phone</th>-->
+                                <!--<th>Remarks</th>-->
+                                <!--//<th>Course</th>-->
+                                <!--<th>Follow-Up Date</th>-->
+
+                                <!--don't remove-------------------- -->
+                                <!--<th><button type="button" class="btn btn-primary btn-xs"
+                                            ng-model="queryForm.selectedStudent"
+                                            ng-disabled="queryForm.customFilter.$"
+                                            ng-click="queryForm.checkAllData(queryForm.selectedStudent);"
+                                            uib-btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
+                                    {{queryForm.CheckALL==true?'Check All':'Uncheck All'}}
+                                </button></th>-->
+                                <!--don't remove---------------------    -->
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="d in trialStudents.trialStudentsData | filter:trialStudents.customFilter|orderBy:trialStudents.column:trialStudents.reverse | startFrom:(trialStudents.paginationCurrentPage-1)*trialStudents.paginationMaxSize | limitTo:trialStudents.paginationMaxSize">
+                                    <td class="duplicate-found{{d.primary_key}}">{{($index+1) +
+                                        (trialStudents.paginationCurrentPage-1)*(trialStudents.paginationMaxSize)}}</td>
+                                    <td class="duplicate-found{{d.primary_key}}" >{{d.studentfullName}}</td>
+                                    <td><div ng-if="d.enrollmentDate != null">{{trialStudents.getDateFormat(d.enrollmentDate)}}</div></td>
+                                    <td class="duplicate-found{{d.primary_key}}">{{d.email}}</td>
+                                    <td class="duplicate-found{{d.primary_key}}">{{d.phone}}</td>
+                                    <!-- <td class="duplicate-found{{d.primary_key}}">{{d.remarks}}</td>-->
+                                    <!--//<td class="duplicate-found{{d.primary_key}}">{{d.course_name}}</td>-->
+                                    <!-- <td class="duplicate-found{{d.primary_key}}">{{d.next_followup_date}}</td>-->
+                                   <!-- <td>
+                                        <button class="btn-custom-sm btn-custom-primary"
+                                                ng-click="queryForm.updateModal(d)"
+                                                title="Update Student">
+                                            <i class="fas fa-pen-nib"></i>
+                                        </button>
+                                    </td>-->
+                               <td>
+                                    <p>
+                                        <input type="checkbox" id="moveThis{{$index}}"
+                                               name="moveThis{{$index}}"
+                                               ng-model="d.isVisible"
+                                               ng-click="trialStudents.addToStudList(d,d.isVisible,$index);"
+                                               area-describedby="helpClassTeacher"/>
+                                        <label for="moveThis{{$index}}"> </label>
+                                    </p>
+                                </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                        <div class="col-md-12 text-center" style="margin-top: 30px;" ng-if="trialStudents.trialStudentsData.length > 0">
+                            <button type="button"
+                                    ng-click="trialStudents.updateModel($event,qryForm)"
+                                    class="btn-custom btn-custom-primary"><span translate="UPDATE"></span>
+                            </button>
+                            <!-- <button type="button"
+                                     ng-click="queryForm.notConvertedFn($event,qryForm)"
+                                     class="btn-custom btn-custom-primary"><span translate="NOT_CONVERTED"></span>
+                             </button>-->
+                        </div>
+                        <div class="col-md-12 text-center" style="position:absolute;bottom: 0;height: 3px;" id="pageTop">
+                            <ul uib-pagination total-items="trialStudents.paginationTotalItems"
+                                ng-model="trialStudents.paginationCurrentPage"
+                                ng-change="trialStudents.pageScrollTop()"
+                                max-size="trialStudents.paginationMaxSize"
+                                class="pagination-sm" items-per-page="trialStudents.paginationMaxSize"
+                                boundary-link-numbers="true" rotate="false"></ul>
+                        </div>
+                        <div class="col-md-2" style="position: absolute;bottom: 0;height: 20px;">
+                            <div class="form-group" style="margin-top: 37px;">
+                                <label class="col-md-3 pagination" style="margin-top: 5px;"><span translate="VIEW"></span></label>
+
+                                <div class="col-md-1" style="width:auto;">
+                                    <select ng-model="trialStudents.viewBy" ng-init="trialStudents.viewBy='10'"
+                                            ng-change="trialStudents.setItemsPerPage(trialStudents.viewBy)"
+                                            class="form-control input-sm">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                                <label class="col-md-2 pagination" style="margin-top: 5px;padding-left: 0px;"><span
+                                        translate="RECORDS"></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

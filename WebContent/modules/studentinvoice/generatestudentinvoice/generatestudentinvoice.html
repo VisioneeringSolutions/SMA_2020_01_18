@@ -1,0 +1,556 @@
+<div class="container-fluid" >
+    <div class="row">
+        <div class="main-container col-lg-12 col-md-12 col-sm-12 sol-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12"
+                 style="border-bottom: 1px solid #a9a6a6;margin-bottom: 10px;">
+
+                <div class="form-input col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12 font-family font-700"><span translate="YEAR"></span>
+                    <span class="mandatory">*</span></span>
+                    <vselect type="input" name="session"id="sessionDuration"
+                             class="input-box font-family font-700 font-14 col-lg-8 col-md-8 col-sm-8 col-xs-8"
+                             ng-model="generateStudentInvoice.year"
+                             ng-change="generateStudentInvoice.month = ''">
+                        <option disabled value="" >Select Year</option>
+                        <option ng-repeat="y in generateStudentInvoice.yearArray"
+                                value="{{y}}">{{y}}</option>
+                    </vselect>
+                </div>
+                <div class="form-input col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12 font-family font-700"> <span translate="MONTH"></span>
+                    <span class="mandatory">*</span></span>
+                    <vselect type="input" name="session"id="sessionDuration"
+                             class="input-box font-family font-700 font-14 col-lg-8 col-md-8 col-sm-8 col-xs-8"
+                             ng-model="generateStudentInvoice.month"
+                             ng-change="generateStudentInvoice.showMonth();generateStudentInvoice.getDataBySelectedMonth()">
+                        <option disabled value="" >Select Month</option>
+                        <option ng-repeat="m in generateStudentInvoice.monthArray"
+                                value="{{m}}">{{m}}</option>
+                    </vselect>
+                </div>
+                <span class="header-name"><span translate="INVOICE"></span></span>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 sol-xs-12"style="height: 80vh;border-right: 1px solid grey">
+                <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12 no-padding"
+                     ng-if="generateStudentInvoice.showData">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover table-bordered table-striped">
+                            <colgroup>
+                                <col width="10%"/>
+                                <col width="30%"/>
+                                <col width="20%"/>
+                                <col width="20%"/>
+                                <col width="20%"/>
+                            </colgroup>
+                            <thead>
+                            <th><span translate="SERIAL_NUMBER"></span></th>
+                            <th><span translate="NAME"></span></th>
+                            <th><span translate="TOTAL_AMOUNT"></span></th>
+                            <th><span translate="STATUS"></span></th>
+                            <th><span translate="ACTION"></span></th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="(nameKey, nameValue) in generateStudentInvoice.respData   | mapOrderBy | orderBy: 'studentfullname'">
+                                <td>{{$index+1}}</td>
+                                <td>
+                                    {{nameValue.studentfullname}}
+                                    <span class="col-lg-12 col-md-12 col-sm-12 sol-xs-12 font-100"
+                                            style="color: black"
+                                            ng-if="nameValue.status != 'Cancelled'">
+                                        {{nameValue.invoiceNo}}
+                                    </span>
+
+                                    <span class="col-lg-12 col-md-12 col-sm-12 sol-xs-12 font-100"
+                                          style="color: red"
+                                          ng-if="nameValue.status == 'Cancelled'">
+                                        {{nameValue.invoiceNo}}
+                                    </span>
+
+                                    <span class="col-lg-12 col-md-12 col-sm-12 sol-xs-12 font-100"
+                                          ng-repeat="c in nameValue.cancelledInvoiceList"
+                                          style="color: red">{{c.invoice_no}}
+                                    </span>
+
+                                    <!--<span class="col-lg-12 col-md-12 col-sm-12 sol-xs-12 font-100"
+                                          style="color: blue"
+                                          ng-if="nameValue.freeTextInvoiceNo != null">
+                                        {{nameValue.freeTextInvoiceNo}}
+                                    </span>-->
+                                </td>
+                                <td>{{nameValue.status != null ? nameValue.grandTotal : ''}}</td>
+                                <td>{{nameValue.status}}</td>
+                                <td><button class="btn-custom-sm btn-custom-success"
+                                            ng-click="generateStudentInvoice.viewModal(nameValue)"
+                                            title="Generate Invoice">
+                                    <i class="fas fa-pen-nib"></i>
+                                    </button>
+
+                                    <!--<button class="btn-custom-sm btn-custom-primary"
+                                            ng-click="generateStudentInvoice.freeTextInvoice(nameValue)"
+                                            title="Free Text Invoice">
+                                        <i class="fas fa-file-alt"></i>
+                                    </button>-->
+                                </td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class=" col-lg-6 col-md-6 col-sm-12 sol-xs-12">
+               <!-- <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12" >
+                    <button class="btn-custom btn-custom-primary"
+                            title="Add new course"
+                            ng-click="generateStudentInvoice.addCourse();">
+                        Add new batch<i class="fas fa-plus"></i>
+                    </button>
+                    <hr style="border-top: 1px solid #a9a6a6">
+                </div>-->
+                <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12 animate" style="padding: 0"
+                     ng-if="generateStudentInvoice.viewModalKey">
+                    <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12 no-padding font-family center">
+                        {{generateStudentInvoice.studentName}}
+                        <!--<button style="float: right"
+                                class="btn-custom-sm btn-custom-success"
+                                ng-if="generateStudentInvoice.enable"
+                                ng-click="generateStudentInvoice.getInvoiceDetails()">Details</button>-->
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12" ng-if="generateStudentInvoice.enable">
+                        <div class="table-responsive table-invoice col-lg-12 col-md-12 col-sm-12 sol-xs-12 no-padding">
+                            <table class="table table-condensed table-hover table-bordered table-striped ">
+
+                                <thead>
+                                <th><span translate="SERIAL_NUMBER"></span></th>
+                                <th><span translate="ITEM"></span></th>
+                                <th><span translate="SESSION_AMOUNT"></span>(¥)</th>
+                                <th><span translate="TOTAL_DURATION"></span></th>
+                                <th><span translate="TOTAL_AMOUNT"></span>(¥)</th>
+
+                                </thead>
+                                <tbody ng-repeat="(key, value) in generateStudentInvoice.objList">
+
+                                <tr ng-repeat="data in generateStudentInvoice.objList.attributeList | orderBy:'feeType'"
+                                    ng-if="key == 'attributeList'">
+                                    <td>{{$index+1}}</td>
+                                    <td style="text-align: left">{{data.sessionDuration}} {{data.courseName}}</td>
+                                    <td>{{data.fees}}</td>
+                                    <td>{{data.feeType == 'Per course' ? 'Per course' : data.totalMins}}</td>
+                                    <td style="text-align: right">{{'¥'}} {{data.feeType == 'Per course' ? data.fees : data.viewTotal}}</td>
+                                </tr>
+
+                                <!--<tr ng-repeat="data in generateStudentInvoice.objList.attributeList | orderBy:'feeType'"
+                                    ng-if="key == 'attributeList'">
+                                    <td ng-if="(data.feeType == 'Per session' && data.totalMins != 0) || (data.feeType == 'Per course')">{{data}}</td>
+                                    <td ng-if="(data.feeType == 'Per session' && data.totalMins != 0) || (data.feeType == 'Per course')" style="text-align: left">{{data.sessionDuration}} {{data.courseName}}</td>
+                                    <td ng-if="(data.feeType == 'Per session' && data.totalMins != 0) || (data.feeType == 'Per course')">{{data.fees}}</td>
+                                    <td ng-if="(data.feeType == 'Per session' && data.totalMins != 0) || (data.feeType == 'Per course')">{{data.feeType == 'Per course' ? 'Per course' : data.totalMins}}</td>
+                                    &lt;!&ndash; <td style="text-align: right">{{'¥'}} {{data.feeType == 'Per course' ? data.fees : Math.round(data.session * data.fees)}}</td>&ndash;&gt;
+                                    <td ng-if="(data.feeType == 'Per session' && data.totalMins != 0) || (data.feeType == 'Per course')"  style="text-align: right">{{'¥'}} {{data.feeType == 'Per course' ? data.fees : data.viewTotal}}</td>
+                                </tr>-->
+
+                                <tr ng-repeat="d in generateStudentInvoice.objList.editable"
+                                    ng-if="key == 'editable' && generateStudentInvoice.objList.editable.length > 0">
+                                    <td>+</td>
+                                    <td><vinput ng-model="d.description"
+                                                ng-disabled="generateStudentInvoice.objList.status == 'Fix' || generateStudentInvoice.objList.status == 'Cancelled'"
+                                                placeholder="Additional (+)"
+                                                class="input-box font-14 col-lg-8 col-md-8 col-sm-12 col-xs-12"
+                                                style="padding: 4px 10px">
+                                    </vinput>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><vinput vtype="positiveirrational"
+                                                only-numbers=""
+                                                ng-model="d.amount"
+                                                ng-disabled="generateStudentInvoice.objList.status == 'Fix' || generateStudentInvoice.objList.status == 'Cancelled'"
+                                                ng-change="generateStudentInvoice.setEditableAmount(generateStudentInvoice.objList)"
+                                                placeholder="Amount(‎¥) "
+                                                class="input-box font-14 col-lg-8 col-md-8 col-sm-12 col-xs-12"
+                                                style="padding: 4px 10px;text-align: right">
+                                    </vinput>
+                                    </td>
+                                </tr>
+
+                                <!--Subtractional-->
+                                <tr ng-repeat="d in generateStudentInvoice.objList.substractional"
+                                    ng-if="key == 'substractional' && generateStudentInvoice.objList.substractional.length > 0">
+                                    <td>-</td>
+                                    <td><vinput ng-model="d.description"
+                                                ng-disabled="generateStudentInvoice.objList.status == 'Fix' || generateStudentInvoice.objList.status == 'Cancelled'"
+                                                placeholder="Additional (-)"
+                                                class="input-box font-14 col-lg-8 col-md-8 col-sm-12 col-xs-12"
+                                                style="padding: 4px 10px">
+                                    </vinput>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><vinput vtype="positiveirrational"
+                                                only-numbers=""
+                                                ng-model="d.amount"
+                                                ng-disabled="generateStudentInvoice.objList.status == 'Fix' || generateStudentInvoice.objList.status == 'Cancelled'"
+                                                ng-change="generateStudentInvoice.setEditableAmount(generateStudentInvoice.objList)"
+                                                placeholder="Amount(‎¥) "
+                                                class="input-box font-14 col-lg-8 col-md-8 col-sm-12 col-xs-12"
+                                                style="padding: 4px 10px;text-align: right">
+                                    </vinput>
+                                    </td>
+                                </tr>
+
+                                <tr ng-if="key == 'cancellationAmount' && generateStudentInvoice.objList[key]>0">
+                                    <td></td>
+                                    <td style="text-align: left"><span translate="CANCELLATION_AMOUNT"></span></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><vinput vtype="positiveirrational"
+                                                only-numbers=""
+                                                ng-model="generateStudentInvoice.objList[key]"
+                                                ng-disabled="generateStudentInvoice.objList.status == 'Fix' || generateStudentInvoice.objList.status == 'Cancelled'"
+                                                ng-change="generateStudentInvoice.setEditableAmount(generateStudentInvoice.objList)"
+                                                placeholder="Amount(‎¥) "
+                                                class="input-box font-14 col-lg-8 col-md-8 col-sm-12 col-xs-12"
+                                                style="padding: 4px 10px;text-align: right">
+                                    </vinput>
+                                    </td>
+                                </tr>
+
+                                <tr ng-if="key == 'total'">
+                                    <td></td>
+                                    <td style="text-align: left"><span translate="TOTAL"></span></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="text-align: right">{{value}}</td>
+                                </tr>
+
+                                <tr ng-if="key == 'consumptionTax'">
+                                    <td></td>
+                                    <td style="text-align: left"><span translate="CONSUMPTION_TAX"></span>(%)</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <vinput vtype="positiveirrational"
+                                                only-numbers=""
+                                                ng-model="generateStudentInvoice.objList[key]"
+                                                ng-disabled="generateStudentInvoice.objList.status == 'Fix' || generateStudentInvoice.objList.status == 'Cancelled'"
+                                                ng-change="generateStudentInvoice.setEditableAmount(generateStudentInvoice.objList)"
+                                                placeholder="Amount(‎¥) "
+                                                class="input-box font-14 col-lg-8 col-md-8 col-sm-12 col-xs-12"
+                                                style="padding: 4px 10px;text-align: right">
+                                        </vinput>
+                                    </td>
+                                </tr>
+
+                                <tr ng-if="key == 'grandTotal'">
+                                    <td></td>
+                                    <td style="text-align: left"><span translate="GRAND_TOTAL"></span></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="text-align: right">{{value}}</td>
+                                </tr>
+
+                                <tr ng-repeat="d in generateStudentInvoice.objList.creditNote"
+                                    ng-if="key == 'creditNote'  && generateStudentInvoice.objList.creditNote.length > 0">
+                                    <td style="color: red; "></td>
+                                    <td style="text-align: left;color: red;"><span translate="CREDIT_NOTE"></span></td>
+                                    <td style="color: red;"></td>
+                                    <td style="color: red;"></td>
+                                    <td style="text-align: right;color: red;">{{d.amount}}</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                            <span class="font-family font-600 font-12"><span translate="DUE_DATE"></span>
+                            <span class="mandatory">*</span></span>
+                            <div class="form-group ">
+                                <p class="input-group ">
+                                    <input type="text" name="enrollmentDate"
+                                           ng-init="enroll = generateStudentInvoice.createDateMap()"
+                                           class="form-control date"
+                                           uib-datepicker-popup="{{enroll.format}}"
+                                           show-button-bar="false"
+                                           readonly="true"
+                                           ng-model="generateStudentInvoice.dueDate"
+                                           form-config="generateStudentInvoice.formConfig"
+                                           is-open="enroll.popup.opened"
+                                           placeholder="yyyy-mm-dd"
+                                           datepicker-options="enroll.dateOptions"
+                                           id="enrollmentDate"
+                                           ng-click="enroll.open()"
+                                           ng-required="true"
+                                           ng-change="generateStudentInvoice.dateFormat(generateStudentInvoice.formModel.enrollmentDate);"/>
+                        <span class="input-group-btn ">
+                                <button type="button" class="btn btn-default calender" ng-click="enroll.open()">
+                                    <i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12" ng-if="!generateStudentInvoice.enable">
+
+                    </div>
+                </div>
+
+
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 center">
+                    <button class="btn-custom-sm btn-custom-success"
+                            title="Submit"
+                            ng-if="generateStudentInvoice.objList.status == null && generateStudentInvoice.viewModalKey && generateStudentInvoice.enable"
+                            ng-click="generateStudentInvoice.submit('Open');">
+                        <span translate="SUBMIT"></span>
+                    </button>
+                    <button class="btn-custom-sm btn-custom-primary"
+                            title="Update"
+                            ng-if="generateStudentInvoice.objList.status == 'Open' && generateStudentInvoice.enable"
+                            ng-click="generateStudentInvoice.submit('Open');">
+                        <span translate="UPDATE"></span>
+                    </button>
+                    <button class="btn-custom-sm btn-custom-danger"
+                            title="Cancel"
+                            ng-if="generateStudentInvoice.objList.status == 'Fix' && generateStudentInvoice.enable"
+                            ng-click="generateStudentInvoice.cancelTransaction();">
+                        <span translate="CANCEL_INVOICE"></span>
+                    </button>
+                    <button class="btn-custom-sm btn-custom-success"
+                            title="Cancel"
+                            ng-if="generateStudentInvoice.objList.status == 'Fix' && generateStudentInvoice.enable"
+                            ng-click="generateStudentInvoice.print();">
+                        <span translate="PRINT"></span>
+                    </button>
+                    <button class="btn-custom-sm btn-custom-success"
+                            title="Print"
+                            ng-if="generateStudentInvoice.objList.status == 'Open'&&  generateStudentInvoice.enable"
+                            ng-click="generateStudentInvoice.print();">
+                        <span translate="PRINT"></span>
+                    </button>
+                    <button class="btn-custom-sm btn-custom-primary"
+                            title="New Invoice"
+                            ng-if="generateStudentInvoice.objList.status == 'Cancelled' && generateStudentInvoice.enable"
+                            ng-click="generateStudentInvoice.createNewInvoice();">
+                        <span translate="CREATE_NEW_INVOICE"></span>
+                    </button>
+                    <!--<button class="btn-custom-sm btn-custom-success"
+                            title="New Invoice"
+                            ng-if="generateStudentInvoice.objList.status == 'Cancelled' && generateStudentInvoice.enable"
+                            ng-click="generateStudentInvoice.print();">
+                        <span translate="PRINT"></span>
+                    </button>-->
+                    <button class="btn-custom-sm btn-custom-danger"
+                            title="Print & Fix"
+                            ng-if="generateStudentInvoice.objList.status == 'Open' && generateStudentInvoice.enable"
+                            ng-click="generateStudentInvoice.submit('Fix');">
+                        <span translate="PRINT_AND_FIX"></span>
+                    </button>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12 center"
+                     ng-if="generateStudentInvoice.detailedInvoice" style="margin-top: 30px">
+                    <table class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                            <th><span translate="DATE"></span></th></th>
+                            <th><span translate="TIME"></span></th>
+                            <th><span translate="AMOUNT"></span> (¥)</th>
+                        </thead>
+                       <tbody>
+                        <tr ng-repeat="d in generateStudentInvoice.invoiceDetailedData">
+                            <td>{{d.date}}</td>
+                            <td>{{d.time}}</td>
+                            <td>{{d.amount}}</td>
+                        </tr>
+                       </tbody>
+                    </table>
+                    <button class="btn-custom-sm btn-custom-primary"
+                            ng-click="generateStudentInvoice.printDetailedInvoice()"
+                            title="pdf">
+                        Pdf
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--
+<div class="container-fluid">
+    <div class="row">
+        <div class="main-container col-lg-12 col-md-12 col-sm-12 sol-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12"
+                 style="border-bottom: 1px solid #a9a6a6;margin-bottom: 10px;padding-bottom: 10px;">
+
+                <div class="form-input col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12 font-family font-700">Year
+                    <span class="mandatory">*</span></span>
+                    <vselect type="input" name="session"id="sessionDuration"
+                             class="input-box font-family font-700 font-14 col-lg-8 col-md-8 col-sm-8 col-xs-8"
+                             ng-model="generateStudentInvoice.year"
+                             ng-change="generateStudentInvoice.clearSection()">
+                        <option disabled value="" >Select Year</option>
+                        <option ng-repeat="y in generateStudentInvoice.yearArray"
+                                value="{{y}}">{{y}}</option>
+                    </vselect>
+                </div>
+
+                <div class="form-input col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12 font-family font-700">Month
+                    <span class="mandatory">*</span></span>
+                    <vselect type="input" name="session"id="sessionDuration"
+                             class="input-box font-family font-700 font-14 col-lg-8 col-md-8 col-sm-8 col-xs-8"
+                             ng-model="generateStudentInvoice.month"
+                             ng-change="generateStudentInvoice.getSelectedDateRange()">
+                        <option disabled value="" >Select Month</option>
+                        <option ng-repeat="m in generateStudentInvoice.monthArray"
+                                value="{{m}}">{{m}}</option>
+
+                    </vselect>
+                </div>
+
+
+
+                <span class="header-name">Invoice</span>
+
+            </div>
+            <hr>
+
+            <div class="col-md-12" ng-if="generateStudentInvoice.respData">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover table-bordered table-striped">
+
+                        <colgroup>
+                            <col width="1%"/>
+                            <col width="9%"/>
+                            <col width="40%"/>
+                            <col width="7%"/>
+                            <col width="8%"/>
+                            <col width="7%"/>
+                            <col width="7%"/>
+                            <col width="7%"/>
+                            <col width="7%"/>
+                            <col width="7%"/>
+
+                        </colgroup>
+
+                        <thead>
+                        <th>S.No</th>
+                        <th>Name</th>
+                        <th>Item</th>
+                        <th>Cancellation(¥)</th>
+                        <th>Total(¥)</th>
+                        <th>Consumption Tax %</th>
+                        <th>Grand Total(¥)</th>
+                        <th>Deposit(¥)</th>
+                        <th>Due(¥)</th>
+                        <th>Action</th>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="(nameKey, nameValue) in generateStudentInvoice.respData | mapOrderBy | orderBy: 'studentfullname'">
+                            <td>{{$index+1}}</td>
+                            <td>{{nameValue.studentfullname}}</td>
+
+                            <td><table class="table-in-table table-condensed table-hover table-striped table-bordered">
+                                    <tbody>
+                                        <tr ng-repeat="d in nameValue.attributeList">
+                                            <td>{{d.courseName}}</td>
+                                            <td>{{d.feeType}}</td>
+                                            <td>{{d.feeType == 'Per session' ? d.sessionDuration:''}}</td>
+                                            <td>{{'¥ '}}{{d.fees}}</td>
+                                            <td>{{d.session != 0 ? 'session =' : ''}}{{d.session != 0 ? d.session : ''}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <vinput vtype="positiveirrational"
+                                        only-numbers=""
+                                        ng-model="nameValue.cancellationAmount"
+                                        ng-change="generateStudentInvoice.setCancellationAmount(nameValue)"
+                                        ng-disabled="nameValue.status == 'Released'"
+                                        placeholder="Cancellation(¥)"
+                                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                </vinput>
+                            </td>
+
+                            <td>
+                                <vinput vtype="positiveirrational"
+                                        only-numbers=""
+                                        ng-model="nameValue.total"
+                                        ng-change="generateStudentInvoice.setTotal(nameValue)"
+                                        ng-disabled="nameValue.status == 'Released'"
+                                        placeholder="Total(¥)"
+                                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                </vinput>
+                            </td>
+
+                            <td>
+                                <vinput vtype="positiveirrational"
+                                        only-numbers=""
+                                        ng-model="nameValue.consumptionTax"
+                                        ng-change="generateStudentInvoice.setConsumptionTax(nameValue)"
+                                        ng-disabled="nameValue.status == 'Released'"
+                                        placeholder="Tax (%)"
+                                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                </vinput>
+                            </td>
+
+                            <td>{{nameValue.grandTotal}}</td>
+
+                            <td>
+                                <vinput  vtype="positiveirrational"
+                                         only-numbers=""
+                                         ng-model="nameValue.depositAmount"
+                                         ng-change="generateStudentInvoice.setDepositAmount(nameValue)"
+                                         ng-disabled="nameValue.status == 'Released'"
+                                         placeholder="Deposit(¥)"
+                                         class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                </vinput>
+                            </td>
+
+                            <td><span class="font-12" style="display: grid">{{'¥ '}}{{nameValue.dueAmount}}</span>
+                                <span class="font-10 font-100" ng-if="nameValue.dueList != null" style="color:red">{{'Due:'}}</span>
+                                <span ng-if="nameValue.dueList != null"
+                                      ng-repeat="m in nameValue.dueList"
+                                      class="font-10 font-100">
+                                      <span style="color:blue">{{m.month}}</span>
+                                </span>
+                            </td>
+
+                            <td>
+                                <div class="pointer"
+                                     style="color: blue; font-weight: 100"
+                                     ng-if="nameValue.status == null || nameValue.status == 'Generated'"
+                                     ng-click="generateStudentInvoice.submit(nameValue,'Generated')">
+                                    Submit
+                                </div>
+                                <div class="pointer"
+                                     style="color: green; font-weight: 100"
+                                     ng-if="nameValue.status == 'Generated'"
+                                     ng-click="">
+                                    Invoice
+                                </div>
+                                <div class="pointer"
+                                     style="color: #EC407A; font-weight: 100"
+                                     ng-if="nameValue.status == 'Released'"
+                                     ng-click="">
+                                    Released
+                                </div>
+
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>-->

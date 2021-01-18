@@ -1,0 +1,103 @@
+<div class="modal-header">
+    <button type="button" class="close"
+            ng-click="customBootBox.modalInstance.close({},'cancel')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <span class="modal-title font-family"><span translate={{customBootBox.title}}></span></span>
+</div>
+
+<div class="modal-footer" ng-if="customBootBox.type == 'All'">
+    <button class="btn-custom btn-custom-danger" ng-click="customBootBox.cancel()"><span translate="CANCEL"></span></button>
+    <button class="btn-custom btn-custom-success" ng-click="customBootBox.success()"><span translate="OK"></span></button>
+</div>
+<div class="modal-footer" ng-if="customBootBox.type == 'General'">
+    <button class="btn-custom btn-custom-danger" ng-click="customBootBox.cancel()"><span translate="CANCEL"></span></button>
+    <button class="btn-custom btn-custom-success" ng-click="customBootBox.success()"><span translate="OK"></span></button>
+</div>
+
+<div class="modal-footer" ng-if="customBootBox.type == 'Teacher'">
+    <button class="btn-custom btn-custom-danger" ng-click="customBootBox.cancel()"><span translate="CANCEL"></span></button>
+    <button class="btn-custom btn-custom-success" ng-click="customBootBox.saveTeacher()"><span translate="OK"></span></button>
+</div>
+<div class="modal-footer" ng-if="customBootBox.type == 'Admin'">
+    <button class="btn-custom btn-custom-danger" ng-click="customBootBox.cancel()"><span translate="CANCEL"></span></button>
+    <button class="btn-custom btn-custom-success" ng-click="customBootBox.saveAdmin()"><span translate="OK"></span></button>
+</div>
+<div class="modal-footer" ng-if="customBootBox.type == 'Cancel Invoice'">
+    <button class="btn-custom btn-custom-danger" ng-click="customBootBox.cancel()"><span translate="CANCEL"></span></button>
+    <button class="btn-custom btn-custom-success" ng-click="customBootBox.cancelInvoice()"><span translate="OK"></span></button>
+</div>
+
+<div class="modal-footer" ng-if="customBootBox.type == 'Confirm'">
+    <button class="btn-custom btn-custom-success" ng-click="customBootBox.success()"><span translate="OK"></span></button>
+</div>
+
+
+<div class="modal-footer" ng-if="customBootBox.type == 'Student'">
+    <div class="form-input col-lg-6 col-md-6 col-sm-6 col-xs-6 text-left">
+         <span class="font-family" style="font-weight: 100"><span translate="CANCELLATION_PERCENTAGE_FOR_STUDENT"></span> (Requested on date: {{customBootBox.cancellationReqDate}})</span>
+        <vinput vtype="positiveirrational"
+                only-numbers=""
+                required=""
+                ng-model="customBootBox.cancellationPercentage"
+                ng-change="customBootBox.setCancellationAmount()"
+                placeholder="Cancellation Percentage"
+                id="cancellationAmount"
+                name="cancellationAmount"
+                class="input-box "
+                style="width: 100%">
+        </vinput>
+    </div>
+        <input type="checkbox"  name="gender" value="true" ng-model="customBootBox.isTeacherPaid"> Teacher Paid<br>
+
+    <div class="form-input col-lg-6 col-md-6 col-sm-6 col-xs-6 text-left">
+        <span class="font-family" style="font-weight: 100"><span translate="CANCELLATION_AMOUNT"></span></span>
+        <vinput vtype="positiveirrational"
+                only-numbers=""
+                redisabled="true"
+                reaquired=""
+                ng-donly="true"
+                ng-model="customBootBox.cancellationAmount"
+                placeholder="Cancellation Amount"
+                id="cancellationAmount"
+                name="cancellationAmount"
+                class="input-box "
+                style="width: 100%">
+        </vinput>
+    </div>
+
+    <button class="btn-custom btn-custom-danger" ng-click="customBootBox.cancel()"><span translate="CANCEL"></span></button>
+    <button class="btn-custom btn-custom-success" ng-click="customBootBox.save()"><span translate="SAVE"></span></button>
+</div>
+
+<div class="modal-footer" ng-if="customBootBox.type == 'studentCancellationReq'">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-left">
+        <div class="form-group">
+            <p class="input-group ">
+                <input type="text" name="dateFrom"
+                       ng-init="dateFrom = customBootBox.createDateMap()"
+                       class="form-control date"
+                       uib-datepicker-popup="{{dateFrom.format}}"
+                       show-button-bar="false"
+                       readonly="true"
+                       ng-model="customBootBox.cancellationDate"
+                       is-open="dateFrom.popup.opened"
+                       placeholder="dd-mm-yy"
+                       datepicker-options="dateFrom.dateOptions"
+                       id="dateFrom"
+                       ng-click="dateFrom.open()"
+                       ng-required="true"/>
+                        <span class="input-group-btn ">
+                                <button type="button" class="btn btn-default calender"
+                                        ng-click="dateFrom.open()">
+                                    <i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+            </p>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <button class="btn-custom btn-custom-danger" ng-click="customBootBox.cancel()"><span translate="CANCEL"></span></button>
+        <button class="btn-custom btn-custom-success" ng-click="customBootBox.saveDate()"><span translate="OK"></span></button>
+    </div>
+
+</div>

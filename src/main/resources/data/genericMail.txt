@@ -1,0 +1,8 @@
+<p style="font-size: 12;	font-family: arial;	vertical-align: middle;">
+	#{bodyText}	
+	<br/><br/>
+	<i>#{greet}</i>
+	<br/><br/>
+	<i>#{signature}</i>
+</p>
+	

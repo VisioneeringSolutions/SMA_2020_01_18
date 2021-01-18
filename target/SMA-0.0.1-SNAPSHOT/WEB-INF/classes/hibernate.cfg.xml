@@ -1,0 +1,99 @@
++6<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+	
+		<!-- QA and LOCAL -->
+		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/SMA_PROD</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<property name="hibernate.connection.username">MUSIC_ACADEMY</property>
+		<property name="hibernate.connection.password">MUSIC_ACADEMY</property>
+		<property name="hibernate.connection.pool_size">10</property>
+		
+		
+	
+		<!-- PROD -->
+		<!-- <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+		<property name="hibernate.connection.url">jdbc:postgresql://3.113.81.1:5432/MUSIC_ACADEMY</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<property name="hibernate.connection.username">MUSIC_ACADEMY</property>
+		<property name="hibernate.connection.password">MUSIC_ACADEMY</property>
+		<property name="hibernate.connection.pool_size">10</property> -->
+		
+		
+		<!-- Setting Auto Commit False -->
+		<property name="hibernate.connection.autocommit">false</property>
+		<!-- Display SQL Queries -->
+		<property name="hibernate.hbm2ddl.auto">update</property>
+
+		<property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+
+		<!-- Names of annotated entity class -->
+
+		<mapping class="com.vspl.music.model.eo.EOImage" />
+		<mapping class="com.vspl.music.model.eo.EOStudentUser" />
+		<mapping class="com.vspl.music.model.eo.EOLoginDetails" />
+		<mapping class="com.vspl.music.model.eo.EOTeacherUser" />
+		<mapping class="com.vspl.music.model.eo.EOCourses" />
+		<mapping class="com.vspl.music.model.eo.EOMusicRoom" />
+		<mapping class="com.vspl.music.model.eo.EOBatch" />
+		<mapping class="com.vspl.music.model.eo.EOStudentBatch" />
+		<mapping class="com.vspl.music.model.eo.EOTeacherBatch" />
+		<mapping class="com.vspl.music.model.eo.EOTimeSlot" />
+		<mapping class="com.vspl.music.model.eo.EOTimeSlotAllocation" />
+		<mapping class="com.vspl.music.model.eo.EOTeacherSalary" />
+		<mapping class="com.vspl.music.model.eo.EOGenerateSlip" />
+		<mapping class="com.vspl.music.model.eo.EOGenerateSlipDetail" />	
+		
+		<mapping class="com.vspl.music.model.eo.EOManagementUser" />
+		<mapping class="com.vspl.music.model.eo.EODefinedSlot" />
+		<mapping class="com.vspl.music.model.eo.EOMasterStudentCriteria" />
+		<mapping class="com.vspl.music.model.eo.EOStudentCriteria" />
+		<mapping class="com.vspl.music.model.eo.EONews" />
+		<mapping class="com.vspl.music.model.eo.EOStudentRating" />
+		
+		<mapping class="com.vspl.music.model.eo.EOMasterTeacherCriteria" /> 
+		<mapping class="com.vspl.music.model.eo.EOTeacherCriteria" />
+		<mapping class="com.vspl.music.model.eo.EOTeacherRating" />
+		<mapping class="com.vspl.music.model.eo.EOStudentBatchMapping" />
+		<mapping class="com.vspl.music.model.eo.EOStudentInvoiceMain" />
+		<mapping class="com.vspl.music.model.eo.EOStudentInvoiceDetail" />
+		<mapping class="com.vspl.music.model.eo.EOQueryForm" />
+		<mapping class="com.vspl.music.model.eo.EOMessage" />
+		<mapping class="com.vspl.music.model.eo.EOMessageHistory" />
+		<mapping class="com.vspl.music.model.eo.EOCompetition" />
+		<mapping class="com.vspl.music.model.eo.EOCompetitionMapping" />
+		<mapping class="com.vspl.music.model.eo.EOStudentInvoiceEditable" />
+		<mapping class="com.vspl.music.model.eo.EOStudentFreeTextInvoice" />
+		<mapping class="com.vspl.music.model.eo.EOStudentFreeTextInvoiceMapping" />
+		<mapping class="com.vspl.music.model.eo.EOStudentCreditNote" />
+		<mapping class="com.vspl.music.model.eo.EOPdf" />
+		<mapping class="com.vspl.music.model.eo.EOPdfJson" />
+		<mapping class="com.vspl.music.model.eo.EOTeacherSalaryDetail" />
+		<mapping class="com.vspl.music.model.eo.EOAccountType" />
+		<mapping class="com.vspl.music.model.eo.EOSubAccount" />
+		<mapping class="com.vspl.music.model.eo.EOAddExpenses" />
+		<mapping class="com.vspl.music.model.eo.EOAddExpensesDetail" />
+		<mapping class="com.vspl.music.model.eo.EOGenerateSlipStudentDetail" />
+		
+
+		<!-- Names of annotated lk class -->
+		<mapping class="com.vspl.music.model.lk.LKMusicType" />
+		<mapping class="com.vspl.music.model.lk.LKCategoryType" />
+		<mapping class="com.vspl.music.model.lk.LKClassDuration" />
+		<mapping class="com.vspl.music.model.lk.LKSecurityQuestion" />
+		<mapping class="com.vspl.music.model.lk.LKBusinessType" />
+		<mapping class="com.vspl.music.model.lk.LKColor" />
+		
+		
+		
+		
+    
+		
+
+
+
+
+	</session-factory>
+</hibernate-configuration>

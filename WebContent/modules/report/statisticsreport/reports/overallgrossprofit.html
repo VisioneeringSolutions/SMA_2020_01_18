@@ -1,0 +1,76 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="form-input col-md-2 col-sm-12 col-xs-12">
+                <select name="year" class="input-box font-family font-700 font-14 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                        ng-model="overallGrossProfit.year"
+                        ng-change="overallGrossProfit.getGrossProfit()"
+                        id="year">
+                    <option value="" disabled>Select year</option>
+                    <option ng-repeat="d in overallGrossProfit.yearArray"
+                            value={{d}}>{{d}}
+                    </option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+    <div ng-show="overallGrossProfit.grossProfitData.length > 0">
+        <hr>
+    </div>
+    <div class="row" ng-init="overallGrossProfit.getGrossProfit()">
+        <div class="col-md-12 col-sm-12 col-xs-12" ng-show="overallGrossProfit.grossProfitData.length > 0">
+            <div class="col-md-6 padding-10">
+                <div class="box box-success">
+                    <div class="box-header box-header-table with-border">
+                        <div class="col-md-5 col-sm-5 col-xs-5 no-padding">
+                            <h3 class="box-title">
+                                <span translate="OVERALL_GROSS_PROFIT"></span>
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <table class="table table-condensed table-hover table-bordered table-striped table-font">
+                                <thead>
+                                <th><span translate="MONTH"></span></th>
+                                <th><span translate="INCOME"></span></th>
+                                <th><span translate="EXPENSE"></span></th>
+                                <th><span translate="GROSS_PROFIT"></span></th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="(key,value) in overallGrossProfit.grossProfitData">
+                                    <td>{{value.month}}</td>
+                                    <td>{{value.income}}</td>
+                                    <td>{{value.expense}}</td>
+                                    <td>{{value.profit}}</td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-md-6 padding-10">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            <span translate="OVERALL_GROSS_PROFIT"></span>
+                        </h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <canvas id="grossProfitCanvas" width="230px" height="74"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>

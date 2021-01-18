@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="invoicePdfViewer.modalInstance.close({},'cancel')"
+            style="color: red" title="close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="modal-title"><span ng-if="invoicePdfViewer.title == 'Salary'" translate="SALARY"></span></h3>
+    <h3 class="modal-title"><span ng-if="invoicePdfViewer.title == 'Invoice'" translate="INVOICE"></span></h3>
+    <h3 class="modal-title"><span ng-if="invoicePdfViewer.title == 'Expense Sheet'" translate="EXPENSE_SHEET"></span></h3>
+</div>
+
+<div class="modal-body">
+
+
+    <!--<div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12">
+        <iframe ng-src={{invoicePdfViewer.pdfUrl}}></iframe>
+    </div>-->
+
+    <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12 center">
+        <embed ng-src={{invoicePdfViewer.pdfUrl}} type="application/pdf"   height="400px" width="500">
+    </div>
+
+</div>
+
+<div class="modal-footer">
+
+
+</div>

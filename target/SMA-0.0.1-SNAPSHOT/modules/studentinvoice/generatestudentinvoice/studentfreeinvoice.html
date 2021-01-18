@@ -1,0 +1,138 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="studentFreeInvoice.modalInstance.close({},'cancel')"
+            style="color: red" title="close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="modal-title font-family" translate="FREE_TEXT_INVOICE">Free Text Invoice</h3>
+</div>
+
+<div class="modal-body">
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 center font-family">
+         <span class="center font-family"
+               style="font-size: 25px;text-decoration: underline;">
+        {{studentFreeInvoice.studentfullname}}
+        </span>
+        <span style="font-size: 15px;color:blue; text-decoration: none;">
+        {{studentFreeInvoice.studentInvoiceNo != null ? '(':''}} {{studentFreeInvoice.studentInvoiceNo}} {{studentFreeInvoice.studentInvoiceNo != null ? ')':''}}
+        </span>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+        <button class="btn-custom btn-custom-primary float-right"
+                ng-click="studentFreeInvoice.addField();"
+                ng-disabled="studentFreeInvoice.disableValue">
+            <span translate="ADD_FIELDS"></span><i class="fas fa-plus"></i>
+        </button>
+        <!--<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+             ng-repeat="d in studentFreeInvoice.dataList">
+
+            <div class="form-input col-lg-2 col-md-2 col-sm-2 col-xs-2 no-padding border">
+                <vinput type="input"
+                        name="description"
+                        capitalize=""
+                        form-config="studentFreeInvoice.formConfig"
+                        required=""
+                        ng-model={{$index+1}}
+                        placeholder="Description"
+                        id="description"
+                        class="input-box font col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+            <div class="form-input col-lg-5 col-md-5 col-sm-5 col-xs-5 no-padding border">
+                <vinput type="input"
+                        name="description"
+                        capitalize=""
+                        form-config="studentFreeInvoice.formConfig"
+                        required=""
+                        ng-model="studentFreeInvoice.formModel.amount"
+                        placeholder="Description"
+                        id="description"
+                        class="input-box font col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+            <div class="form-input col-lg-5 col-md-5 col-sm-5 col-xs-5 no-padding border">
+                <vinput type="input"
+                        name="amount"
+                        capitalize=""
+                        form-config="studentFreeInvoice.formConfig"
+                        required=""
+                        ng-model="studentFreeInvoice.formModel.amount"
+                        placeholder="Amount"
+                        id="amount"
+                        class="input-box font col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                </vinput>
+
+            </div>
+        </div>-->
+
+        <vform name="freeTextInvoiceForm" config="studentFreeInvoice.formConfig"
+               class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0">
+
+            <div class="table-responsive table-invoice col-lg-12 col-md-12 col-sm-12 sol-xs-12 no-padding">
+                <table class="table table-condensed table-hover table-bordered table-striped ">
+
+                    <thead>
+                    <th><span translate="SERIAL_NUMBER"></span></th>
+                        <th><span translate="DESCRIPTION"></span></th>
+                        <th><span translate="AMOUNT"></span>(¥)</th>
+                    <th><span translate="ACTION"></span></th>
+
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="d in studentFreeInvoice.textInvoiceMap.freeTextInvoiceList" ng-init=" ItemIndex = $index">
+                            <td>{{$index+1}}</td>
+                            <td><vinput type="input"
+                                        name="description"
+                                        capitalize=""
+                                        form-config="studentFreeInvoice.formConfig"
+                                        required=""
+                                        ng-disabled="d.primaryKey != null"
+                                        ng-model="d.description"
+                                        placeholder="Description"
+                                        id="description"
+                                        class="input-box font col-lg-12 col-md-12 col-sm-12 col-xs-12 center">
+                                </vinput>
+                            </td>
+                            <td><vinput vtype="positiveirrational"
+                                        only-numbers=""
+                                        name="amount"
+                                        form-config="studentFreeInvoice.formConfig"
+                                        required=""
+                                        ng-disabled="d.primaryKey != null"
+                                        ng-model="d.amount"
+                                        placeholder="Amount"
+                                        id="amount"
+                                        class="input-box font col-lg-12 col-md-12 col-sm-12 col-xs-12 center">
+                                </vinput>
+                            </td>
+                            <td>
+                                <i class="fas fa-times" style="font-size: 15px; color: red;cursor: pointer"
+                                   ng-if="d.primaryKey == null"
+                                   ng-click="studentFreeInvoice.removeField(d, $index)"></i>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </vform>
+
+
+
+    </div>
+</div>
+<div class="modal-footer">
+
+    <div class="col-md-12 center">
+        <button class="btn-custom btn-custom-success"
+                ng-disabled="studentFreeInvoice.disableValue"
+                ng-click="studentFreeInvoice.formSubmit($event);">
+            <th><span translate="SUBMIT"></span></th>
+        </button>
+    </div>
+
+</div>

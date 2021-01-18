@@ -1,0 +1,314 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="queryFormUpdateModal.modalInstance.close({},'cancel')"
+            style="color: red" title="close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="modal-title"><span translate="UPDATE_QUERY_FORM"></span></h3>
+</div>
+
+
+<div class="modal-body">
+
+
+    <div class="query-from col-lg-12 col-md-12 col-sm-12 sol-xs-12 animate" id="student-reg">
+
+        <vform name="queryForm" config="queryFormUpdateModal.formConfig"
+               class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0">
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="FIRST_NAME_JAP"></span>
+                            <span class="mandatory">*</span></span>
+                <vinput type="input"
+                        name="firstNameJap"
+                        capitalize=""
+                        form-config="queryFormUpdateModal.formConfig"
+                        required=""
+                        ng-model="queryFormUpdateModal.formModel.firstNameJap"
+                        placeholder="First Name (Japanese)"
+                        id="firstNameJap"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="LAST_NAME_JAP"></span>
+                            <span class="mandatory">*</span></span>
+                <vinput type="input"
+                        name="lastNameJap"
+                        capitalize=""
+                        form-config="queryFormUpdateModal.formConfig"
+                        required=""
+                        ng-model="queryFormUpdateModal.formModel.lastNameJap"
+                        placeholder="Last Name (Japanese)"
+                        id="lastNameJap"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+            
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="FIRST_NAME"></span>
+                            <span class="mandatory">*</span></span>
+                <vinput type="input"
+                        name="firstName"
+                        capitalize=""
+                        form-config="queryFormUpdateModal.formConfig"
+                        required=""
+                        ng-model="queryFormUpdateModal.formModel.firstName"
+                        placeholder="First Name"
+                        id="firstName"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="LAST_NAME"></span>
+                            <span class="mandatory">*</span></span>
+                <vinput type="input"
+                        name="lastName"
+                        capitalize=""
+                        form-config="queryFormUpdateModal.formConfig"
+                        required=""
+                        ng-model="queryFormUpdateModal.formModel.lastName"
+                        placeholder="Last Name"
+                        id="lastName"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="GENDER"></span>
+                            <span class="mandatory">*</span></span>
+                <ul>
+                    <li>
+                        <input type="radio"
+                               value="Male"
+                               ng-model="queryFormUpdateModal.formModel.gender"
+                               id="f-option" name="selector-2">
+                        <label for="f-option"><span translate="MALE"></span></label>
+                        <div class="check"></div>
+                    </li>
+
+                    <li>
+                        <input type="radio"
+                               value="Female"
+                               ng-model="queryFormUpdateModal.formModel.gender"
+                               id="s-option" name="selector-2">
+                        <label for="s-option"><span translate="FEMALE"></span></label>
+                        <div class="check"><div class="inside"></div></div>
+                    </li>
+                </ul>
+            </div>
+
+            <!--<div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700">Status</span>
+                <vselect type="input" name="status"id="status"
+                         class="input-box font-family font-700 font-14 col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                         ng-model="queryFormUpdateModal.formModel.status">
+                    <option value="In Process">In Process</option>
+                    <option value="Processed">Processed</option>
+                </vselect>
+            </div>-->  <!-- don't remove-->
+            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-600 font-12"><span translate="ENQUIRY_DATE"></span>
+                            <span class="mandatory">*</span></span>
+                <div class="form-group">
+                    <p class="input-group ">
+                        <input type="text" name="enquiryDate"
+                               ng-init="enroll = queryFormUpdateModal.createDateMap()"
+                               class="form-control date"
+                               uib-datepicker-popup="{{enroll.format}}"
+                               show-button-bar="false"
+                               readonly="true"
+                               ng-model="queryFormUpdateModal.enquiryDate"
+                               form-config="queryFormUpdateModal.formConfig"
+                               is-open="enroll.popup.opened"
+                               placeholder="yyyy-mm-dd"
+                               datepicker-options="enroll.dateOptions"
+                               id="enquiryDate"
+                               ng-click="enroll.open()"
+                               ng-required="true"
+                               ng-change="queryFormUpdateModal.dateFormat(queryFormUpdateModal.formModel.enquiryDate);"/>
+                        <span class="input-group-btn ">
+                                <button type="button" class="btn btn-default calender" ng-click="enroll.open()"><i
+                                        class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+
+            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-600 font-12"><span translate="DATE_OF_BIRTH"></span></span>
+                <div class="form-group">
+                    <p class="input-group ">
+                        <input type="text" name="dateOfBirth{{$index}}"
+                               ng-init="dobMap = queryFormUpdateModal.createDateMap()"
+                               class="form-control date"
+                               uib-datepicker-popup="{{dobMap.format}}"
+                               show-button-bar="false"
+                               readonly="true"
+                               ng-model="queryFormUpdateModal.dateOfBirth"
+                               is-open="dobMap.popup.opened"
+                               placeholder="yyyy-mm-dd"
+                               datepicker-options="dobMap.dateOptions"
+                               id="dateOfBirth{{$index}}"
+                               ng-click="dobMap.open()"
+                               ng-required="true"
+                               ng-change="queryFormUpdateModal.dateFormat(queryFormUpdateModal.formModel.dateOfBirth);"/>
+                        <span class="input-group-btn ">
+                            <button type="button" class="btn btn-default calender" ng-click="dobMap.open()">
+                                <i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-600 font-12"><span translate="FOLLOWUP_DATE"></span></span>
+                <div class="form-group">
+                    <p class="input-group ">
+                        <input type="text" name="nextFollowupDate{{$index}}"
+                               ng-init="nextFollowupDateMap = queryFormUpdateModal.createDateMap()"
+                               class="form-control date"
+                               uib-datepicker-popup="{{nextFollowupDateMap.format}}"
+                               show-button-bar="false"
+                               readonly="true"
+                               ng-model="queryFormUpdateModal.nextFollowupDate"
+                               is-open="nextFollowupDateMap.popup.opened"
+                               placeholder="yyyy-mm-dd"
+                               datepicker-options="nextFollowupDateMap.dateOptions"
+                               id="nextFollowupDate{{$index}}"
+                               ng-click="nextFollowupDateMap.open()"
+                               ng-required="true"
+                               ng-change="queryFormUpdateModal.dateFormat(queryFormUpdateModal.formModel.nextFollowupDate);"/>
+                        <span class="input-group-btn ">
+                            <button type="button" class="btn btn-default calender" ng-click="nextFollowupDateMap.open()">
+                                <i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="PHONE"></span>
+                            <span class="mandatory">*</span></span>
+                <vinput vtype="positiveirrational"
+                        only-numbers=""
+                        name="phone"
+                        form-config="queryFormUpdateModal.formConfig"
+                        required=""
+                        ng-model="queryFormUpdateModal.formModel.phone"
+                        placeholder="Phone"
+                        id="phone"
+                        ng-blur="queryFormUpdateModal.validatePhoneNo()"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+
+            <!--max-limit="10"
+                        charminlength="10"
+                        charmaxlength="10"-->
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="EMAIL_ID"></span><span class="mandatory">*</span></span>
+                <vinput type="input"
+                        name="email"
+                        ng-model="queryFormUpdateModal.formModel.email"
+                        placeholder="Email Id"
+                        id="email"
+                        ng-blur="queryFormUpdateModal.isValidEmail(queryFormUpdateModal.formModel.email)"
+                        ng-init="queryFormUpdateModal.isValidEmail(queryFormUpdateModal.formModel.email)"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="ADDRESS"></span></span>
+                <vinput type="input"
+                        name="address"
+                        ng-model="queryFormUpdateModal.formModel.address"
+                        placeholder="Address"
+                        id="address"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="MUSIC_TYPE"></span>
+                            <span class="mandatory">*</span></span>
+                <div>
+                    <selectize config='queryFormUpdateModal.musicCategoryConfig' options='queryFormUpdateModal.courseList'
+                               class="contect input-box font-family font-700 font-14 col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                               ng-model="queryFormUpdateModal.formModel.musicCategoryArray">
+                    </selectize>
+                </div>
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700 font-12"><span translate="REMARKS"></span></span>
+                <div class="form-input col-lg-6 col-md-6 col-sm-12 col-xs-12 no-padding">
+                    <vtextarea rows="7" name="remarks"
+                               form-config="queryFormUpdateModal.formConfig"
+                               class="form-control noresize-textarea font-family font-12"
+                               ng-model="queryFormUpdateModal.formModel.remarks"
+                               id="remarks"
+                               placeholder="Remarks"
+                               style="border-radius: 1px">
+
+                    </vtextarea>
+                </div>
+            </div>
+           <!-- <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="IS_VISIBLE_DASHBARD"></span>
+                            </span>
+                <div class="form-input col-lg-6 col-md-6 col-sm-12 col-xs-12 no-padding">
+                    <input type="checkbox" id="isVisible"
+                           name="isVisible"
+                           ng-model="queryFormUpdateModal.formModel.isVisible"
+                    />
+                </div>
+
+            &lt;!&ndash;<div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700 font-12">Course</span>
+                <div class="form-input col-lg-6 col-md-6 col-sm-12 col-xs-12 no-padding">
+                    <vtextarea rows="7" name="course"
+                               form-config="queryFormUpdateModal.formConfig"
+                               class="form-control noresize-textarea font-family font-12"
+                               ng-model="queryFormUpdateModal.formModel.course"
+                               id="course"
+                               placeholder="Course"
+                               style="border-radius: 1px">
+                    </vtextarea>
+                </div>
+            </div>&ndash;&gt;
+
+            &lt;!&ndash;<div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="COURSE"></span></span>
+                <vselect name="courseType" id="courseType"
+                         class="input-box font-family font-700 font-14 col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                         ng-model="queryFormUpdateModal.formModel.eoCourses"
+                         required="">
+                    <option value="" disabled>Select</option>
+                    <option value="{{d.primary_key}}" ng-repeat="d in queryFormUpdateModal.courseList">{{d.course_name}}</option>
+                </vselect>
+            </div>&ndash;&gt;
+
+
+
+
+
+                ></div>--></vform>
+
+    </div>
+</div>
+
+<div class="modal-footer">
+    <div class="center col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <button class="btn-custom btn-custom-success"
+                ng-click="queryFormUpdateModal.formSubmit($event );">
+            <span translate="SUBMIT"></span>
+        </button>
+    </div>
+</div>

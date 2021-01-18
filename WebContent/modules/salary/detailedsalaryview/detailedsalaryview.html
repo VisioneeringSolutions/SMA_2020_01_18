@@ -1,0 +1,51 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="detailedSalaryView.modalInstance.close({},'cancel')"
+            style="color: red" title="close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="modal-title"><span translate="SALARY_DETAIL"></span></h3>
+    <h5>{{detailedSalaryView.month}} {{' '}} {{detailedSalaryView.year}}</h5>
+</div>
+
+<div class="modal-body">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-condensed table-hover table-bordered table-striped">
+
+                <colgroup>
+                    <col width="10%"/>
+                    <col width="15%"/>
+                    <col width="25%"/>
+                    <col width="20%"/>
+                    <col width="20%"/>
+                    <col width="10%"/>
+                </colgroup>
+
+                <thead>
+                <th><span translate="DATE"></span></th>
+                <th><span translate="TIME"></span></th>
+                <th><span translate="STUDENT"></span></th>
+                <th><span translate="MUSIC_TYPE"></span></th>
+                <th><span translate="MUSIC_CATEGORY"></span></th>
+                <th><span translate="DURATION"></span></th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in detailedSalaryView.studentData">
+                    <td class="font-14">{{d.date}}</td>
+                    <td class="font-14">{{d.startTime}} {{' - '}} {{d.endTime}}</td>
+                    <td class="font-14">{{d.studFullName}}</td>
+                    <td class="font-14">{{d.musicType}}</td>
+                    <td class="font-14">{{d.description}}</td>
+                    <td class="font-14">{{d.duration}} {{' mins'}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal-footer">
+
+
+</div>

@@ -1,0 +1,503 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="studentUpdateModal.modalInstance.close({},'cancel')"
+            style="color: red" title="close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="modal-title"><span translate="UPDATE_STUDENT"></span></h3>
+</div>
+
+<div class="modal-body">
+
+
+    <div class="registration-from col-lg-12 col-md-12 col-sm-12 sol-xs-12 animate" id="student-reg">
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 sol-xs-6">
+            <label for="UploadAvatar" id="preview">
+                <img src="images/avatar.png" id="studentProfileImage" name="studentProfileImage">
+            </label>
+            <vfile-upload-drct ng-model="studentUpdateModal.uploadConfig.model"
+                               style="display: none;"
+                               accept="image/jpeg, image/jpg, image/png"
+                               config="studentUpdateModal.uploadConfig" fsize="16000027"
+                               preview-class="img-thumbnail"
+                               preview-container="preview">
+            </vfile-upload-drct>
+        </div>
+
+        <div class="menu-option col-lg-5 col-md-5 col-sm-6 sol-xs-6">
+            <ul>
+                <li class=""
+                    id="student-tab"
+                    ng-click="studentUpdateModal.scrollTop('student-tab');">
+                    <span translate="STUDENT_DETAIL"></span>
+                </li>
+                <li class=""
+                    id="guardian-tab"
+                    ng-click="studentUpdateModal.scrollTop('guardian-tab');">
+                    <span translate="GUARDIAN_DETAILS"></span>
+                </li>
+            </ul>
+        </div>
+        <vform name="studentsRegistrationForm" config="studentUpdateModal.formConfig"
+               class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0">
+
+            <div class="student-info animate" id="personal-form">
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="FIRST_NAME_JAP"></span>
+                            <span class="mandatory">*</span></span>
+                    <vinput type="input"
+                            name="firstNameJap"
+                            capitalize=""
+                            form-config="studentUpdateModal.formConfig"
+                            required=""
+                            ng-model="studentUpdateModal.formModel.firstNameJap"
+                            placeholder="First Name (Japanese)"
+                            id="firstNameJap"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="LAST_NAME_JAP"></span>
+                            <span class="mandatory">*</span></span>
+                    <vinput type="input"
+                            name="lastNameJap"
+                            capitalize=""
+                            form-config="studentUpdateModal.formConfig"
+                            required=""
+                            ng-model="studentUpdateModal.formModel.lastNameJap"
+                            placeholder="Last Name (Japanese)"
+                            id="lastNameJap"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="FIRST_NAME"></span>
+                            <span class="mandatory">*</span></span>
+                    <vinput type="input"
+                            name="firstName"
+                            capitalize=""
+                            form-config="studentUpdateModal.formConfig"
+                            required=""
+                            ng-model="studentUpdateModal.formModel.firstName"
+                            placeholder="First Name"
+                            id="firstName"
+                            ng-blur="studentUpdateModal.setId();"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="LAST_NAME"></span>
+                            <span class="mandatory">*</span></span>
+                    <vinput type="input"
+                            name="lastName"
+                            capitalize=""
+                            form-config="studentUpdateModal.formConfig"
+                            required=""
+                            ng-model="studentUpdateModal.formModel.lastName"
+                            placeholder="Last Name"
+                            id="lastName"
+                            ng-blur="studentUpdateModal.setId();"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="STUDENT_ID"></span> (Only 2 Char)
+                            <span class="mandatory">*</span></span>
+                    <vinput type="input"
+                            name="studentId"
+                            capitalize=""
+                            upper-case-capital
+                            max-limit="2"
+                            charminlength="2"
+                            charmaxlength="2"
+                            form-config="studentUpdateModal.formConfig"
+                            required=""
+                            ng-model="studentUpdateModal.formModel.studentId"
+                            ng-disabled="true"
+                            placeholder="ID"
+                            id="studentId"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="GENDER"></span>
+                            <span class="mandatory">*</span></span>
+                    <ul>
+                        <li>
+                            <input type="radio"
+                                   value="Male"
+                                   ng-model="studentUpdateModal.formModel.gender"
+                                   id="f-option" name="selector-2">
+                            <label for="f-option"><span translate="MALE"></span></label>
+                            <div class="check"></div>
+                        </li>
+
+                        <li>
+                            <input type="radio"
+                                   value="Female"
+                                   ng-model="studentUpdateModal.formModel.gender"
+                                   id="s-option" name="selector-2">
+                            <label for="s-option"><span translate="FEMALE"></span></label>
+                            <div class="check"><div class="inside"></div></div>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-600 font-12"><span translate="ENROLLMENT_DATE"></span>
+                            <span class="mandatory">*</span></span>
+                    <div class="form-group">
+                        <p class="input-group ">
+                            <input type="text" name="enrollmentDate{{$index}}"
+                                   ng-init="enroll = studentUpdateModal.createDateMap()"
+                                   class="form-control date"
+                                   uib-datepicker-popup="{{enroll.format}}"
+                                   show-button-bar="false"
+                                   readonly="true"
+                                   ng-model="studentUpdateModal.enrollmentDate"
+                                   is-open="enroll.popup.opened"
+                                   placeholder="yyyy-mm-dd"
+                                   datepicker-options="enroll.dateOptions"
+                                   id="enrollmentDate{{$index}}"
+                                   ng-click="enroll.open()"
+                                   ng-required="true"/>
+                        <span class="input-group-btn ">
+                                <button type="button" class="btn btn-default calender" ng-click="enroll.open()"><i
+                                        class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                    <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-600 font-12"><span translate="DATE_OF_BIRTH"></span></span>
+                    <div class="form-group">
+                        <p class="input-group ">
+                            <input type="text" name="dateOfBirth{{$index}}"
+                                   ng-init="dobMap = studentUpdateModal.createDateMap()"
+                                   class="form-control date"
+                                   uib-datepicker-popup="{{dobMap.format}}"
+                                   show-button-bar="false"
+                                   readonly="true"
+                                   ng-model="studentUpdateModal.dateOfBirth"
+                                   is-open="dobMap.popup.opened"
+                                   placeholder="yyyy-mm-dd"
+                                   datepicker-options="dobMap.dateOptions"
+                                   id="dateOfBirth{{$index}}"
+                                   ng-click="dobMap.open()"
+                                   ng-required="true"/>
+                                    <span class="input-group-btn ">
+                                            <button type="button" class="btn btn-default calender" ng-click="dobMap.open()"><i
+                                                    class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="PHONE"></span></span>
+                    <vinput vtype="positiveirrational"
+                            only-numbers=""
+                            name="phone"
+                            ng-model="studentUpdateModal.formModel.phone"
+                            placeholder="Phone"
+                            id="phone"
+                            ng-blur="studentUpdateModal.validatePhoneNo()"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="USER_NAME"></span>
+                            <span class="mandatory">*</span></span>
+                    <vinput type="input"
+                            name="userName"
+                            form-config="studentUpdateModal.formConfig"
+                            required=""
+                            ng-model="studentUpdateModal.formModel.userName"
+                            placeholder="User Name"
+                            id="userName"
+                            ng-blur="studentUpdateModal.validateUserName();"
+                            ng-disabled="true"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+                <!-- max-limit="10"
+                 charminlength="10"
+                 charmaxlength="10"-->
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="MUSIC_AND_CATEGORY"></span>
+                            <span class="mandatory">*</span></span>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 no-padding">
+                        <selectize config='studentUpdateModal.courseConfig' options='studentUpdateModal.courseList'
+                                   class="input-box font-family font-700 font-14 col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding"
+                                   ng-model="studentUpdateModal.formModel.courseArray">
+                        </selectize>
+                    </div>
+                </div>
+
+                <!--<div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="MUSIC_TYPE"></span>
+                            <span class="mandatory">*</span></span>
+                    <div>
+                        <selectize config='studentUpdateModal.musicCategoryConfig' options='studentUpdateModal.musicArray'
+                                   class="contect input-box font-family font-700 font-14 col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                                   ng-model="studentUpdateModal.formModel.musicCategoryArray">
+                        </selectize>
+                    </div>
+                </div>-->
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="EMAIL_ID"></span>
+                            </span>
+                    <vinput type="input"
+                            name="email"
+                            ng-model="studentUpdateModal.formModel.email"
+                            placeholder="Email Id"
+                            id="email"
+                            ng-blur="studentUpdateModal.isValidEmail(studentUpdateModal.formModel.email)"
+                            ng-init="studentUpdateModal.isValidEmail(studentUpdateModal.formModel.email)"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="ALTERNATE_EMAIL_ID"></span>
+                            </span>
+                    <vinput type="input"
+                            name="alternateEmail"
+                            ng-model="studentUpdateModal.formModel.alternateEmail"
+                            placeholder="Alternate Email Id"
+                            id="alternateEmail"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="ALTERNATE_PHONE"></span>
+                            </span>
+                    <vinput vtype="positiveirrational"
+                            only-numbers=""
+                            max-limit="10"
+                            charminlength="10"
+                            charmaxlength="10"
+                            name="alternatePhone"
+                            ng-model="studentUpdateModal.formModel.alternatePhone"
+                            placeholder="Alternate Phone"
+                            id="alternatePhone"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="ADDRESS_LINE_1"></span>
+                            </span>
+                    <vinput type="input"
+                            name="addressLine1"
+                            ng-model="studentUpdateModal.formModel.addressLine1"
+                            placeholder="Address Line 1"
+                            id="addressLine1"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="ADDRESS_LINE_2"></span>
+                            </span>
+                    <vinput type="input"
+                            name="addressLine2"
+                            ng-model="studentUpdateModal.formModel.addressLine2"
+                            placeholder="Address Line 2"
+                            id="addressLine2"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="REGISTRATION_AMOUNT"></span>
+                            <span class="mandatory">*</span></span>
+                    <vinput type="input"
+                            name="registrationAmount"
+                            capitalize=""
+                            form-config="studentUpdateModal.formConfig"
+                            required=""
+                            ng-model="studentUpdateModal.formModel.registrationAmount"
+                            placeholder="Registration Amount"
+                            id="registrationAmount"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="ILLNESS"></span>
+                            </span>
+                    <vinput type="input"
+                            name="illness"
+                            ng-model="studentUpdateModal.formModel.illness"
+                            placeholder="Illness"
+                            id="illness"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="PRESCRIBED_MEDICATION"></span>
+                            </span>
+                    <vinput type="input"
+                            name="prescribedMedication"
+                            ng-model="studentUpdateModal.formModel.prescribedMedication"
+                            placeholder="Prescribed Medication"
+                            id="prescribedMedication"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+            </div>
+
+            <div class="guardian-info animate" id="guardian-form">
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="GUARDIAN_TITLE"></span></span>
+                    <vinput type="input"
+                            name="guardianTitle"
+                            capitalize=""
+                            ng-model="studentUpdateModal.formModel.guardianTitle"
+                            placeholder="Title"
+                            id="guardianTitle"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="GUARDIAN_FIRST_NAME"></span></span>
+                    <vinput type="input"
+                            name="guardianFirstName"
+                            capitalize=""
+                            ng-model="studentUpdateModal.formModel.guardianFirstName"
+                            placeholder="First Name"
+                            id="guardianFirstName"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="GUARDIAN_LAST_NAME"></span></span>
+                    <vinput type="input"
+                            name="guardianLastName"
+                            capitalize=""
+                            ng-model="studentUpdateModal.formModel.guardianLastName"
+                            placeholder="Last Name"
+                            id="guardianLastName"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="RELATIONSHIP"></span></span>
+                    <vinput type="input"
+                            name="relationship"
+                            capitalize=""
+                            ng-model="studentUpdateModal.formModel.relationship"
+                            placeholder="Relationship"
+                            id="relationship"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="GUARDIAN_EMAIL"></span></span>
+                    <vinput type="input"
+                            name="guardianEmail"
+                            ng-model="studentUpdateModal.formModel.guardianEmail"
+                            placeholder="Email"
+                            id="guardianEmail"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="GUARDIAN_PHONE"></span></span>
+                    <vinput vtype="positiveirrational"
+                            only-numbers=""
+                            max-limit="10"
+                            charminlength="10"
+                            charmaxlength="10"
+                            name="guardianPhone"
+                            ng-model="studentUpdateModal.formModel.guardianPhone"
+                            placeholder="Phone"
+                            id="guardianPhone"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="ADDRESS_LINE_1"></span>
+                            </span>
+                    <vinput type="input"
+                            name="guardianAddressLine1"
+                            ng-model="studentUpdateModal.formModel.guardianAddressLine1"
+                            placeholder="Address Line 1"
+                            id="guardianAddressLine1"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="ADDRESS_LINE_2"></span>
+                            </span>
+                    <vinput type="input"
+                            name="guardianAddressLine2"
+                            ng-model="studentUpdateModal.formModel.guardianAddressLine2"
+                            placeholder="Address Line 2"
+                            id="guardianAddressLine2"
+                            class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    </vinput>
+                </div>
+
+            </div>
+
+        </vform>
+
+    </div>
+</div>
+
+<div class="modal-footer">
+    <!--<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">-->
+    <!--<button class="btn-custom btn-custom-warning"
+            ng-click="studentUpdateModal.scrollTop('student-tab');">
+        Prev
+    </button>
+    <button class="btn-custom btn-custom-primary"
+            ng-click="studentUpdateModal.scrollTop('guardian-tab');">
+        Next
+    </button>-->
+
+
+    <div class="col-md-11" ng-if="studentUpdateModal.studTab">
+        <button class="btn-custom btn-custom-primary"
+                ng-click="studentUpdateModal.scrollTop('guardian-tab');">
+            <span translate="NEXT"></span>
+        </button>
+    </div>
+
+    <div class="col-md-11"  ng-if="studentUpdateModal.guardTab">
+        <button class="btn-custom btn-custom-warning"
+                ng-click="studentUpdateModal.scrollTop('student-tab');">
+            <span translate="PREVIOUS"></span>
+        </button>
+    </div>
+
+    <button class="btn-custom btn-custom-success"
+            ng-click="studentUpdateModal.formSubmit($event );">
+        <span translate="SUBMIT"></span>
+    </button>
+    <!--
+        </div>-->
+</div>

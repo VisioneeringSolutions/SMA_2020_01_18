@@ -1,0 +1,162 @@
+<div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+         style="position: relative;height: 100vh">
+       <!-- <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-3 center studentTeacherRating-info">
+                    <span>Total Students : </span><span>{{studentTeacherRating.studentList.length}}</span>
+                </div>
+                <div class="col-md-4 center studentTeacherRating-info">
+                    <span>Total Payment Receivable ({{studentTeacherRating.currentMonth}}): </span><span>{{studentTeacherRating.totalStudentCount}}</span>
+                </div>
+                <div class="col-md-3 center studentTeacherRating-info">
+                    <span>Total Salary Due ({{studentTeacherRating.currentMonth}}): </span><span>{{studentTeacherRating.totalStudentCount}}</span>
+                </div>
+
+            </div>
+        </div>-->
+
+        <div class="row margin-t-10">
+            <div class="col-md-6 padding-10">
+                <div class="box box-success">
+                    <div class="box-header box-header-table with-border">
+                        <div class="col-md-5 col-sm-5 col-xs-5 no-padding">
+                            <h3 class="box-title">
+                                <span translate="TEACHER_RATING"></span>
+                            </h3>
+                        </div>
+                        <div class="form-input col-md-5 col-sm-5 col-xs-5 no-padding">
+
+                            <select name="teacherName" class="form-control form-control-studentTeacherRating"
+                                    ng-change="studentTeacherRating.getRatingByTeacher(studentTeacherRating.eoTeacherUser)"
+                                    ng-model="studentTeacherRating.eoTeacherUser"
+                                    id="teacherName"
+                                    class="input-box font-family font-700 font-14 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <option value="" disabled>Select Teacher</option>
+                                <option ng-repeat="d in studentTeacherRating.teacherList"
+                                        value={{d}}>{{d.teacherFullName}}
+                                </option>
+
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="box-body">
+                        <div class="chart canvas-style">
+                            <table class="table table-condensed table-hover table-bordered table-striped table-font">
+                                <thead>
+                                <th><span translate="MONTH"></span></th>
+                                <th ng-if="studentTeacherRating.eoTeacherUser">{{studentTeacherRating.teacherName}}{{' '}} Rating</th>
+                                <th><span translate="AVG"></span></th>
+                                <th><span translate="MAX"></span></th>
+                                <th><span translate="MIN"></span></th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="(key,value) in studentTeacherRating.teacherRatingData">
+                                    <td>{{value.month}}</td>
+                                    <td ng-if="studentTeacherRating.eoTeacherUser">{{value.teacherRating}}</td>
+                                    <td>{{value.avgRating}}</td>
+                                    <td>{{value.maxRating}}</td>
+                                    <td>{{value.minRating}}</td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-md-6 padding-10">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            <span translate="TEACHER_RATING"></span>
+                        </h3>
+
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <canvas id="teacherRating" width="230px" height="74"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 padding-10">
+                <div class="box box-success">
+                    <div class="box-header box-header-table with-border">
+                        <div class="col-md-5 col-sm-5 col-xs-5 no-padding">
+                            <h3 class="box-title">
+                                <span translate="STUDENT_RATING"></span>
+                            </h3>
+                        </div>
+                        <div class="form-input col-md-5 col-sm-5 col-xs-5 no-padding">
+
+                            <select name="studentName" class="form-control form-control-studentTeacherRating"
+                                    ng-change="studentTeacherRating.getRatingByStudent(studentTeacherRating.eoStudentUser)"
+                                    ng-model="studentTeacherRating.eoStudentUser"
+                                    id="studentName"
+                                    class="input-box font-family font-700 font-14 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <option value="" disabled>Select Student</option>
+                                <option ng-repeat="d in studentTeacherRating.studentList"
+                                        value={{d}}>{{d.studentfullName}}
+                                </option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="box-body">
+                        <div class="chart canvas-style">
+                            <table class="table table-condensed table-hover table-bordered table-striped table-font">
+                                <thead>
+                                <th><span translate="MONTH"></span></th>
+                                <th ng-if="studentTeacherRating.eoStudentUser">{{studentTeacherRating.studentName}}{{' '}} Rating</th>
+                                <th><span translate="AVG"></span></th>
+                                <th><span translate="MAX"></span></th>
+                                <th><span translate="MIN"></span></th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="(key,value) in studentTeacherRating.studentRatingData">
+                                    <td>{{value.month}}</td>
+                                    <td ng-if="studentTeacherRating.eoStudentUser">{{value.studentRating}}</td>
+                                    <td>{{value.avgRating}}</td>
+                                    <td>{{value.maxRating}}</td>
+                                    <td>{{value.minRating}}</td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-md-6 padding-10">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            <span translate="STUDENT_RATING"></span>
+                        </h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <canvas id="studentRating" width="230px" height="74"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

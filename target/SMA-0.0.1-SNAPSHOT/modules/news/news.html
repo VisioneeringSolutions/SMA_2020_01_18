@@ -1,0 +1,174 @@
+<div class="container-fluid" >
+    <div class="row">
+        <div class="col-md-2 no-padding" style="padding-left: 30px;">
+            <input type="text" name="customFilter" class="form-control"
+                   ng-model="news.customFilter.$"
+                   ng-change="news.setItemsPerPageOnSearch()"
+                   placeholder="Search" id="customFilter" >
+
+        </div>
+        <div class="main-container col-lg-12 col-md-12 col-sm-12 sol-xs-12">
+            <div class="col-lg-7 col-md-7 col-sm-12 sol-xs-12" style="height: 80vh;border-right: 1px solid grey;padding-top: 5px;">
+
+                <div class="">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover table-bordered table-striped">
+
+                            <thead>
+                            <th><span translate="SERIAL_NUMBER"></span></th>
+                            <th ng-click='news.sortColumn("news_date")' ng-class='news.sortClass("news_date")'><span translate="DATE"></span></th>
+                            <th ng-click='news.sortColumn("news_desc")' ng-class='news.sortClass("news_desc")'><span translate="NEWS"></span></th>
+                            <th><span translate="UPDATE"></span></th>
+
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="d in news.newsList  | filter:news.customFilter|orderBy:news.column:news.reverse">
+                                <td>{{$index+1}}</td>
+                                <td> <b>{{news.getDateFormat(d.news_date)}}</b> </td>
+                                <td ng-bind-html="d.news_desc | trusted">  </td>
+                                <!--<td> {{d.news_desc}} </td>-->
+                                <td class="">
+                                    <button class="btn-custom-sm btn-custom-primary" ng-click="news.updateModal(d)"
+                                            title="Update News">
+                                        <i class="fas fa-pen-nib"></i>
+                                    </button>
+
+                                    <button class="btn-custom-sm btn-custom-voilet" ng-click="news.deleteModal(d)"
+                                            title="Delete News">
+                                        <i class="far fa-trash-alt"></i></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="registration-from col-lg-5 col-md-5 col-sm-12 sol-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12" >
+                    <button class="btn-custom btn-custom-primary"
+                            title="Add News"
+                            ng-click="news.addNews();">
+                        <span translate="ADD_NEWS"></span><i class="fas fa-plus"></i>
+                    </button>
+                    <hr style="border-top: 1px solid #a9a6a6">
+                </div>
+                <div class="scrollable-form col-lg-12 col-md-12 col-sm-12 sol-xs-12" id="scroll-bar">
+
+                    <vform name="newsRegistrationForm" config="news.formConfig"
+                           class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0">
+
+
+                        <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-600" style="font-size: 12px;"><span translate="DATE"></span>
+                            <span class="mandatory">*</span></span>
+                            <div class="form-group">
+                                <p class="input-group ">
+                                    <input type="text" name="newsDate"
+                                           ng-init="newsDate = news.createDateMap()"
+                                           class="form-control date"
+                                           uib-datepicker-popup="{{newsDate.format}}"
+                                           show-button-bar="false"
+                                           readonly="true"
+                                           ng-model="news.newsDate"
+                                           is-open="newsDate.popup.opened"
+                                           placeholder="yyyy-mm-dd"
+                                           datepicker-options="newsDate.dateOptions"
+                                           id="newsDate"
+                                           ng-click="newsDate.open()"
+                                           ng-required="true"/>
+                            <span class="input-group-btn ">
+                                <button type="button" class="btn btn-default calender" ng-click="newsDate.open()"><i
+                                        class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                                </p>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="NEWS"></span>
+                            <span class="mandatory">*</span></span>
+                        </div>
+                        <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <summernote config="summerConfig"
+                                        name="newsDesc"
+                                        ng-model="news.formModel.newsDesc"
+                                        form-config="news.formConfig"
+                                        required=""
+                                        id="newsDesc"></summernote>
+                        </div>
+                    </vform>
+                </div>
+<!--don't remove------------------------ -->
+                     <!-- <div class="col-md-6" style="padding-top: 16px;">
+                            <table class="table table-condensed table-hover table-bordered table-striped">
+                                <thead>
+                                <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"> Upload Images
+                            <span class="mandatory">*</span></span>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="text-center">
+                                        <label for="eoExpImage" style="cursor: pointer"
+                                               id="previewattachment">
+                                            <i class="fa fa-upload text-info"
+                                               title="Click to Upload "></i>
+                                        </label>
+                                        <input name="eoExpImage{{$index}}" eo-index="{{$index}}"
+                                               accept="image/png,image/jpg,image/jpeg, application/pdf ,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                               ng-model="add['eoExpImage'+$index]" type="file"
+                                               style="display:none;" id="eoExpImage{{$index}}"
+                                               multiple
+                                               velement="news"
+                                               filetype-drct="news.fileChangeConfigExp">
+                                    </td>
+                                    <td class="visit">
+
+                                        <div class="text-center">
+                                            <a href="javascript:void(0);"
+                                               title="Click to View Uploaded Documents" in-if="index>0"
+                                               ng-click="news.showExpImagesList('eoExpImage'+$index,$index)">
+                                                <i class="fa fa-folder-open" aria-setsize="12px"></i>
+
+                                                   <span id="eoImageCountExp{{$index}}"
+                                                         style="margin-top: 5.5%;margin-right: 25%"
+
+                                                         class="label label-success viewer-notification">{{news.metadata.lkInstances.ProjectUpdateData[0].eoAttachmentArray.length}}</span>
+                                            </a>
+                                        </div>
+
+
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>-->
+
+
+                        <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 25px">
+                    <button class="btn-custom btn-custom-success"
+                            title="Submit"
+                            ng-if="news.formModel.primaryKey == null"
+                            ng-click="news.formSubmit($event);">
+                        <span translate="SUBMIT"></span>
+                    </button>
+                   <button class="btn-custom btn-custom-primary"
+                            title="Update"
+                            ng-if="news.formModel.primaryKey != null"
+                            ng-click="news.formSubmit($event);">
+                       <span translate="UPDATE"></span>
+                    </button>
+                </div>
+
+
+        </div>
+    </div>
+</div>
+    </div>
+

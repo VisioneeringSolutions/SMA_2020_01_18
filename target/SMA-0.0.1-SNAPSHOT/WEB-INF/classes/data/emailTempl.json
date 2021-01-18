@@ -1,0 +1,19 @@
+{
+	"msgObjArray" : [
+		   {
+		   	"id":"REGISTRATION",
+		    "subject":"Welcome to VEMS",
+		    "emailTmplStr":"Dear {{user_name}}, Welcome to VEMS, Thanks for your registraion.Your OTP is {{otp}} for login purpose with User name {{user_id}}.For more details please log on to {{home_url}}"
+		   },
+		   {
+		   	"id":"FORGOT_PASSWORD",
+		    "subject":"Welcome to VEMS",
+		    "emailTmplStr":"Dear {{user_name}}, Welcome to NEMI, Your OTP is {{otp}} for reset password."
+		   },
+		   {
+		   	"id":"ABSENT",
+		    "subject":"Welcome to VEMS",
+		    "emailTmplStr":"Dear {{user_name}}, Your Children {{student_name}} , Roll No. {{student_roll}} is absent today. Do you know about this, If no then please contact to Class teacher.Teacher contact No. {{teacher_mobile}}"
+		   }
+		]
+}

@@ -1,0 +1,118 @@
+    <div class="container-fluid" >
+    <div class="row">
+        <div class="main-container col-lg-12 col-md-12 col-sm-12 sol-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12 no-padding" >
+                <button class="btn-custom btn-custom-primary"
+                        ng-click="teacherRegistration.addTeacherModal();">
+                    <span translate="ADD_TEACHER"></span><i class="fas fa-plus"></i>
+                </button>
+                <span class="header-name"> <span translate="TEACHER_REGISTRATION"></span></span>
+                <hr style="border-top: 1px solid #a9a6a6;margin-left: 0;width: 100%">
+            </div>
+
+            <div class="col-md-2 no-padding">
+                <input type="text" name="customFilter" class="form-control"
+                       ng-model="teacherRegistration.customFilter.$"
+                       ng-change="teacherRegistration.setItemsPerPageOnSearch()"
+                       placeholder="Search" id="customFilter">
+
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12 no-padding" ng-if="teacherRegistration.teacherData.length > 0">
+                <div class="table-responsive container-table" scrollable-table-drct fixed-columns="0" id="scroll-bar" style="margin-top: 5px;">
+                    <table class="table table-condensed table-hover table-striped">
+
+                        <thead>
+                        <th><span translate="SERIAL_NUMBER"></span></th>
+                        <th style="position: relative;z-index: 1"></th>
+                        <th style="position: relative;z-index: 1"><span translate="NAME_ENG"></span></th>
+                        <th ng-click='teacherRegistration.sortColumn("teacherFullName")' ng-class='teacherRegistration.sortClass("teacherFullName")'><span translate="NAME_JAP"></span></th>
+                        <th ng-click='teacherRegistration.sortColumn("joiningDate")' ng-class='teacherRegistration.sortClass("joiningDate")'><span translate="JOINING_DATE"></span></th>
+                        <th ng-click='teacherRegistration.sortColumn("gender")' ng-class='teacherRegistration.sortClass("gender")'><span translate="GENDER"></span></th>
+                        <th ng-click='teacherRegistration.sortColumn("email")' ng-class='teacherRegistration.sortClass("email")'><span translate="EMAIL_ID"></span></th>
+                        <th ng-click='teacherRegistration.sortColumn("phone")' ng-class='teacherRegistration.sortClass("phone")'><span translate="PHONE"></span></th>
+                        <th><span translate="ACTION"></span></th>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="d in teacherRegistration.teacherData | filter:teacherRegistration.customFilter | orderBy:teacherRegistration.column:teacherRegistration.reverse | startFrom:(teacherRegistration.paginationCurrentPage-1)*teacherRegistration.paginationMaxSize | limitTo:teacherRegistration.paginationMaxSize">
+                            <td>{{$index+1}}</td>
+                            <!--<td>{{($index+1) +
+                                (teacherRegistration.paginationCurrentPage-1)*(teacherRegistration.paginationMaxSize)}}
+                            </td>-->
+
+                            <!--<td><img ng-src="{{teacherRegistration.baseImgUrl}}{{d.imageUrl}}" height="40" width="40"
+                                     class="img-circle"/></td>-->
+
+                            <td><div ng-if="d.imageUrl != null">
+                                <img ng-src="{{teacherRegistration.baseImgUrl}}{{d.imageUrl}}" height="40" width="40"
+                                     class="img-circle"/>
+                            </div>
+
+                                <div ng-if="d.imageUrl == null" class="std-prof-image">
+                                    <span class="std-prof-image-id">{{d.teacherId}}</span>
+                                </div>
+
+                            </td>
+
+                            <td>{{d.teacherFullName}}</td>
+                            <td>{{d.teacherFullNameJapanese}}</td>
+
+                            <td>{{teacherRegistration.getDateFormat(d.joiningDate)}}</td>
+                            <td>{{d.gender}}</td>
+                            <td>{{d.email}}</td>
+                            <td>{{d.phone}}</td>
+                            <td class="">
+                                <button class="btn-custom-sm btn-custom-primary"
+                                        ng-click="teacherRegistration.updateModal(d)"
+                                        title="Update Teacher">
+                                    <i class="fas fa-pen-nib"></i>
+                                </button>
+                                <button class="btn-custom-sm btn-custom-voilet"
+                                        ng-click="teacherRegistration.deleteModal(d)"
+                                        title="Remove Teacher">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                                <button class="btn-custom-sm btn-custom-danger"
+                                        ng-click="teacherRegistration.resetPassword(d)"
+                                        title="Reset Password">
+                                    <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-md-9 text-center" style="position: absolute;bottom: 0;height: 40px;" id="pageTop">
+                    <ul uib-pagination total-items="teacherRegistration.paginationTotalItems"
+                        ng-model="teacherRegistration.paginationCurrentPage"
+                        ng-change="teacherRegistration.pageScrollTop()"
+                        max-size="teacherRegistration.paginationMaxSize"
+                        class="pagination-sm" items-per-page="teacherRegistration.paginationMaxSize"
+                        boundary-link-numbers="true" rotate="false"></ul>
+                </div>
+                <div class="col-md-2" style="position: absolute;bottom: 0;height: 20px;">
+                    <div class="form-group" style="margin-top: 5px;">
+                        <label class="col-md-2 pagination" style="margin-top: 5px;"><span translate="VIEW"></span></label>
+
+                        <div class="col-md-1" style="width:auto;">
+                            <select ng-model="teacherRegistration.viewBy" ng-init="teacherRegistration.viewBy='10'"
+                                    ng-change="teacherRegistration.setItemsPerPage(teacherRegistration.viewBy)"
+                                    class="form-control input-sm">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                        <label class="col-md-2 pagination" style="margin-top: 5px;padding-left: 0px;"><span
+                                translate="RECORDS"></span></label>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

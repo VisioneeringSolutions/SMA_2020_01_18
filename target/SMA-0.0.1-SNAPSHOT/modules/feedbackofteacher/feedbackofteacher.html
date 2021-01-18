@@ -1,0 +1,114 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="main-container col-lg-12 col-md-12 col-sm-12 sol-xs-12">
+            <div class="col-lg-7 col-md-7 col-sm-12 sol-xs-12" style="height: 80vh;border-right: 1px solid grey">
+            <!--for batch-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="">
+                    <table class="table time-table table-condensed1 table-hover table-bordered table-striped">
+                        <thead>
+                        <th ng-repeat=" d  in feedbackOfTeacher.studBatchList">
+                            <div>
+                                <a href="javascript:void(0);"
+                                   ng-click="feedbackOfTeacher.getSlot($event,d,d.eoBatch)">
+                                    <b><u>{{d.batchName}}</u></b></a>
+                            </div>
+                        </th>
+
+                        </thead>
+                        <tbody>
+                        <tr>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!--for slot-->
+            <div class="col-lg-6">
+                <div class="table-responsive" ng-if="feedbackOfTeacher.slotData.length>0" >
+                    <table class="table time-table table-condensed1 table-hover table-bordered table-striped">
+                        <thead>
+                        </thead>
+                        <tbody ng-repeat="sData  in feedbackOfTeacher.slotData">
+                        <tr>
+                            <td style="text-align: center;font-size: 12px;">
+                                <a href="javascript:void(0);"
+                                   ng-click="feedbackOfTeacher.getTeachList($event,sData.eoBatch,sData.primaryKey,sData.eoTeacherUser)">
+                                    <b><u style="padding-right: 23px;">{{sData.date}}</u></b>
+                                    <b><u>{{sData.startTime}}-{{sData.endTime}}</u></b>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+</div>
+            <!--for teacherList-->
+            <div class="col-lg-5 col-md-5 col-sm-12 sol-xs-12">
+            <div class="">
+                <div class="table-responsive" ng-if="feedbackOfTeacher.TeacherList.length>0">
+                    <table class="table table-condensed table-hover table-bordered table-striped">
+
+                        <thead>
+                        <th><span translate="SERIAL_NUMBER"></span></th>
+                        <th><span translate="TEACHER_NAME"></span></th>
+                        </thead>
+
+
+                        <tbody ng-repeat="d in feedbackOfTeacher.TeacherList"
+                               ng-init="mainIndex = $index; feedbackOfTeacher.attrList[mainIndex] = []">
+                        <tr>
+                            <td>{{(mainIndex+1)}}</td>
+                            <td>
+                                <a href="javascript:void(0);"
+                                   ng-click="feedbackOfTeacher.getAttributeList($event,d.eoTeacherUser,d.batchPk,d.slotPk,mainIndex);
+                                      ">{{d.teacherfullname}}</a>
+                            </td>
+                        <tr id="details{{mainIndex}}" class="hide expandable" >
+                            <td colspan="2">
+                                <div class="col-md-12 no-padding">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                        <th style="color: indianred"><span translate="ATTRIBUTES"></span></th>
+                                        <th style="color: #00aa88"><span translate="RATINGS"></span></th>
+
+                                        </thead>
+                                        <tbody ng-repeat="attributeData in feedbackOfTeacher.attrList[mainIndex]"
+                                               ng-init="childIndex = $index">
+                                        <tr>
+                                            <td>{{attributeData.criteria}}</td>
+                                            <td  ng-init = "entities = feedbackOfTeacher.getMaxRating(attributeData,mainIndex,childIndex)" style="background-color: grey;">
+                                                <i class="fas fa-star" ng-repeat="t in  entities"
+                                                   ng-init="starIndex = $index; "
+                                                   ng-style="feedbackOfTeacher.getRating(attributeData.optedRating-1,starIndex,mainIndex,childIndex,entities)"
+                                                   ng-click="feedbackOfTeacher.setRating(starIndex,mainIndex,childIndex,entities)"
+                                                   id="star{{childIndex+''+starIndex}}"
+                                                   style="cursor: pointer; padding-right: 2px;"></i>
+                                            </td>
+                                        </tr>
+                                        <tr ng-if="childIndex == feedbackOfTeacher.lengthOfAttr">
+                                            <td colspan="2">
+                                                <button class="btn-custom btn-custom-success"
+                                                        title="Submit"
+                                                        ng-if="feedbackOfTeacher.flag"
+                                                        ng-click="feedbackOfTeacher.submitRating(d.eoTeacherUser,d.batchPk,d.slotPk,d.date,d.month,d.year,mainIndex);">
+                                                    <span translate="SUBMIT"></span>
+                                                </button>
+                                            </td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</div>

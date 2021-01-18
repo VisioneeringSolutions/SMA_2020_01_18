@@ -1,0 +1,398 @@
+<div class="container-fluid" ng-if="dashboardTeacher.role == 'EOTeacherUser'">
+    <div class="row">
+        <div class="main-container col-lg-12 col-md-12 col-sm-12 col-xs-12" id="teacher-dashboard-pc" style="height: 70vh">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                    <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 no-padding center">
+                        <span class="font-family cursor"
+                              title="Previous Week"
+                              style="text-shadow: 0px 7px 11px rgba(30,13,8,0.69)"
+                              ng-click="dashboardTeacher.getPreviousWeek();dashboardTeacher.dateRange();">
+                            <span translate="PREV_WEEK"></span>
+                        </span>
+                    </div>
+
+                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
+                        <!--<span class="col-lg-5 col-md-5 col-sm-12 col-xs-12 font-family font-600 font-12">Date From
+                            <span class="mandatory">*</span></span>-->
+                        <div class="form-group">
+                            <p class="input-group ">
+                                <input type="text" name="dateFrom"
+                                       ng-init="dateFrom = dashboardTeacher.createDateMap()"
+                                       class="form-control date"
+                                       uib-datepicker-popup="{{dateFrom.format}}"
+                                       show-button-bar="false"
+                                       readonly="true"
+                                       ng-model="dashboardTeacher.dateFrom"
+                                       is-open="dateFrom.popup.opened"
+                                       placeholder="dd-mm-yy"
+                                       datepicker-options="dateFrom.dateOptions"
+                                       id="dateFrom"
+                                       ng-click="dateFrom.open()"
+                                       ng-change="dashboardTeacher.dateRange()"
+                                       ng-required="true"/>
+                                    <span class="input-group-btn ">
+                                            <button type="button" class="btn btn-default calender"
+                                                    ng-click="dateFrom.open()">
+                                                <i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 no-padding center">
+                        <span class="font-family cursor"
+                              title="Next Week"
+                              style="text-shadow: 0px 7px 11px rgba(30,13,8,0.69)"
+                              ng-click="dashboardTeacher.getNextWeek();dashboardTeacher.dateRange();">
+                             <span translate="NEXT_WEEK"></span>
+                        </span>
+                    </div>
+                    <!--<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <span class="col-lg-5 col-md-5 col-sm-12 col-xs-12 font-family font-600 font-12">Date To
+                            <span class="mandatory">*</span></span>
+                        <div class="form-group">
+                            <p class="input-group ">
+                                <input type="text" name="dateTo"
+                                       ng-init="dateTo = dashboardTeacher.createDateMap()"
+                                       class="form-control date"
+                                       uib-datepicker-popup="{{dateTo.format}}"
+                                       show-button-bar="false"
+                                       readonly="true"
+                                       ng-model="dashboardTeacher.dateTo"
+                                       ng-disabled="true"
+                                       is-open="dateTo.popup.opened"
+                                       placeholder="dd-mm-yy"
+                                       datepicker-options="dateTo.dateOptions"
+                                       id="dateTo"
+                                       ng-click="dateTo.open()"
+                                       ng-required="true"/>
+                                    <span class="input-group-btn ">
+                                            <button type="button" class="btn btn-default calender" ng-click="dateTo.open()" ng-disabled="true"><i
+                                                    class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                            </p>
+                        </div>
+                    </div>-->
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 text-center">
+                        <div class="slot-type col-lg-1 col-md-1 col-sm-3 col-xs-3"
+                             style="background: #81C784"
+                             title="Requested">
+                            ?
+                        </div>
+                        <div class="slot-type col-lg-1 col-md-1 col-sm-3 col-xs-3"
+                             style="background: #fff"
+                             title="Available">
+                            ?
+                        </div>
+                        <div class="slot-type col-lg-1 col-md-1 col-sm-3 col-xs-3"
+                             style="background: #cfd8dc"
+                             title="Not Available">
+                            ?
+                        </div>
+                        <div class="slot-type col-lg-1 col-md-1 col-sm-3 col-xs-3"
+                             style="background: #F57C00"
+                             title="Partially Allocated">
+                            ?
+                        </div>
+                        <div class="slot-type col-lg-1 col-md-1 col-sm-3 col-xs-3"
+                             style="background: #03A9F4"
+                             title="Allocated">
+                            ?
+                        </div>
+                        <div class="slot-type col-lg-1 col-md-2 col-sm-3 col-xs-3 font-8"
+                             style="background: #883c3f"
+                             title="Cancellation Request">
+                            <span class="font-8" style="color: #fff;margin-left: -6px">CR</span>
+                        </div>
+                        <div class="slot-type col-lg-1 col-md-2 col-sm-3 col-xs-3 font-8"
+                             style="background: #000"
+                             title="Student Cancellation">
+                            <span class="font-8" style="color: #fff;margin-left: -6px">CR</span>
+                        </div>
+                        <div class="slot-type col-lg-1 col-md-2 col-sm-3 col-xs-3 font-8"
+                             style="background: #00480d"
+                             title="Cancellation Accepted">
+                            <span class="font-8" style="color: #fff;margin-left: -6px">CA</span>
+                        </div>
+                        <div class="slot-type col-lg-1 col-md-2 col-sm-3 col-xs-3 font-8"
+                             style="background: #FFD54F"
+                             title="Slot Cancelled">
+                            <span class="font-8" style="color: #000;margin-left: -6px">C</span>
+                        </div>
+                        <div class="slot-type col-lg-1 col-md-2 col-sm-3 sol-xs-3 font-8"
+                             style="background:  #EFFD5F"
+                             title="Admin Cancellation">
+                            <span class="font-8" style="color: #000;margin-left: -6px">AC</span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 text-center font-700">
+                        <div>
+                            Assign student
+                            <label class="switch">
+                                <input type="checkbox"
+                                       checked
+                                       ng-model="dashboardTeacher.toggle" ng-click="dashboardTeacher.toggleSwitch(dashboardTeacher.toggle)">
+                                <span class="slider round"></span>
+                            </label>
+                            Mark slots
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="dashboardTeacher.enableSlot">
+                    <div class="container-table" scrollable-table-drct fixed-columns="1" id="scroll-bar"
+                         style="border: 1px solid #ccc8c8;">
+                        <table class="table-fixed table-fixed-preview table-dashboard">
+
+                            <thead>
+                            <th></th>
+                            <th ng-repeat="m in dashboardTeacher.timeMap">
+                                <div>
+                                    {{m}}
+                                </div>
+                            </th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="(nameKey, nameValue) in dashboardTeacher.dataList">
+                                <td>{{nameKey.split('_')[1]}}
+                                    {{nameKey.split('_')[0] == 'Monday' ? 'MON':''}}
+                                    {{nameKey.split('_')[0] == 'Tuesday' ? 'TUE':''}}
+                                    {{nameKey.split('_')[0] == 'Wednesday' ? 'WED':''}}
+                                    {{nameKey.split('_')[0] == 'Thursday' ? 'THU':''}}
+                                    {{nameKey.split('_')[0] == 'Friday' ? 'FRI':''}}
+                                    {{nameKey.split('_')[0] == 'Saturday' ? 'SAT':''}}
+                                    {{nameKey.split('_')[0] == 'Sunday' ? 'SUN':''}}
+                                </td>
+                                <td ng-repeat="m in dashboardTeacher.timeMap"
+                                    ng-click="dashboardTeacher.setStatus(nameKey,m,nameValue)"
+                                    id="{{nameKey}}{{m}}"
+                                    style="cursor: pointer"
+                                    ng-style="dashboardTeacher.setColor(nameKey,m);">
+
+                                    <div ng-repeat="data in dashboardTeacher.getTeacherData(m,nameKey)">
+
+                                        <div class="allocation" style="position: relative">
+                                            <span title="{{data.studentFullName}} {{data.roomName != null ? ' (':''}} {{data.roomName}}{{data.roomName != null ? ')':''}}{{data.courseName != null ? ' (':''}} {{data.courseName}}{{data.courseName != null ? ')':''}}"
+                                                  ng-class="dashboardTeacher.getButtonType(data)"
+                                                  ng-click="dashboardTeacher.makeNewSelection(data)"
+                                                  ng-if="((data.status != 'Cancelled')|| (data.teacherCancellation != true)||(data.adminCancellation ==true))">
+                                                {{dashboardTeacher.getAllocationData(data)}}
+                                            </span>
+                                            <span class="cancellation-teacher" ng-if="data.teacherCancellation == true && data.status != 'Cancelled'">CR</span>
+                                            <span class="cancellation-student" ng-if="data.studentCancellation == true && data.status != 'Cancelled'">CR</span>
+                                            <span class="cancellation-admin" ng-if="data.status == 'Cancelled' && data.adminCancellation == true ">AC</span>
+                                            <!--<span class="cancellation-accepted" ng-if="data.status == 'Cancelled' && data.teacherCancellation == true">CA</span>-->
+                                            <span class="cancellation" ng-if="data.status == 'Cancelled' && data.teacherCancellation == false && data.studentCancellation == true && data.adminCancellation == false">C</span>
+
+                                            <div class="overlay" id="{{m}}{{nameKey}}+overlay" ng-click="dashboardTeacher.overlay(m,nameKey);"></div>
+                                            <ul class="nav navbar-nav  main-menu allocation-menu-teacher animate"
+                                                id="{{m}}{{nameKey}}+drop-down"
+                                                ng-if="true"
+                                                ng-click="dashboardTeacher.overlay(m,nameKey);">
+
+                                                <li class="dropdown animate" style="padding: 5px; width: 100%"
+                                                    title="{{d.studfullname}}  {{' (Music Type='}} {{d.music_type}} {{')'}}  {{ '(Course Name='}} {{d.course_name}} {{')'}}"
+                                                    ng-click="dashboardTeacher.allocateBatch(data,d,nameKey,m);dashboardTeacher.overlay(m,nameKey);"
+                                                    ng-repeat="d in dashboardTeacher.batchList | orderBy: 'studfullname'  ">
+                                                    <span>{{d.studfullname}}</span><br>
+                                                </li>
+
+                                                <li class="dropdown animate" style="padding: 5px; width: 100%"
+                                                    ng-click="dashboardTeacher.requestCancellation(data,'self');"
+                                                    ng-if="data.status == 'Allocated' || data.status == 'Partially Allocated'">
+                                                    <span style="color: red"> <span translate="SELF_CANCELLATION_REQ"></span></span>
+                                                </li>
+
+                                                <li class="dropdown animate" style="padding: 5px; width: 100%"
+                                                    ng-click="dashboardTeacher.requestCancellation(data,'student');"
+                                                    ng-if="data.status == 'Allocated' || data.status == 'Partially Allocated'">
+                                                    <span style="color: red"> <span translate="STUDENT_CANCELLATION_REQ"></span></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="center col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 25px">
+                <button class="btn-custom btn-custom-success"
+                        title="Submit"
+                        ng-if="dashboardTeacher.enableSlot"
+                        ng-click="dashboardTeacher.submit( );">
+                    {{dashboardTeacher.submitButton}}
+                </button>
+            </div>
+        </div>
+
+
+        <div class="main-container col-lg-12 col-md-12 col-sm-12 col-xs-12 "
+             id="teacher-dashboard-mb">
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding"
+                 ng-if="dashboardTeacher.mobileView == false">
+                <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 font-family font-14 center"
+                      style="color: red;">
+                    <span translate="NO_SLOT_ASSIGNED_FOR_CURRENT_WEEK"></span>
+                </span>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding"
+                 ng-if="dashboardTeacher.mobileView">
+                <table class="table-fixed-mb table-fixed-preview table-hover table-striped">
+                    <colgroup>
+                        <col width="30%"/>
+                        <col width="30%"/>
+                        <col width="40%"/>
+                    </colgroup>
+                    <thead>
+                    <th><span translate="DATE"></span></th>
+                    <th><span translate="SLOT"></span></th>
+                    <th><span translate="DETAILS"></span></th>
+                    </thead>
+
+                    <tbody ng-repeat="d in dashboardTeacher.dataMobile" >
+                    <tr>
+                        <td>{{d.date}}</td>
+                        <td>{{d.start_time}} {{'-'}} {{d.end_time}}</td>
+                        <td>
+                            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">{{d.studentfullname}}</span>
+                            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">{{d.room_id}}</span>
+                            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">{{d.room_name}}</span>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+
+            <!--<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding"
+                 ng-repeat="(key, value) in dashboardTeacher.respData"
+                 ng-if="dashboardTeacher.mobileView">
+                <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 font-family font-14 center">
+                        {{key}}
+                </span>
+                <table class="table-fixed-mb table-fixed-preview table-hover table-striped">
+
+                    <colgroup>
+                        <col width="15%"/>
+                        <col width="25%"/>
+                        <col width="60%"/>
+                    </colgroup>
+
+                    <thead>
+                    <th><span translate="SERIAL_NUMBER"></span></th>
+                    <th><span translate="SLOT"></span></th>
+                    <th><span translate="DETAILS"></span></th>
+                    </thead>
+
+                    <tbody>
+                    <tr ng-repeat="d in value ">
+                        <td ng>{{$index+1}}</td>
+                        <td>{{d.startTime}} {{'-'}} {{d.endTime}}</td>
+                        <td>
+                            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">{{d.batchName}}</span>
+                            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">{{d.roomId}}</span>
+                            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">{{d.roomname}}</span>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding"
+                     style="height: 20px">
+
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding"
+                 ng-repeat="(key, value) in dashboardTeacher.respData">
+                <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 font-family font-14 center">
+                        {{key}}
+                </span>
+                <table class="table-fixed-mb table-fixed-preview table-hover table-striped">
+
+                    <colgroup>
+                        <col width="15%"/>
+                        <col width="25%"/>
+                        <col width="60%"/>
+                    </colgroup>
+
+                    <thead>
+                    <th><span translate="SERIAL_NUMBER"></span></th>
+                    <th><span translate="SLOT"></span></th>
+                    <th><span translate="DETAILS"></span></th>
+                    </thead>
+
+                    <tbody>
+                    <tr ng-repeat="d in value ">
+                        <td ng>{{$index+1}}</td>
+                        <td>{{d.startTime}} {{'-'}} {{d.endTime}}</td>
+                        <td>
+                            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">{{d.batchName}}</span>
+                            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">{{d.roomId}}</span>
+                            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">{{d.roomname}}</span>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding"
+                     style="height: 20px">
+
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding"
+                 ng-repeat="(key, value) in dashboardTeacher.respData">
+                <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 font-family font-14 center">
+                        {{key}}
+                </span>
+                <table class="table-fixed-mb table-fixed-preview table-hover table-striped">
+
+                    <colgroup>
+                        <col width="15%"/>
+                        <col width="25%"/>
+                        <col width="60%"/>
+                    </colgroup>
+
+                    <thead>
+                    <th><span translate="SERIAL_NUMBER"></span></th>
+                    <th><span translate="SLOT"></span></th>
+                    <th><span translate="DETAILS"></span></th>
+                    </thead>
+
+                    <tbody>
+                    <tr ng-repeat="d in value ">
+                        <td ng>{{$index+1}}</td>
+                        <td>{{d.startTime}} {{'-'}} {{d.endTime}}</td>
+                        <td>
+                            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">{{d.batchName}}</span>
+                            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">{{d.roomId}}</span>
+                            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">{{d.roomname}}</span>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding"
+                     style="height: 20px">
+
+                </div>
+            </div>-->
+
+        </div>
+    </div>
+</div>

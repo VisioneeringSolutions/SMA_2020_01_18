@@ -1,0 +1,94 @@
+<div class="container-fluid" >
+    <div class="row">
+        <div class="main-container col-lg-12 col-md-12 col-sm-12 sol-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12"
+                 style="border-bottom: 1px solid #a9a6a6; margin-bottom: 10px">
+                <span class="header-name" style="margin-bottom: 10px"><span translate="COMPETITION"></span></span>
+            </div>
+            <div class="col-md-2 no-padding">
+                <input type="text" name="customFilter" class="form-control"
+                       ng-model="competitionForStudents.customFilter.$"
+                       ng-change="competitionForStudents.setItemsPerPageOnSearch()"
+                       placeholder="Search" id="customFilter" >
+
+            </div>
+
+            <form name="competitionForm" id="competitionList">
+                <div class="row">
+                    <div class="col-md-12" ng-if="competitionForStudents.StudCompetitionData.length > 0" style="padding-top:5px;">
+                        <div class="table-responsive">
+                            <table class="table table-condensed table-hover table-bordered table-striped">
+                                <colgroup>
+                                    <col width="5%">
+                                    <col width="5%">
+                                    <col width="5%">
+                                </colgroup>
+                                <thead>
+                                <th><span translate="SERIAL_NUMBER"></span></th>
+                                <th ng-click='competitionForStudents.sortColumn("name")' ng-class='competitionForStudents.sortClass("name")'><span translate="NAME"></span></th>
+                                <th ng-click='competitionForStudents.sortColumn("competition_date")' ng-class='competitionForStudents.sortClass("competition_date")'><span translate="DATE"></span></th>
+                                <!--<th>Details</th>
+                                <th>Organizing Authority</th>
+                                <th>Venue</th>-->
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="d in competitionForStudents.StudCompetitionData| filter:competitionForStudents.customFilter | orderBy:competitionForStudents.column:competitionForStudents.reverse">
+                                    <td>{{$index+1}}</td>
+                                    <!--<td>{{d.name}}</td>-->
+                                    <td>
+                                        <a href="javascript:void(0);"
+                                           ng-click="competitionForStudents.viewDetailsModel(d);">
+                                            <b><u>{{d.name}}</u></b></a>
+                                    </td>
+                                    <td>{{competitionForStudents.getDateFormat(d.competition_date)}}</td>
+                                    <!--<td ng-bind-html="d.details | trusted">  </td>
+                                    <td>{{d.organizing_authority}}</td>
+                                    <td>{{d.venue}}</td>-->
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-9 text-center" style="position: absolute;bottom: 0;height: 40px;" id="pageTop">
+                            <ul uib-pagination total-items="competitionForStudents.paginationTotalItems"
+                                ng-model="competitionForStudents.paginationCurrentPage"
+                                ng-change="competitionForStudents.pageScrollTop()"
+                                max-size="competitionForStudents.paginationMaxSize"
+                                class="pagination-sm" items-per-page="competitionForStudents.paginationMaxSize"
+                                boundary-link-numbers="true" rotate="false"></ul>
+                        </div>
+                        <div class="col-md-2" style="position: absolute;bottom: 0;height: 20px;">
+                            <div class="form-group" style="margin-top: 5px;">
+                                <label class="col-md-2 pagination" style="margin-top: 5px;"><span translate="VIEW"></span></label>
+
+                                <div class="col-md-1" style="width:auto;">
+                                    <select ng-model="competitionForStudents.viewBy" ng-init="competitionForStudents.viewBy='10'"
+                                            ng-change="competitionForStudents.setItemsPerPage(competitionForStudents.viewBy)"
+                                            class="form-control input-sm">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                                <label class="col-md-2 pagination" style="margin-top: 5px;padding-left: 0px;"><span
+                                        translate="RECORDS"></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>

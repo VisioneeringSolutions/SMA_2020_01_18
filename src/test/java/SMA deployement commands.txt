@@ -1,0 +1,12 @@
+1.	Open Putty and load and login with music
+2.	In putty CMD login with "ec2-user"
+3.	sudo su
+4.	su musicu
+5.	cd .. (home directory  and ls -ltr)
+6.	cd musicu
+7.	cd apache-tomcat-7.0.94
+8.	cd webapps
+	rm ROOT.war
+	rm -R ROOT
+9.	cp SMA.war ROOT.war
+10. cp -R SMA ROOT

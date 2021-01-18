@@ -1,0 +1,40 @@
+{
+  "administrator": [
+    {
+      "key": "0",
+      "icon": "fa fa-home",
+      "title": "Home",
+      "isActive": false,
+      "url": "#/home",
+      "subMenu": []
+    },
+  
+    {
+      "key": "1",
+      "icon": "fa fa-file-text",
+      "title": "Registration",
+      "isActive": false,
+      "url": "#/registration",
+      "subMenu": [
+        {
+          "key": "0",
+          "icon": "",
+          "title": "Staff User",
+          "isActive": false,
+          "url": "#/registration/staff",
+          "subMenu": []
+        }
+      ]
+    },
+    
+    {
+      "key": "2",
+      "icon": "fa fa-university",
+      "title": "Institute",
+      "isActive": false,
+      "url": "#/Institute",
+      "subMenu": []
+    }
+    ]
+
+}

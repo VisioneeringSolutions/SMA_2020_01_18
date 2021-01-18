@@ -1,0 +1,396 @@
+<div class="container-fluid" ng-if="dashboardAdmin.role == 'EOManagementUser'">
+
+    <div class="row">
+        <div class="main-container col-lg-12 col-md-12 col-sm-12 sol-xs-12 no-padding" style="height: 70vh; ">
+
+            <!--  <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12">-->
+            <div class= "col-lg-10 col-md-10 col-sm-12 sol-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12">
+
+
+                    <div class="col-lg-2 col-md-2 col-sm-1 sol-xs-1 no-padding center" style="position: relative">
+                        <span class="font-family cursor"
+                              title="Previous Week"
+                              style="text-shadow: 0 7px 11px rgba(30,13,8,0.69);
+                                        position: absolute;
+                                        right: 5px;
+                                        top: 5px;"
+                              ng-click="dashboardAdmin.getPreviousWeek();dashboardAdmin.dateRange();">
+                           <span translate="PREV_WEEK"></span>
+                            <i class="fas fa-angle-left"
+                               style=" position: absolute;
+                                        top: 3px;
+                                        left: -12px;
+                                        display:block ">
+                            </i>
+                        </span>
+                    </div>
+
+
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 no-padding">
+                        <!-- <span class="col-lg-3 col-md-3 col-sm-3 col-xs-3 font-family font-600 font-12">Date
+                             <span class="mandatory">*</span></span>-->
+                        <div class="form-group">
+                            <p class="input-group ">
+                                <input type="text" name="dateFrom"
+                                       ng-init="dateFrom = dashboardAdmin.createDateMap()"
+                                       class="form-control date"
+                                       uib-datepicker-popup="{{dateFrom.format}}"
+                                       show-button-bar="false"
+                                       readonly="true"
+                                       ng-model="dashboardAdmin.dateFrom"
+                                       is-open="dateFrom.popup.opened"
+                                       placeholder="dd-mm-yy"
+                                       datepicker-options="dateFrom.dateOptions"
+                                       id="dateFrom"
+                                       ng-click="dateFrom.open()"
+                                       ng-change="dashboardAdmin.dateRange();"
+                                       ng-required="true"/>
+                                <span class="input-group-btn ">
+                                            <button type="button" class="btn btn-default calender"
+                                                    ng-click="dateFrom.open()">
+                                                <i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-2 col-sm-1 sol-xs-1 no-padding center" style="position: relative">
+                        <span class="font-family cursor"
+                              title="{{dashboardAdmin.getTitle('Next Week')}}"
+                              style="text-shadow: 0 7px 11px rgba(30,13,8,0.69);
+                                        position: absolute;
+                                        left: 5px;
+                                        top: 5px;"
+                              ng-click="dashboardAdmin.getNextWeek();dashboardAdmin.dateRange();">
+                           <span translate="NEXT_WEEK"></span>
+                            <i class="fas fa-angle-right"
+                               style=" position: absolute;
+                                        top: 3px;
+                                        right: -12px;
+                                        display:block ">
+
+                            </i>
+                        </span>
+                    </div>
+                    <!--<div class="col-lg-4 col-md-4 col-sm-4 sol-xs-4">
+                        <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12 font-family font-600 font-12">Date To
+                            <span class="mandatory">*</span></span>
+                        <div class="form-group">
+                            <p class="input-group ">
+                                <input type="text" name="dateTo"
+                                       ng-init="dateTo = dashboardAdmin.createDateMap()"
+                                       class="form-control date"
+                                       uib-datepicker-popup="{{dateTo.format}}"
+                                       show-button-bar="false"
+                                       readonly="true"
+                                       ng-model="dashboardAdmin.dateTo"
+                                       ng-disabled="true"
+                                       is-open="dateTo.popup.opened"
+                                       placeholder="dd-mm-yy"
+                                       datepicker-options="dateTo.dateOptions"
+                                       id="dateTo"
+                                       ng-click="dateTo.open()"
+                                       ng-change="dashboardAdmin.getTimeSlotData();"
+                                       ng-required="true"/>
+                                    <span class="input-group-btn ">
+                                            <button type="button" class="btn btn-default calender" ng-click="dateTo.open()" ng-disabled="true"><i
+                                                    class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                            </p>
+                        </div>
+                    </div>-->
+                    <div class="slot-type col-lg-1 col-md-1 col-sm-3 sol-xs-3"
+                         style="background: #fff"
+                         title="Available">
+                        ?
+                    </div>
+                    <div class="slot-type col-lg-1 col-md-1 col-sm-3 sol-xs-3"
+                         style="background: #cfd8dc"
+                         title="Not Available">
+                        ?
+                    </div>
+                    <div class="slot-type col-lg-1 col-md-2 col-sm-3 sol-xs-3"
+                         style="background: #F57C00"
+                         title="Partially Allocated">
+                        ?
+                    </div>
+                    <div class="slot-type col-lg-1 col-md-2 col-sm-3 sol-xs-3"
+                         style="background: #03A9F4"
+                         title="Allocated">
+                        ?
+                    </div>
+                    <div class="slot-type col-lg-1 col-md-2 col-sm-3 sol-xs-3 font-8"
+                         style="background: #000"
+                         title="Student's Cancellation Request">
+                        <span class="font-8" style="color: #fff;margin-left: -6px">CR</span>
+                    </div>
+                    <div class="slot-type col-lg-1 col-md-2 col-sm-3 sol-xs-3 font-8"
+                         style="background: #883c3f"
+                         title="Teacher's Cancellation Request">
+                        <span class="font-8" style="color: #fff;margin-left: -6px">CR</span>
+                    </div>
+                    <div class="slot-type col-lg-1 col-md-2 col-sm-3 sol-xs-3 font-8"
+                         style="background: #00480d"
+                         title="Cancellation Accepted">
+                        <span class="font-8" style="color: #fff;margin-left: -6px">CA</span>
+                    </div>
+
+
+                </div>
+
+
+
+                <div ng-if="dashboardAdmin.enableSlot" class="col-lg-12 col-md-12 col-sm-12 sol-xs-12">
+
+
+                    <div style="display: inline-grid;margin-left: -123px;float: left">
+                        <button class="btn-custom-d btn-custom-primary"
+                                title="Student Registration"
+                                ng-click="route('StudentRegistration');"
+                                style="margin-bottom: 15px">
+                            <span translate="STUDENT_REGISTRATION"></span>
+                        </button>
+                        <button class="btn-custom-d btn-custom-primary"
+                                title="Teacher Registration"
+                                ng-click="route('TeacherRegistration');"
+                                style="margin-bottom: 15px">
+                            <span translate="TEACHER_REGISTRATION"></span>
+                        </button>
+                        <button class="btn-custom-d btn-custom-primary"
+                                title="Course"
+                                ng-click="route('course');"
+                                style="margin-bottom: 15px">
+                            <span translate="COURSE"></span>
+                        </button>
+                        <button class="btn-custom-d btn-custom-primary"
+                                title="Music Room"
+                                ng-click="route('musicRoom');"
+                                style="margin-bottom: 15px">
+                            <span translate="MUSIC_ROOM"></span>
+                        </button>
+                        <button class="btn-custom-d btn-custom-primary"
+                                title="Music Type"
+                                ng-click="route('musicType');"
+                                style="margin-bottom: 15px">
+                            <span translate="MUSIC_TYPE"></span>
+                        </button>
+                        <button class="btn-custom-d btn-custom-primary"
+                                title="Music Type"
+                                ng-click="route('musicCategory');"
+                        >
+                            <span translate="MUSIC_CATEGORY"></span>
+                        </button>
+                    </div>
+
+                    <div class=" center col-lg-12 col-md-12 col-sm-12 sol-xs-12 no-padding">
+                        <div class="container-table" scrollable-table-drct fixed-columns="1" id="scroll-bar"
+                             style="border: 1px solid #ccc8c8;">
+                            <table class="table-fixed table-fixed-preview table-dashboard">
+
+                                <thead>
+                                <th></th>
+                                <th ng-repeat="m in dashboardAdmin.timeMap">
+                                    <div>
+                                        {{m}}
+                                    </div>
+                                </th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="(nameKey, nameValue) in dashboardAdmin.dataList ">
+                                    <td>{{nameKey.split('_')[1]}}
+                                        <span translate={{dashboardAdmin.getWeekName(nameKey.split('_')[0])}}></span>
+                                        <!--{{nameKey.split('_')[0] == 'Monday' ? 'MON':''}}
+                                        {{nameKey.split('_')[0] == 'Tuesday' ? 'TUE':''}}
+                                        {{nameKey.split('_')[0] == 'Wednesday' ? 'WED':''}}
+                                        {{nameKey.split('_')[0] == 'Thursday' ? 'THU':''}}
+                                        {{nameKey.split('_')[0] == 'Friday' ? 'FRI':''}}
+                                        {{nameKey.split('_')[0] == 'Saturday' ? 'SAT':''}}
+                                        {{nameKey.split('_')[0] == 'Sunday' ? 'SUN':''}}-->
+                                    </td>
+                                    <td ng-repeat="m in dashboardAdmin.timeMap"
+                                        ng-click="dashboardAdmin.setStatus(nameKey,m)"
+                                        id=""
+                                        style="cursor: pointer"
+                                        ng-style="dashboardAdmin.setColor(nameKey,m);">
+
+                                        <div ng-repeat="data in dashboardAdmin.getTeacherData(m,nameKey) | orderBy:'displayName'" style="text-align: left">
+
+                                            <div class="allocation" style="position: relative">
+                                                <span  ng-click="dashboardAdmin.makeNewSelection(data, $event);"
+                                                       ng-class="dashboardAdmin.getButtonType(data)"
+                                                       ng-style="dashboardAdmin.stripeThrough(data)"
+                                                       ng-if="data.status != 'Cancelled'"
+                                                       title="{{data.teacherFullName}} {{(data.studentFullName != null && data.batchName != null) ? ' (':''}} {{data.studentFullName}} {{(data.studentFullName != null && data.batchName) != null ? ')':''}} {{data.roomName != null ? ' (':''}} {{data.roomName}}{{data.roomName != null ? ')':''}}{{data.courseName != null ? ' (':''}} {{data.courseName}}{{data.courseName != null ? ')':''}}"
+                                                       style= color:{{data.colorCode}}> {{dashboardAdmin.getTeacherDetails(data).teacherId}}</span>
+                                                <span   ng-class="dashboardAdmin.getButtonType(data)"
+                                                        title="{{data.teacherFullName}} {{(data.studentFullName != null && data.batchName != null) ? ' (':''}} {{data.studentFullName}} {{(data.studentFullName != null && data.batchName) != null ? ')':''}} {{data.roomName != null ? ' (':''}} {{data.roomName}}{{data.roomName != null ? ')':''}}{{data.courseName != null ? ' (':''}} {{data.courseName}}{{data.courseName != null ? ')':''}}"
+                                                        ng-style="dashboardAdmin.stripeThrough(data)"
+                                                        ng-click="dashboardAdmin.makeNewSelection(data, $event)"
+                                                        ng-if="data.status != 'Cancelled'">
+                                                  {{dashboardAdmin.getTeacherDetails(data).studentId}}
+
+                                                </span>
+                                                <span   ng-class="dashboardAdmin.getButtonType(data)"
+                                                        title="{{data.teacherFullName}} {{(data.studentFullName != null && data.batchName != null) ? ' (':''}} {{data.studentFullName}} {{(data.studentFullName != null && data.batchName) != null ? ')':''}} {{data.roomName != null ? ' (':''}} {{data.roomName}}{{data.roomName != null ? ')':''}}{{data.courseName != null ? ' (':''}} {{data.courseName}}{{data.courseName != null ? ')':''}}"
+                                                        ng-style="dashboardAdmin.stripeThrough(data)"
+                                                        ng-click="dashboardAdmin.makeNewSelection(data, $event)"
+                                                        ng-if="data.status != 'Cancelled'">
+                                                    {{dashboardAdmin.getTeacherDetails(data).roomId}}
+                                                </span>
+
+                                                <span class="cancellation-student"
+                                                      ng-if="((data.studentCancellation == true && data.teacherCancellation == true) ||
+                                                             (data.studentCancellation == true && data.teacherCancellation == false)) &&
+                                                             data.status != 'Cancelled'">
+                                                CR
+                                                </span>
+
+                                                <span class="cancellation-teacher" ng-if="data.teacherCancellation == true &&
+                                                data.studentCancellation == false && data.status != 'Cancelled'">CR</span>
+
+                                                <!--<span class="cancellation-accepted" ng-if="data.status == 'Cancelled'">CA</span>-->
+
+                                                <div class="overlay" id="{{m}}{{nameKey}}_{{data.primaryKey}}+overlay" ng-click="dashboardAdmin.overlay(m,nameKey,data)"></div>
+                                                <ul class="nav navbar-nav  main-menu allocation-menu animate drop-down-menu-unique"
+                                                    id="{{m}}{{nameKey}}_{{data.primaryKey}}+drop-down"
+                                                    ng-if="data.status != 'Cancelled'"
+                                                    ng-click="dashboardAdmin.overlay(m,nameKey);">
+
+                                                    <li class="dropdown"
+                                                        ng-if="(data.studentCancellation == false && data.teacherCancellation == false)">
+
+                                                        <span translate="STUDENT"></span><i class="fas fa-angle-right" style="padding-left: 2px"></i>
+
+                                                        <ul class="header-sub-menu animate" id="scroll-bar-2">
+                                                            <li class="dropdown animate" style="padding: 5px 2px 5px 5px;"
+                                                                title="{{d.studfullname}}  {{' (Music Type='}} {{d.music_type}} {{')'}}  {{ '(Course Name='}} {{d.course_name}} {{')'}}"
+                                                                ng-click="dashboardAdmin.allocateBatch(data,d); dashboardAdmin.overlay(m,nameKey,data);"
+                                                                ng-repeat="d in dashboardAdmin.batchList | orderBy: 'studfullname' "
+                                                            >
+                                                                <span>{{d.studfullname}}</span><br>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <!-- title="{{d.studfullname}} {{ {{' (Music Type='}} {{d.music_type}} {{')'}}  {{ '(Course Name='}} {{d.course_name}} {{')'}}"
+                                                     title="{{d.studfullname}} {{' (Batch Type='}} {{d.batch_type}} {{')'}} {{' (Category='}}{{d.category_type}} {{')'}} {{' (Music Type='}} {{d.music_type}} {{')'}} {{' (Session='}}{{d.session_duration}} {{')'}} {{ '(Course Name='}} {{d.course_name}} {{')'}}"-->
+
+                                                    <!--<li class="dropdown">
+                                                        Student<i class="fas fa-angle-right" style="padding-left: 2px"></i>
+                                                        <ul class="header-sub-menu animate" id="scroll-bar">
+                                                            <li class="dropdown animate"
+                                                                title="{{d.studentfullName}}"
+                                                                ng-click="dashboardAdmin.allocateStudent(data,d);"
+                                                                ng-repeat="d in dashboardAdmin.studentList">
+                                                                {{d.studentId}}
+                                                            </li>
+                                                        </ul>
+                                                    </li>-->
+
+                                                    <li class="dropdown"
+                                                        ng-if="data.eoStudentUser != null && (data.studentCancellation == false && data.teacherCancellation == false)">
+                                                        Room<i class="fas fa-angle-right" style="padding-left: 2px"></i>
+
+                                                        <ul class="header-sub-menu animate" id="scroll-bar">
+                                                            <li class="dropdown animate"
+                                                                title="{{d.room_name}}"
+                                                                ng-click="dashboardAdmin.allocateRoom(data,d);dashboardAdmin.overlay(m,nameKey,data);"
+                                                                ng-repeat="d in dashboardAdmin.musicRoomList">
+                                                                {{d.room_id}}
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <!--<li class="dropdown animate"
+                                                        ng-click="dashboardAdmin.removeBatch(data);"
+                                                        ng-if="data.eoBatch != null && data.studentCancellation == false && data.teacherCancellation == false && data.primaryKey == null">
+                                                        Remove Batch
+                                                    </li>-->
+                                                    <!--<li class="dropdown animate" style="padding: 5px; width: 100%"
+                                                        ng-click="dashboardAdmin.requestCancellation(data,'self');"
+                                                        ng-if="data.studentCancellation == false && data.teacherCancellation == false">
+                                                        <span style="color: red"> <span translate="SELF_CANCELLATION_REQ"></span></span>
+                                                    </li>-->
+                                                    <li class="dropdown animate" style="padding: 5px; width: 100%"
+                                                        ng-click="dashboardAdmin.requestCancellation(data,'student');dashboardAdmin.overlay(m,nameKey,data);"
+                                                        ng-if="data.studentCancellation == false && data.teacherCancellation == false">
+                                                        <span style="color: red"> <span translate="CANCELLATION_REQ"></span></span>
+                                                    </li>
+                                                    <!-- <li class="dropdown animate" style="padding: 5px; width: 100%"
+                                                        ng-click="dashboardAdmin.requestCancellation(data,'teacher');"
+                                                        ng-if="data.studentCancellation == false && data.teacherCancellation == false">
+                                                        <span style="color: red"> <span translate="TEACHER_CANCELLATION_REQ"></span></span>
+                                                    </li>-->
+                                                    <li class="dropdown animate"
+                                                        ng-click="dashboardAdmin.acceptStudentCancellation(data,m);dashboardAdmin.overlay(m,nameKey,data);"
+                                                        ng-if="data.eoBatch != null && ((data.studentCancellation == true && data.teacherCancellation == true)
+                                                         || (data.studentCancellation == true && data.teacherCancellation == false)) && data.status != 'Cancelled'">
+                                                        <span translate="ACCEPT_CANCELLATION"></span>
+                                                    </li>
+                                                    <li class="dropdown animate"
+                                                        ng-click="dashboardAdmin.acceptTeacherCancellation(data,m);dashboardAdmin.overlay(m,nameKey,data);"
+                                                        ng-if="data.eoBatch != null && (data.teacherCancellation == true && data.studentCancellation == false) && data.status != 'Cancelled'">
+                                                        <span translate="ACCEPT_CANCELLATION"></span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="center col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px">
+                            <span id="note" class="note-action" style="display: none">(There are unsaved row. Please click Submit to save.)</span>
+                            <button class="btn-custom btn-custom-success"
+                                    title="Submit"
+                                    ng-if="dashboardAdmin.enableSlot"
+                                    ng-click="dashboardAdmin.submit();">
+                                <span translate="SUBMIT"></span>
+                            </button>
+                            <button class="btn-custom btn-custom-primary"
+                                    title="Pdf"
+                                    ng-if="dashboardAdmin.enableSlot"
+                                    ng-click="dashboardAdmin.generatePdf();">
+                                <span translate="PDF"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="query-from  col-md-1"
+                 ng-if="dashboardAdmin.followUpDateList.length > 0">
+                <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12 no-padding" style="padding-top:42px">
+
+                    <div style="width: max-content;">
+                        <b style="font-size: 11px;color: sienna;"><span translate="TODAY'S_FOLLOW_UPS"></span></b>
+                        <ul ng-repeat="f in dashboardAdmin.followUpDateList" style= "padding-left: 0px">
+
+                            <a href="javascript:void(0);"
+                               ng-click="dashboardAdmin.updateModal(f)">
+                                <b><u style="font-size: 11px;">{{f.first_name}}-{{f.phone}}</u></b></a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="query-from col-md-1 no-padding "
+                 ng-if="dashboardAdmin.viewAllFollowUpList.length > 0">
+                <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12" style="padding-top:42px">
+                    <div style="width: max-content;">
+                        <b style="font-size: 11px;color: sienna;padding-left: 42px;">
+                            <a href="javascript:void(0);" ng-click="dashboardAdmin.getAllFollowUpDate()">
+                                <b><u style="font-size: 11px;"><span translate="VIEW_ALL"></span></u></b></a></b>
+
+                        <ul ng-repeat="f in dashboardAdmin.allFollowUpDateList " style="padding-top: 4px;">
+
+                            <a href="javascript:void(0);"
+                               ng-click="dashboardAdmin.updateModal(f)">
+                                <b><u style="font-size: 11px;">{{f.first_name}}-{{f.phone}}</u></b></a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

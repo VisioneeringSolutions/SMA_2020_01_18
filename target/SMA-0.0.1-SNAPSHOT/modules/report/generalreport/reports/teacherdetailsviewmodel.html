@@ -1,0 +1,169 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="teacherDetailsViewModel.modalInstance.close({},'cancel')"
+            style="color: red" title="close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body" style="border-bottom: 3px solid;border-top: 3px solid;border-color: #42CF89; height:550px">
+    <div class="teacher-from col-lg-12 col-md-12 col-sm-12 sol-xs-12 animate" id="student-reg">
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 sol-xs-6">
+                <img ng-src="{{teacherDetailsViewModel.baseImgUrl}}{{teacherDetailsViewModel.formModel.imageUrl}}" height="140"/>
+        </div>
+
+        <div class=" col-lg-6 col-md-6 col-sm-6 sol-xs-6">
+            <div class=" col-lg-12 font-family">
+                <b>{{teacherDetailsViewModel.formModel.firstName}} {{' '}} {{teacherDetailsViewModel.formModel.lastName}}</b>
+            </div>
+
+            <span class="col-lg-12 font-family font-700 font-12">Phn No. {{teacherDetailsViewModel.formModel.phone}}</span>
+
+            <span class="col-lg-12 font-family font-700 font-12">Email: {{teacherDetailsViewModel.formModel.email}}</span>
+        </div>
+
+
+    <!--    <div class=" col-lg-12 col-md-12 col-sm-12 sol-xs-12" style="padding-top: 50px;">
+            <div class="table-responsive">
+                <table class="table table-condensed table-hover table-bordered table-striped">
+
+                    <thead>
+                    <th>Qualification</th>
+                    <th>Experience</th>
+                    <th>Profile</th>
+                    <th>Awards</th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="d in teacherDetailsViewModel.teacherData ">
+
+                        <td>{{d.qualification}} </td>
+                        <td>{{d.experience}}</td>
+                        <td>{{d.profile}} </td>
+                        <td>{{d.awards}}</td>
+                        &lt;!&ndash;<td ng-bind-html="d.qualification | trusted">  </td>
+                        <td ng-bind-html="d.experience | trusted">  </td>
+                        <td ng-bind-html="d.profile | trusted">  </td>
+                        <td ng-bind-html="d.awards | trusted">  </td>&ndash;&gt;
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>-->
+
+        <vform name="teacherViewDetailsForm" config="teacherDetailsViewModel.formConfig"
+               class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0;padding-top: 62px;">
+
+           <!-- <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700 font-12">Qualification</span>
+                <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+                    <vtextarea rows="7" name="qualification"
+                               form-config="teacherDetailsViewModel.formConfig"
+                               class="form-control noresize-textarea font-family font-12"
+                               ng-model="teacherDetailsViewModel.formModel.qualification"
+                               ng-bind-html="teacherDetailsViewModel.formModel.qualification| trusted "
+                               id="qualification"
+                               style="border-radius: 1px">
+                    </vtextarea>
+                </div>
+            </div>-->
+
+
+                    <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700 font-12"
+                          ng-if="teacherDetailsViewModel.formModel.qualification != null" style="font-size: 15px;color: #009688 "><u><span translate="QUALIFICATIONS"></span>:<br></u></span>
+                    <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs12 font-family"
+                            ng-if="teacherDetailsViewModel.formModel.qualification != null"
+                            ng-bind-html="teacherDetailsViewModel.formModel.qualification| trusted "
+                            ng-model="teacherDetailsViewModel.formModel.qualification" style="padding-top: 15px;">
+                    </div>
+
+                    <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700 font-12"
+                          ng-if="teacherDetailsViewModel.formModel.experience != null" style="font-size: 15px;color: #009688 "><u><span translate="EXPERIENCE"></span>:</u></span>
+                    <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs12 font-family"
+                            ng-if="teacherDetailsViewModel.formModel.experience != null"
+                            ng-bind-html="teacherDetailsViewModel.formModel.experience| trusted "
+                            ng-model="teacherDetailsViewModel.formModel.experience" style="padding-top: 15px;">
+
+                    </div>
+
+                    <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700 font-12"
+                          ng-if="teacherDetailsViewModel.formModel.profile != null" style="font-size: 15px;color:#009688 "><u><span translate="PROFILE"></span>:</u></span>
+                    <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs12 font-family"
+                            ng-if="teacherDetailsViewModel.formModel.profile != null"
+                            ng-bind-html="teacherDetailsViewModel.formModel.profile| trusted "
+                            ng-model="teacherDetailsViewModel.formModel.profile" style="padding-top: 15px;">
+                    </div>
+
+                    <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700 font-12"
+                    ng-if="teacherDetailsViewModel.formModel.awards != null" style="font-size: 15px;color:#009688 "><u><span translate="AWARDS"></span>:</u></span>
+                    <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs12 font-family"
+                         ng-if="teacherDetailsViewModel.formModel.awards != null"
+                         ng-bind-html="teacherDetailsViewModel.formModel.awards| trusted "
+                         ng-model="teacherDetailsViewModel.formModel.awards" style="padding-top: 15px;">
+
+                    </div>
+
+
+           <!-- <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700 font-12">Email</span>
+            <div class="form-input col-lg-6 col-md-6 col-sm-6 col-xs-6 font-family" >
+                 {{teacherDetailsViewModel.formModel.email}}
+            </div>-->
+
+            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700 font-12"
+                  ng-if="teacherDetailsViewModel.formModel.addressLine1 != null" style="font-size: 15px;color: #009688 "><u><span translate="ADDRESS"></span>:</u></span>
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs12 font-family"
+                 ng-if="teacherDetailsViewModel.formModel.addressLine1 != null" style="padding-top: 15px;">
+                {{teacherDetailsViewModel.formModel.addressLine1}}
+            </div>
+
+
+
+
+                <!--<span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700" style="padding-left: 27px; font-size: 12px;">Qualification</span>
+                <div class="form-input col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding-left: 0px;">
+                    <summernote config="summerConfig"
+                                name="qualification"
+                                ng-model="teacherDetailsViewModel.formModel.qualification"
+                                form-config="teacherDetailsViewModel.formConfig"
+                                required=""
+                                readonly="true"
+                                id="qualification"></summernote>
+                </div>
+
+                <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700" style="padding-left: 27px; font-size: 12px;">Experiences</span>
+                <div class="form-input col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding-left: 0px;">
+                    <summernote config="summerConfig"
+                                name="experience"
+                                ng-model="teacherDetailsViewModel.formModel.experience"
+                                form-config="teacherDetailsViewModel.formConfig"
+                                required=""
+                                readonly="true"
+                                id="experience"></summernote>
+                </div>
+
+                <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700" style="padding-left: 27px; font-size: 12px;">Profile</span>
+                <div class="form-input col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding-left: 0px;">
+                    <summernote config="summerConfig"
+                                name="profile"
+                                ng-model="teacherDetailsViewModel.formModel.profile"
+                                form-config="teacherDetailsViewModel.formConfig"
+                                required=""
+                                readonly="true"
+                                id="profile"></summernote>
+                </div>
+
+
+                <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700" style="padding-left: 27px; font-size: 12px;">Awards</span>
+                <div class="form-input col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding-left: 0px;">
+                    <summernote config="summerConfig"
+                                name="awards"
+                                ng-model="teacherDetailsViewModel.formModel.awards"
+                                form-config="teacherDetailsViewModel.formConfig"
+                                required=""
+                                readonly="true"
+                                id="awards"></summernote>
+                </div>-->
+
+
+            </vform>
+        </div>
+    </div>

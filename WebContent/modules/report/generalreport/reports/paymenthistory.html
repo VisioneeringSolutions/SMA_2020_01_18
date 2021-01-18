@@ -1,0 +1,215 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="form-input col-md-3 col-sm-12 col-xs-12">
+                <select name="year" class="input-box font-family font-700 font-14 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                        ng-model="paymentHistory.year"
+                        id="year">
+                    <option value="" disabled>Select year</option>
+                    <option ng-repeat="d in paymentHistory.yearArray"
+                            value={{d}}>{{d}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-input col-md-3 col-sm-12 col-xs-12">
+                <select name="teacher" class="input-box font-family font-700 font-14 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                        ng-model="paymentHistory.eoStudentUser"
+                        id="teacher">
+                    <option value="" disabled>Select Student</option>
+                    <option ng-repeat="d in generalReport.studentDetailsArr | orderBy : 'studentfullName'"
+                            value={{d}}>{{d.studentfullName}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-12 col-xs-12">
+                <button class="btn-custom btn-custom-primary"
+                        ng-click="paymentHistory.submit($event);">
+                    <span translate="SUBMIT"></span>
+                </button>
+            </div>
+            <div class="col-md-3 col-sm-12 col-xs-12" ng-if="paymentHistory.paymentDetailsArray.length > 0">
+                <button class="btn-custom btn-custom-warning pull-right"
+                        ng-click="paymentHistory.downloadExcel();">
+                    <span translate="DOWNLOAD_EXCEL"></span> <i class="fas fa-download"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div ng-if="paymentHistory.salaryDetailsArray.length > 0">
+        <hr>
+    </div>
+    <div class="row" ng-if="paymentHistory.paymentDetailsArray.length > 0">
+        <div class="col-md-12 no-padding">
+            <div class="table-responsive">
+                <!--<table class="table table-condensed table-hover table-bordered table-striped">
+
+                    <colgroup>
+                        <col width="1%"/>
+                        <col width="3%"/>
+                        <col width="60%"/>
+                        <col width="10%"/>
+                        <col width="5%"/>
+                        <col width="6%"/>
+                        <col width="5%"/>
+                        <col width="10%"/>
+
+                    </colgroup>
+
+                    <thead>
+                    <th>S.No</th>
+                    <th>Month</th>
+                    <th></th>
+                    <th>Additional</th>
+                    <th>Transport</th>
+                    <th>Total Salary</th>
+                    <th>Status</th>
+                    <th>Download</th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="d in paymentHistory.salaryDetailsArray  | orderBy:'createdDate'">
+                        <td class="font-14">{{$index+1}}</td>
+                        <td class="font-14">{{d.month}}</td>
+
+                        <td>
+
+                           &lt;!&ndash; <div ng-repeat="data in d.salaryDetail" class="col-md-12 no-padding">&ndash;&gt;
+
+                                <table class="table-in-table table-condensed table-hover table-striped table-bordered">
+
+                                    <tbody>
+                                    <tr ng-repeat="data in d.salaryDetail">
+                                        <td>{{data.musicCategory.split('_')[0]}} {{data.musicCategory.split('_')[1]}}</td>
+                                        <td>{{data.lkClassDurationType}}</td>
+                                        <td>{{data.rate}}</td>
+                                        <td>
+                                            {{'Session ='}} {{data.fortyFiveMins != null && data.salaryType == 'Per session' ? data.fortyFiveMins
+                                            : data.sixtyMins != null && data.salaryType == 'Per session' ? data.sixtyMins : data.salaryType == 'Per session' ? 0 :
+                                             'NA'}}</td>
+                                        <td>{{'Total ='}} {{data.fortyFiveMins != null
+                                            && data.salaryType == 'Per session' ? data.fortyFiveMins * data.rate : data.sixtyMins != null
+                                            && data.salaryType == 'Per session' ? data.sixtyMins * data.rate : data.salaryType == 'Per course' ? data.rate : 0}} </td>
+                                        &lt;!&ndash;<td ng-if="data.lkClassDurationType == '60 mins' && data.sixtyMins && data.rate
+                                            && data.salaryType == 'Per session'">{{'Total ='}} {{data.sixtyMins * data.rate}}</td>
+                                        <td ng-if=" data.salaryType == 'Per course'">{{'Total ='}} {{data.rate}}</td>&ndash;&gt;
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                        </td>
+
+                        <td class="col-md-1">
+                            {{'(+ '}} {{d.add}} {{')'}} {{'(- '}} {{d.sub}} {{')'}}
+                        </td>
+
+                        <td>{{'‎¥ '}}{{d.transportDays * d.transportAmount}}</td>
+                        <td>{{'‎¥ '}}{{d.totalSalary}}</td>
+                        <td>{{d.status}}</td>
+
+                        <td>
+                            <button class="btn-custom-sm btn-custom-success font-14"
+                                    ng-disabled="d.status == 'Verified' || d.status == 'Rejected' || d.status == 'Created'"
+                                    ng-click="paymentHistory.downloadSlip(d);">
+                                Salary Slip
+                            </button>
+
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>-->
+                <table class="table table-condensed table-hover table-bordered table-striped">
+
+                    <colgroup>
+                        <col width="6%"/>
+                        <col width="9%"/>
+                        <col width="35%"/>
+                        <col width="7%"/>
+                        <col width="8%"/>
+                        <col width="7%"/>
+                        <col width="7%"/>
+                        <col width="7%"/>
+                        <col width="7%"/>
+                        <col width="7%"/>
+
+                    </colgroup>
+
+                    <thead>
+                    <th><span translate="SERIAL_NUMBER"></span></th>
+                    <th><span translate="MONTH"></span></th>
+                    <th><span translate="ITEM"></span></th>
+                    <th><span translate="EDITABLE"></span></th>
+                    <th><span translate="CANCELLATION"></span>(¥)</th>
+                    <th><span translate="TOTAL"></span>(¥)</th>
+                    <th><span translate="CONSUMPTION_TAX"></span>%</th>
+                    <th><span translate="GRAND_TOTAL"></span>(¥)</th>
+                    <th><span translate="STATUS"></span></th>
+                    <th>Download</th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="detail in paymentHistory.paymentDetailsArray"
+                    ng-if="detail.status != 'Cancelled'">
+                        <td>{{$index+1}}</td>
+                        <td>{{detail.month}}</td>
+
+                        <td><table class="table-in-table table-condensed table-hover table-striped table-bordered">
+                            <col width="20%"/>
+                            <col width="20%"/>
+                            <col width="20%"/>
+                            <col width="20%"/>
+                            <col width="20%"/>
+
+                            <tbody>
+                            <tr ng-repeat="d in detail.attributeList">
+                                <td>{{d.courseName}}</td>
+                                <td>{{d.feeType}}</td>
+                                <td>{{d.feeType == 'Per session' ? d.sessionDuration:''}}</td>
+                                <td>{{'¥ '}}{{d.fees}}</td>
+                                <td>{{d.session != 0 ? 'session =' : ''}}{{d.session != 0 ? d.session : ''}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </td>
+
+                        <td>
+                            <table class="table-in-table table-condensed table-hover table-striped table-bordered">
+                                <tbody>
+                                <tr ng-repeat="d in detail.editableList">
+                                    <td>{{d.description}}</td>
+                                    <td>{{d.amount}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+
+                        <td>{{detail.cancellationAmount}}</td>
+
+                        <td>{{detail.total}}</td>
+
+                        <td>{{detail.consumptionTax}}</td>
+
+                        <td>{{detail.grandTotal}}</td>
+
+                        <td>{{detail.status}}</td>
+
+
+                        <td>
+                            <div class="pointer"
+                                 style="color: green; font-weight: 100">
+                                <span ng-disabled="false"
+                                      ng-click="paymentHistory.downloadInvoice(detail)"><span translate="INVOICE"></span></span>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+</div>

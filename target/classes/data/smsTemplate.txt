@@ -1,0 +1,18 @@
+Template ID		Title						Template Text
+41801			HAPPY HOLI					Happy Holi to you and your family. We wish your health, prosperity and business achievements at this prismic colour eve. May God bless you with all his mercies. From [F1]
+46598			Registration				Dear [F1], Welcome to [F2]. Thank you for registration. Your login details are :User name: [F3] OTP: [F4] Please follow the link to login https//:www.vems.com.
+46599			Forget Password				Dear [F1], Welcome to [F2].Your OTP is [F3]. Please follow the link to login https//:www.vems.com.
+46600			Student Absent Alert		Dear [F1], Your ward [F2] with Roll No. [F3] is absent today. Do you know about this If no, then please contact Class Teacher at [F4].
+46601			Event Alert					Dear [F1], An event has been organised by school to celebrate Independence Day. Date: 15th August [F2].Time: [F3] onwards Venue: [F4] You are all cordially invited.
+46602			Event Alert Sport			Dear [F1], [F2] has been organized by school as per below schedule. Date: [F3] Time: [F4] Venue: [F5] Attendance is compulsory for all students on all event dates.
+46603			Birthday Wishes				Dear [F1], As per school records it is [F2]'s birthday today. We extend our best wishes to your ward.
+46604			Fee Reminder				Dear [F1], Your ward has some outstanding fees amount due. Name: [F2], Class: [F3] Roll No.: [F4].Please consult the accounts department at school to clear dues.
+46605			Condolences Alert			Dear [F1], We regret to inform the sudden demise of one of our staff members. In view of this the school will remain closed on [F2] We extend our heartfelt condolences and prayers to the family of deceased.
+46606			Circular					Dear [F1], In view of the circular issued by DM's office with regards to [F2], please note that school will remain closed on the dates mentioned below. From: [F3] Till: [F4] Classes will resume as normal from [F5].
+46607			Circular Teacher			Dear [F1], You are requested to upload the examination marks on portal. Academic portal will be open as per the schedule below: Date: [F2] Time: [F3] Please note that all edit options will be disabled for your login after the stated time frame.
+46608			Circulate For Exams			Dear [F1], This is to inform you that dates for [F2] have been announced. Start date: [F3] End Date: [F4] For more details please check the Academic section on portal : https//:www.vems.com
+46609			Public Holiday				Dear [F1], The school management wishes you a very happy [F2]. Jai Hind !
+46610			Leave Apply					Dear [F1], We have received a leave request from your ward [F2] for the dates mentioned below. From: [F3] Till: [F4] Please refer Leaves section on the VEMS portal to know about the approval status.
+46611			Leave Approval				Dear [F1], It is to inform you that leaves of [F2] have been [F3] for the dates mentioned below: From: [F4] Till: [F5] Status: [F6]
+46612			Teacher Leave Apply			Dear [F1], Your leave request has been received for the dates mentioned below: From: [F2] Till: [F3] Please refer Leaves section on the VEMS portal to know about the approval status.
+46613			Teacher Leave Approval		Dear [F1], It is to inform you that your upcoming leaves have been [F2] for the dates mentioned below: From: [F3] Till: [F4] Status: [F5]

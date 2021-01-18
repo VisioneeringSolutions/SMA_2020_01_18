@@ -1,0 +1,185 @@
+<div class="container-fluid" >
+    <div class="row">
+        <div class="main-container col-lg-12 col-md-12 col-sm-12 sol-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12"  style="border-bottom: 1px solid #a9a6a6;margin-bottom: 10px;padding-bottom: 10px;">
+                <div class="form-input col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12 font-family font-700"><span translate="YEAR"></span>
+                    <span class="mandatory">*</span></span>
+                    <vselect type="input" name="session" id="sessionDuration"
+                             class="input-box font-family font-700 font-14 col-lg-8 col-md-8 col-sm-8 col-xs-8"
+                             ng-model="generateSlip.year"
+                             ng-change="generateSlip.clearSection()">
+                        <option disabled value="" >Select Year</option>
+                        <option ng-repeat="y in generateSlip.yearArray"
+                                value="{{y}}">{{y}}</option>
+                    </vselect>
+                </div>
+
+                <div class="form-input col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12 font-family font-700"><span translate="MONTH"></span>
+                    <span class="mandatory">*</span></span>
+                    <vselect type="input" name="session"id="sessionDuration"
+                             class="input-box font-family font-700 font-14 col-lg-8 col-md-8 col-sm-8 col-xs-8"
+                             ng-model="generateSlip.month"
+                             ng-change="generateSlip.getSelectedDateRange()">
+                        <option disabled value="" >Select Month</option>
+                        <option ng-repeat="m in generateSlip.monthArray"
+                                value="{{m}}">{{m}}</option>
+                    </vselect>
+                </div>
+
+                <span class="header-name"><span translate="GENERATE_SLIP"></span></span>
+            </div>
+            <hr>
+            <div class="col-md-12" ng-if="generateSlip.respData">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover table-bordered table-striped">
+
+                        <colgroup>
+                            <col width="1%"/>
+                            <col width="13%"/>
+                            <col width="11%"/>
+                            <col width="44%"/>
+                            <col width="5%"/>
+                            <col width="6%"/>
+                            <col width="12%"/>
+                            <col width="8%"/>
+                        </colgroup>
+
+                        <thead>
+                        <th><span translate="SERIAL_NUMBER"></span></th>
+                        <th><span translate="NAME"></span></th>
+                        <th><span translate="ADDITIONAL"></span></th>
+
+                        <th><span translate="ITEMS"></span></th>
+                        <th><span translate="TRANSPORT"></span></th>
+                        <th><span translate="TOTAL_SALARY"></span></th>
+                        <th><span translate="TEACHER_REMARK"></span></th>
+                        <th><span translate="STATUS"></span></th>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="d in generateSlip.respData  | orderBy:'teacherfullname'">
+                            <td class="font-14">{{$index+1}}</td>
+                            <td class="font-14">{{d.teacherfullname}}</td>
+
+                            <td class="col-md-1">
+
+                                <vinput vtype="positiveirrational"
+                                        only-numbers=""
+                                        ng-model="d.add"
+                                        ng-disabled="d.status == 'Generated' || d.status == 'Verified' || d.status == 'Released'"
+                                        ng-change="generateSlip.setAdditionalAmount(d)"
+                                        placeholder="+ Add (‎¥)"
+                                        id="additionalAmount"
+                                        style="margin-bottom: 2px"
+                                        class="input-box font-14 col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                </vinput>
+                                <vinput vtype="positiveirrational"
+                                        only-numbers=""
+                                        ng-model="d.sub"
+                                        ng-disabled="d.status == 'Generated' || d.status == 'Verified' || d.status == 'Released'"
+                                        ng-change="generateSlip.setAdditionalAmount(d)"
+                                        placeholder="- Sub (‎¥)"
+                                        id="additionalAmount"
+                                        class="input-box font-14 col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                </vinput>
+                            </td>
+
+                            <td ng-if="d.salaryType == 'Per session'" >
+                                <div class="col-md-12 no-padding"
+                                     ng-repeat="data in d.courseData" ng-if="data.totalMins != null">
+                                    <div class="col-md-12 padding-5">
+                                        {{data.musicType}} {{' ('}}
+                                        {{data.description}} {{' ) -'}}
+                                        {{data.totalMins}} {{' mins @'}}
+                                        {{data.amount}} {{' per'}}
+                                        {{data.duration}} {{' = '}}
+                                        {{generateSlip.roundOffValue(data.amount * data.session)}}
+                                        <span ng-if="data.cancellationAmount > 0" style="color: red">
+                                            (- {{data.cancellationAmount}})
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td  ng-if="d.salaryType == 'Per month'">
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        {{'Monthly salary = '}} {{d.amount}}
+                                    </div>
+
+                                </div>
+                            </td>
+
+                            <td>{{'¥'}} {{d.transport}}</td>
+                            <td>{{'¥'}} {{d.totalSalary}}</td>
+
+                            <td>{{d.teacherRemarks}}</td>
+
+                            <td>
+                                <!--View PDF-->
+                                <!--<div class="pointer"
+                                     style="color: blue; font-weight: 100">
+                                    <span  ng-disabled="false"
+                                           ng-click="generateSlip.viewData(d, 'PDF')">View</span>
+                                </div>-->
+                                <div class="pointer"
+                                     style="color: blue; font-weight: 100">
+                                    <span ng-if="d.status == null " ng-click="generateSlip.generateSlip(d, 'viewPdf')">Preview</span>
+                                </div>
+                                <div class="pointer"
+                                     style="color: blue; font-weight: 100">
+                                    <span ng-if="d.status != null" ng-click="generateSlip.viewPDF(d)">PDF</span>
+                                </div>
+                                <br>
+
+                                <!--Salary is Generated-->
+                                <div class="pointer"
+                                     style="color: #795548; font-weight: 100"
+                                     ng-if="d.status == 'Generated'">
+                                    <span  ng-disabled="true">{{d.status}}</span>
+                                </div>
+
+                                <div class="pointer"
+                                     style="color: red; font-weight: 100"
+                                     ng-if="d.status == 'Rejected'">
+                                    <span  ng-disabled="true">{{d.status}}</span>
+                                </div>
+
+                                <!--No status OR Rejected by Teacher-->
+                                <div class="pointer"
+                                     style="color: blue; font-weight: 100"
+                                     ng-if="d.status == null || d.status == 'Rejected' "
+                                     ng-click="generateSlip.generateSlip(d,'Generated')">
+                                    {{d.status == null ? 'Submit':'Update'}}
+                                </div>
+
+                                <!--Verified-->
+                                <div class="pointer"
+                                     style="color: green; font-weight: 100"
+                                     ng-if=" d.status == 'Verified' "
+                                     ng-click="generateSlip.generateSlip(d,'Released')">
+                                    <span translate="GENERATE_SLIP"></span>
+                                </div>
+
+                                <!--Released-->
+                                <div class="pointer"
+                                     style="color: #F57F17; font-weight: 100"
+                                     ng-if="d.status == 'Released'"
+                                     ng-click="generateSlip.released(d)">
+                                    {{d.status}}
+                                </div>
+                                <!--<div class="pointer"
+                                     style="color: #EC407A; font-weight: 100"
+                                     ng-if="d.status == 'Released'"
+                                     ng-click="">
+                                    Released
+                                </div>-->
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

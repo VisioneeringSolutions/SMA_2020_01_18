@@ -1,0 +1,284 @@
+
+
+<div class="container-fluid" >
+    <div class="row">
+        <div class="main-container col-lg-12 col-md-12 col-sm-12 sol-xs-12">
+            <div class="col-lg-7 col-md-7 col-sm-12 sol-xs-12" style="height: 80vh;border-right: 1px solid grey">
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-600" style="font-size: 12px;">From</span>
+                    <div class="col-lg-12">
+                        <p class="input-group">
+                            <input type="text" name="dateFrom"
+                                   ng-init="dateFrom = batchForTeacher.createDateMap()"
+                                   class="font-12 form-control date"
+                                   uib-datepicker-popup="{{dateFrom.format}}"
+                                   show-button-bar="false"
+                                   readonly="true"
+                                   ng-model="batchForTeacher.dateFrom"
+                                   is-open="dateFrom.popup.opened"
+                                   placeholder="yyyy-mm-dd"
+                                   datepicker-options="dateFrom.dateOptions"
+                                   id="dateFrom"
+                                   ng-click="dateFrom.open()"
+                                   ng-change="batchForTeacher.dateRange();batchForTeacher.getTimeSlotData()"
+                                   ng-required="true"/>
+                        <span class="input-group-btn ">
+                                <button type="button" class="btn btn-default calender" ng-click="dateFrom.open()"><i
+                                        class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-600" style="font-size: 12px;">To</span>
+                    <div class="col-lg-12 ">
+                        <p class="input-group ">
+                            <input type="text" name="dateTo"
+                                   ng-init="dateTo = batchForTeacher.createDateMap()"
+                                   class="font-12  form-control date"
+                                   uib-datepicker-popup="{{dateTo.format}}"
+                                   show-button-bar="false"
+                                   readonly="true"
+                                   ng-model="batchForTeacher.dateTo"
+                                   ng-disabled="true"
+                                   is-open="dateTo.popup.opened"
+                                   placeholder="yyyy-mm-dd"
+                                   datepicker-options="dateTo.dateOptions"
+                                   id="dateTo"
+                                   ng-click="dateTo.open()"
+                                   ng-change="batchForTeacher.getTimeSlotData();"
+                                   ng-required="true"/>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-top: 16px;">
+                    <button class="btn-custom btn-custom-success"
+                            title="Submit"
+                            ng-click="batchForTeacher.submit();">
+                        Submit
+                    </button>
+
+                </div>
+
+                <!--for batch name-->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                 <div class="table-responsive" ng-if="batchForTeacher.reqDataData.length>0" >
+                  <table class="table time-table table-condensed1 table-hover table-bordered table-striped">
+                    <thead>
+                    <th ng-repeat=" batchData  in batchForTeacher.reqDataData">
+                    <div>
+                        <a href="javascript:void(0);"
+                           ng-click="batchForTeacher.getDateTime($event,batchData.eobatch_primary_key);batchForTeacher.BatchForTeacherForm=null">
+                            <b><u>{{batchData.batch_name}}</u></b></a>
+                    </div>
+                    </th>
+                    </thead>
+                    <tbody>
+                    <tr>
+
+
+                    </tr>
+                    </tbody>
+                   </table>
+                 </div>
+                </div>
+
+
+                <!--for date time-->
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                    <div class="table-responsive" ng-if="batchForTeacher.dateTimeData.length>0" >
+                        <table class="table time-table table-condensed1 table-hover table-bordered table-striped">
+                            <thead >
+                            <th ng-repeat="dData  in batchForTeacher.dateTimeData">
+                                <a href="javascript:void(0);"
+                                   ng-click="batchForTeacher.getStudentList($event,dData.eobatch_primary_key,dData.primary_key);batchForTeacher.getHomeWorkDetails(dData.primary_key,dData.eobatch_primary_key)">
+                                    <b><u style="padding-right: 33px;">{{dData.date}}</u></b>
+                                    <b><u>{{dData.start_time}}-{{dData.end_time}}</u></b>
+                                </a>
+                            </th>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+
+              <!--  for homework data entry-->
+           <div class="scrollable-form col-lg-12 col-md-12 col-sm-12 sol-xs-12" id="scroll-bar" ng-if="batchForTeacher.studentBatchList.length>0">
+                    <vform name="BatchForTeacherForm" config="batchForTeacher.formConfig"
+                           class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0">
+                        <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 font-family font-700"> Home Work
+                            <span class="mandatory">*</span></span>
+                            <summernote config="summerConfig"
+                                   name="homeWork"
+                                   form-config="batchForTeacher.formConfig"
+                                   required=""
+                                   ng-model="batchForTeacher.formModel.homeWork"
+                                   id="homeWork"></summernote>
+                        </div>
+
+                      <!--   <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700">Upload Home Work</span>
+
+                        <div class="col-md-6" style="padding-top: 16px;">
+                            <table class="table table-condensed table-hover table-bordered table-striped">
+                                <thead>
+                                <th class="text-center" colspan="2"><span translate="UPLOAD_FILE"></span></th>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="text-center">
+                                        <label for="eoExpImage" style="cursor: pointer"
+                                               id="previewattachment">
+                                            <i class="fa fa-upload text-info"
+                                               title="Click to Upload "></i>
+                                        </label>
+                                        <input name="eoExpImage{{$index}}" eo-index="{{$index}}"
+                                               accept="image/png,image/jpg,image/jpeg, application/pdf ,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                               ng-model="add['eoExpImage'+$index]" type="file"
+                                               style="display:none;" id="eoExpImage{{$index}}"
+                                               multiple
+                                               velement="batchForTeacher"
+                                               filetype-drct="batchForTeacher.fileChangeConfigExp">
+                                    </td>
+                                    <td class="visit">
+
+                                        <div class="text-center">
+                                            <a href="javascript:void(0);"
+                                               title="Click to View Uploaded Documents" in-if="index>0"
+                                               ng-click="batchForTeacher.showExpImagesList('eoExpImage'+$index,$index)">
+                                                <i class="fa fa-folder-open" aria-setsize="12px"></i>
+
+                                                    <span id="eoImageCountExp{{$index}}"
+                                                          style="margin-top: 12.5%;margin-right: 25%"
+                                                          class="label label-success viewer-notification">{{batchForTeacher.formModel.eoAttachmentArray.length}}</span>
+                                            </a>
+                                        </div>
+
+
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>-->
+
+                        <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700">Comments about What was covered
+                            <span class="mandatory">*</span></span>
+                        <vtextarea name="comments"
+                                   maxlength="1000"
+                                   rows="5"
+                                   form-config="batchForTeacher.formConfig"
+                                   class="form-control"
+                                   required=""
+                                   ng-model="batchForTeacher.formModel.comments"
+                                   id="comments">
+                        </vtextarea>
+
+                        </div>
+
+                        <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700">Comments for Improvements
+                            <span class="mandatory">*</span></span>
+                            <vtextarea name="improvementComments"
+                                       maxlength="1000"
+                                       rows="5"
+                                       form-config="batchForTeacher.formConfig"
+                                       class="form-control"
+                                       required=""
+                                       ng-model="batchForTeacher.formModel.improvementComments"
+                                       id="improvementComments"></vtextarea>
+
+                        </div>
+                    </vform>
+                </div>
+
+           <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" ng-if="batchForTeacher.studentBatchList.length>0">
+                  <button class="btn-custom btn-custom-success"
+                            ng-show="batchForTeacher.formModel.length==0"
+                            ng-hide="batchForTeacher.formModel.length>0"
+                            title="Submit"
+                            ng-click="batchForTeacher.formSubmit($event);">
+                        Submit
+                    </button>
+               <button class="btn-custom btn-custom-success"
+                       ng-show="batchForTeacher.formModel.length>0"
+                       title="Update"
+                       ng-click="batchForTeacher.formSubmit($event);">
+                   Update
+               </button>
+           </div>
+
+            </div>
+
+            <div class="col-lg-5 col-md-5 col-sm-12 sol-xs-12" ng-if="batchForTeacher.studentBatchList.length>0">
+
+                <div class="">
+                   <!-- <vform name="ratingsForm" config="batchForTeacher.formConfig1"-->
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover table-bordered table-striped">
+
+                            <thead>
+                            <th><span translate="SERIAL_NUMBER"></span></th>
+                            <th>Student Name</th>
+                            </thead>
+
+
+                      <tbody ng-repeat="d in batchForTeacher.studentBatchList"
+                             ng-init="mainIndex = $index; batchForTeacher.attrList[mainIndex] = []">
+                            <tr>
+                                <td>{{(mainIndex+1)}}</td>
+                                <td>
+                                    <a href="javascript:void(0);"
+                                       ng-click="batchForTeacher.getAttributeList($event,d.primaryKey,d.batchPk,d.slotPk,mainIndex);
+                                      ">{{d.studentfullName}}</a>
+                                </td>
+                                    <tr id="details{{mainIndex}}" class="hide expandable" >
+                                    <td colspan="2">
+                                    <div class="col-md-12 no-padding">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                            <!--<th style="color: cadetblue"> s.no</th>-->
+                                            <th style="color: black;text-align: center;"><b><span translate="ATTRIBUTES"></span></b></th>
+                                            <th style="color: black;text-align: center;"><b><span translate="RATINGS"></span></b></th>
+
+                                            </thead>
+                                            <tbody ng-repeat="attributeData in batchForTeacher.attrList[mainIndex]"
+                                            ng-init="childIndex = $index">
+                                            <tr>
+                                                <td>{{attributeData.criteria}}</td>
+                                                <td  ng-init = "entities = batchForTeacher.getMaxRating(attributeData,mainIndex,childIndex)" style="background-color: grey;
+">
+                                                    <i class="fas fa-star" ng-repeat="t in  entities"
+                                                       ng-init="starIndex = $index; "
+                                                       ng-style="batchForTeacher.getRating(attributeData.optedRating-1,starIndex,mainIndex,childIndex,entities)"
+                                                       ng-click="batchForTeacher.setRating(starIndex,mainIndex,childIndex,entities)"
+                                                       id="star{{childIndex+''+starIndex}}"
+                                                       style="cursor: pointer; padding-right: 2px;"></i>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="childIndex == batchForTeacher.lengthOfAttr">
+                                                <td colspan="2">
+                                                    <button class="btn-custom btn-custom-success"
+                                                            title="Submit"
+                                                            ng-if="batchForTeacher.flag"
+                                                            ng-click="batchForTeacher.submitRating(d.primaryKey,d.batchPk,d.slotPk,mainIndex);">
+                                                        <span translate="SUBMIT"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+               <!-- </vform>-->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

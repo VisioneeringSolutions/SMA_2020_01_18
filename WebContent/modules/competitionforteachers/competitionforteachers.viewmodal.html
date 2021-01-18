@@ -1,0 +1,71 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="compTeacherViewModal.modalInstance.close({},'cancel')"
+            style="color: red" title="close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+
+
+<div class="modal-body" style="border-bottom: 3px solid;border-top: 3px solid;border-color: #42CF89;">
+    <div class="student-from col-lg-12 col-md-12 col-sm-12 sol-xs-12 animate" id="student-reg">
+
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+            <div style="text-align: center; color: #F39BA9">
+                <span><u>{{compTeacherViewModal.formModel.name}}</u></span>
+            </div>
+
+           <!-- <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700 font-12"
+                  style="font-size: 15px;color: #009688 "><u>Name:<br></u></span>
+            <span class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12 font-family" style="padding-top: 15px;">
+                {{compTeacherViewModal.formModel.name}}
+            </span>-->
+
+            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700 font-12"
+                  style="font-size: 15px;color: #009688; padding-top: 25px"><u>Date:<br></u></span>
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12 font-family"
+                 style="padding-top: 15px;">
+                {{compTeacherViewModal.getDateFormat(compTeacherViewModal.formModel.competitionDate)}}
+            </div>
+
+            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700 font-12"
+                  style="font-size: 15px;color: #009688 "><u>Details:</u></span>
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12 font-family"
+                 ng-bind-html="compTeacherViewModal.formModel.details| trusted "
+                 ng-model="compTeacherViewModal.formModel.details" style="padding-top: 15px;">
+            </div>
+
+            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700 font-12"
+                  style="font-size: 15px;color:#009688 "><u>Organizing Authority:</u></span>
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12 font-family"
+                 style="padding-top: 15px;">
+                {{compTeacherViewModal.formModel.organizingAuthority}}
+            </div>
+
+            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700 font-12"
+                  style="font-size: 15px;color:#009688 "><u>Prerequisite:</u></span>
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12 font-family"
+                 style="padding-top: 15px;">
+                {{compTeacherViewModal.formModel.prerequisite}}
+            </div>
+
+            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700 font-12"
+                  style="font-size: 15px;color: #009688 "><u>Venue:</u></span>
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12 font-family"
+                 style="padding-top: 15px;">
+                {{compTeacherViewModal.formModel.venue}}
+            </div>
+
+             <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700 font-12"
+                   style="font-size: 15px;color: #009688 "><u>Brochure Url:<br></u></span>
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12 font-family"
+                 style="padding-top: 15px;">
+                {{compTeacherViewModal.formModel.brochureUrl}}
+            </div>
+
+
+        </div>
+    </div>
+</div>

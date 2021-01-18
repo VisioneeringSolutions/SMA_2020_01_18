@@ -1,0 +1,175 @@
+<div class="container-fluid" >
+    <div class="row">
+        <div class="main-container col-lg-12 col-md-12 col-sm-12 sol-xs-12">
+
+            <div class="col-lg-7 col-md-7 col-sm-12 sol-xs-12" style="height: 80vh;border-right: 1px solid grey">
+
+                <div class="">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover table-bordered table-striped">
+
+                            <thead>
+                            <th><span translate="SERIAL_NUMBER"></span></th>
+                            <th ng-click='batchRegistration.sortColumn("batch_name")' ng-class='batchRegistration.sortClass("batch_name")'><span translate="BATCH_NAME"></span></th>
+                            <th ng-click='batchRegistration.sortColumn("start_date")' ng-class='batchRegistration.sortClass("start_date")'><span translate="START_DATE"></span></th>
+                            <th ng-click='batchRegistration.sortColumn("course_name")' ng-class='batchRegistration.sortClass("course_name")'><span translate="COURSE"></span></th>
+                            <th ng-click='batchRegistration.sortColumn("status")' ng-class='batchRegistration.sortClass("status")'><span translate="STATUS"></span></th>
+                            <th><span translate="ACTION"></span></th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="d in batchRegistration.batchList  | orderBy:batchRegistration.column:batchRegistration.reverse ">
+                                <td>{{$index+1}}</td>
+                                <td>{{d.batch_name}}</td>
+                                <td>{{d.start_date}}</td>
+                                <td>{{d.course_name}}</td>
+                                <td>{{d.status}}</td>
+                                <td class="">
+                                    <button class="btn-custom-sm btn-custom-primary" ng-click="batchRegistration.updateModal(d)"
+                                            title="Update Batch">
+                                        <i class="fas fa-pen-nib"></i>
+                                    </button>
+                                    <button class="btn-custom-sm btn-custom-voilet" ng-click="batchRegistration.deleteModal(d)"
+                                            title="Remove Batch">
+                                        <i class="far fa-trash-alt"></i></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="registration-from col-lg-5 col-md-5 col-sm-12 sol-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12" >
+                    <button class="btn-custom btn-custom-primary"
+                            title="Add new batch"
+                            ng-click="batchRegistration.addCourse();">
+                        <span translate="ADD_NEW_BATCH"></span><i class="fas fa-plus"></i>
+                    </button>
+                    <hr style="border-top: 1px solid #a9a6a6">
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 sol-xs-12" style="padding: 0">
+
+                    <vform name="batchRegistration" config="batchRegistration.formConfig"
+                           class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0">
+
+                        <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12" id="tabContainer"  >
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="BATCH_NAME"></span></th>
+                            <span class="mandatory">*</span></span>
+                            <vinput type="input"
+                                    name="name"
+                                    capitalize=""
+                                    form-config="batchRegistration.formConfig"
+                                    required=""
+                                    ng-model="batchRegistration.formModel.batchName"
+                                    placeholder="Name"
+                                    id="name"
+                                    class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            </vinput>
+                        </div>
+
+                        <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700">Batch Id(Only 2 char)
+                            <span class="mandatory">*</span></span>
+                            <vinput type="input"
+                                    name="batchId"
+                                    capitalize=""
+                                    upper-case-capital
+                                    max-limit="2"
+                                    charminlength="2"
+                                    charmaxlength="2"
+                                    form-config="batchRegistration.formConfig"
+                                    required=""
+                                    ng-model="batchRegistration.formModel.batchId"
+                                    placeholder="Id"
+                                    id="batchId"
+                                    class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            </vinput>
+                        </div>
+
+                        <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-600 font-12"><span translate="START_DATE"></span>
+                            <span class="mandatory">*</span></span>
+                            <div class="form-group">
+                                <p class="input-group ">
+                                    <input type="text" name="startDate"
+                                           ng-init="startDate = batchRegistration.createDateMap()"
+                                           class="form-control date"
+                                           uib-datepicker-popup="{{startDate.format}}"
+                                           show-button-bar="false"
+                                           readonly="true"
+                                           ng-model="batchRegistration.startDate"
+                                           is-open="startDate.popup.opened"
+                                           placeholder="dd-mm-yy"
+                                           datepicker-options="startDate.dateOptions"
+                                           id="startDate"
+                                           ng-click="startDate.open()"
+                                           ng-required="true"/>
+                                    <span class="input-group-btn ">
+                                            <button type="button" class="btn btn-default calender" ng-click="startDate.open()">
+                                                <i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="BATCH_TYPE"></span>
+                            <span class="mandatory">*</span></span>
+                            <vselect type="input" name="batchType"id="batchType"
+                                     class="input-box font-family font-700 font-14 col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                                     ng-model="batchRegistration.formModel.batchType"
+                                     form-config="batchRegistration.formConfig">
+                                <option value="">Select</option>
+                                <option value="Individual">Individual</option>
+                                <option value="Group">Group</option>
+                            </vselect>
+                        </div>
+
+                        <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="STATUS"></span></span>
+                            <vselect type="input" name="status"id="status"
+                                     class="input-box font-family font-700 font-14 col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                                     ng-model="batchRegistration.formModel.status">
+                                <option value="Active">Active</option>
+                                <option value="Stopped">Stopped</option>
+                            </vselect>
+                        </div>
+
+                        <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="COURSE"></span>
+                            <span class="mandatory">*</span></span>
+                            <vselect name="courseType" id="courseType"
+                                     class="input-box font-family font-700 font-14 col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                                     ng-model="batchRegistration.formModel.eoCourses"
+                                     form-config="batchRegistration.formConfig"
+                                     required="">
+                                <option value="" disabled>Select</option>
+                                <option value="{{d.primary_key}}" ng-repeat="d in batchRegistration.courseList">{{d.course_name}}</option>
+                            </vselect>
+                        </div>
+
+                    </vform>
+
+                </div>
+                <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 25px">
+                    <button class="btn-custom btn-custom-success"
+                            title="Submit"
+                            ng-if="batchRegistration.formModel.primaryKey == null"
+                            ng-click="batchRegistration.formSubmit($event );">
+                        <span translate="SUBMIT"></span>
+                    </button>
+                    <button class="btn-custom btn-custom-primary"
+                            title="Update"
+                            ng-if="batchRegistration.formModel.primaryKey != null"
+                            ng-click="batchRegistration.formSubmit($event );">
+                        <span translate="UPDATE"></span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

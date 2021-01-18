@@ -1,0 +1,42 @@
+<div class="modal-header">
+    <button type="button" class="close"
+            ng-click="fileView.modalInstance.close({},'cancel')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="modal-title" translate="FILE_VIEW">View File</h3>
+</div>
+<div class="modal-body">
+    <div class="row scrollFields" id="mainDiv">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-striped table-hover">
+                        <thead>
+                        <th><span translate="FILE_NAME"></span></th>
+                        <th class="text-center"><span translate="VIEW"></span></th>
+                        <th class="text-center"><span translate="DELETE"></span></th>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="(name,file) in fileView.fileInstances">
+                            <td>
+                                {{file.displayName ? file.displayName : name}}
+                            </td>
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-info" ng-click="fileView.view(name, file)"><i
+                                        class="fa fa-image"></i></button>
+                            </td>
+
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-danger"
+                                        ng-click="fileView.delete(fileView.metadata.name,name,fileView.metadata.index,file.primaryKey)">
+                                    <i class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

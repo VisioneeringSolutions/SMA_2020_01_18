@@ -1,0 +1,57 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn-custom btn-custom-primary pull-right"
+                ng-click="studentDetails.downloadExcel(generalReport.notConvertstudentDetailsArr);">
+                <span translate="DOWNLOAD_EXCEL"></span> <i class="fas fa-download"></i>
+            </button>
+        </div>
+
+        <div class="ol-lg-12 col-md-12 col-sm-12 sol-xs-12 no-padding">
+            <div class="table-responsive container-table" scrollable-table-drct fixed-columns="1" id="scroll-bar">
+                <table class="table-fixed-report table-fixed-preview table-condensed table-hover table-striped" >
+                    <colgroup>
+                        <col width="5%">
+                        <col width="10%">
+                        <col width="10%">
+                        <col width="20%">
+                        <col width="10%">
+                        <col width="15%">
+                        <col width="10%">
+                        <col width="10%">
+                        <col width="15%">
+                    </colgroup>
+
+                    <thead>
+                    <th style="text-align: center"><span translate="SERIAL_NUMBER"></span></th>
+                    <th style="text-align: center"><span translate="NAME"></span></th>
+                    <th style="text-align: center"><span translate="EMAIL_ID"></span></th>
+                    <th style="text-align: center"><span translate="ADDRESS"></span></th>
+                    <th style="text-align: center"><span translate="PHONE"></span></th>
+                    <th style="text-align: center"><span translate="REMARKS"></span></th>
+                    <th style="text-align: center"><span translate="ENQUIRY_DATE"></span></th>
+                    <th style="text-align: center"><span translate="CONVERT_DATE"></span></th>
+                    <th style="text-align: center"><span translate="MUSIC_TYPE"></span></th>
+
+                    </thead>
+                    <tbody style="height: 100px !important; overflow-y: scroll;">
+                    <tr ng-repeat="d in generalReport.notConvertstudentDetailsArr  | orderBy:'studentfullName'">
+                        <td style="text-align: center">{{$index+1}}</td>
+                        <td style="text-align: center">{{d.getFullName}}</td>
+                        <td style="text-align: center">{{d.mail_id}}</td>
+                        <td style="text-align: center">{{d.address}}</td>
+                        <td style="text-align: center">{{d.phone_nmber}}</td>
+                        <td style="text-align: center">{{d.remarks}}</td>
+                        <td style="text-align: center">{{generalReport.getDateFormat(d.enquiryDate)}}</td>
+                        <td style="text-align: center">{{generalReport.getDateFormat(d.convert_date != null ? d.convert_date : '')}}</td>
+                        <td style="text-align: center"><div ng-repeat="data in d.musicType" >{{data!= null ? data  + ' ' : '' }}</div></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>

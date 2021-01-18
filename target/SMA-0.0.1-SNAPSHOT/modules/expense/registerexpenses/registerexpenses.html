@@ -1,0 +1,133 @@
+
+<div class="box-body">
+    <vform name="registerExpenses" config="registerExpenses.formConfig" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0">
+        <table class="table table-condensed table-hover table-bordered table-striped table-font" ng-if="registerExpenses.showTable">
+            <button class="btn-custom btn-custom-primary"
+                    title="Add"
+                    ng-click="registerExpenses.addExpense()">
+                <span translate="ADD_EXPENSES"></span><i class="fas fa-plus"></i>
+            </button>
+            <colgroup>
+                <col width="5%">
+                <col width="15%">
+                <col width="15%">
+                <col width="50%">
+                <col width="15%">
+            </colgroup>
+
+            <thead>
+            <th><span translate="ORDER"></span></th>
+            <th><span translate="ACCOUNT_TYPE"></span></th>
+            <th><span translate="ACCOUNT_NAME"></span></th>
+            <th><span translate="DESCRIPTION"></span></th>
+            <th><span translate="ACTION"></span></th>
+            <th></th>
+            </thead>
+            <tbody ng-repeat="(accountKey ,d) in registerExpenses.mainList" ng-init="$accountIndex = $index+1">
+            <tr style="background: #54a57c">
+                <td>{{$index+1}}</td>
+                <td><vinput vtype="input"
+                            capitalize=""
+                            required=""
+                            name="accountType{{$index+1}}"
+                            ng-model="d.accountType"
+                            ng-change="registerExpenses.accountType(d)"
+                            form-config="registerExpenses.formConfig"
+                            placeholder=""
+                            class="form-control"
+                            id="accountType">
+                </vinput>
+                </td>
+                <td><vinput vtype="input"
+                            capitalize=""
+                            ng-model="d.accountName"
+                            required=""
+                            name="accountName{{$index+1}}"
+                            ng-change="registerExpenses.accountName(d)"
+                            form-config="registerExpenses.formConfig"
+                            placeholder=""
+                            class="form-control"
+                            id="accountName">
+                </vinput>
+                </td>
+                <td><vinput vtype="input"
+                            capitalize=""
+                            ng-model="d.descriptions"
+                            required=""
+                            name="description{{$index+1}}"
+                            ng-change="registerExpenses.descriptions(d)"
+                            form-config="registerExpenses.formConfig"
+                            placeholder=""
+                            class="form-control"
+                            id="descriptions">
+                </vinput>
+                </td>
+                <td><a class="btn-custom btn-custom-primary"
+                       title="Add"
+                       ng-click="registerExpenses.addSubExpense($accountIndex)">
+                    <span translate="ADD_EXPENSE_ACCOUNT"></span><i class="fas fa-plus"></i>
+                </a>
+                </td>
+                <td>
+                    <img class="close-icon"
+                         src="images/close-red.png"
+                         alt="icon"
+                         ng-click="registerExpenses.removeExpenses($index,d)">
+                </td>
+            </tr>
+            <tr class="sub-table" ng-repeat="(key,data) in d.subAccountList">
+                <td style="font-size: 10px">{{registerExpenses.indexChar(accountKey+1, key)}}</td>
+                <!--<td >{{$accountIndex}}{{key}}</td>-->
+
+                <td style="text-align: left">{{d.accountType}}</td>
+
+                <td><vinput vtype="input"
+                            capitalize=""
+                            ng-model="data.accountName"
+                            required=""
+                            name="accountName{{$accountIndex}}{{key}}"
+                            ng-change="registerExpenses.accountName(d)"
+                            form-config="registerExpenses.formConfig"
+                            placeholder=""
+                            class="form-control"
+                            id="accountname1">
+                </vinput></td>
+                <td><vinput vtype="input"
+                            capitalize=""
+                            ng-model="data.descriptions"
+                            required=""
+                            ng-change="registerExpenses.descriptions(d)"
+                            name="description{{$accountIndex}}{{key}}"
+                            placeholder=""
+                            class="form-control"
+                            id="description1">
+                </vinput></td>
+                <td>
+                    <!--<img class="close-icon"
+                         src="images/close-red.png"
+                         alt="icon"
+                         ng-model = "data.isActive"
+                         ng-click="registerExpenses.removeSubAccount($index,d,data)">-->
+
+                    <a style="color: red" href="javascript:void(0);"
+                       ng-click="registerExpenses.removeSubAccount($index,d,data)">
+                        <b><u style="color: red"><span translate="REMOVE"></span></u></b></a>
+                </td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </vform>
+    <div class="close-submit" ng-if="registerExpenses.mainList.length > 0">
+        <button class="btn-custom btn-custom-success"
+                title="Submit"
+                ng-click="registerExpenses.formSubmit($event);">
+            {{d.primaryKey == null ? 'Submit' : 'Update'}}
+        </button>
+    </div>
+
+</div>
+
+
+

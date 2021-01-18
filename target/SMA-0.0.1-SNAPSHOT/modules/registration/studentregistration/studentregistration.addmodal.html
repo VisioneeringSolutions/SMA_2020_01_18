@@ -1,0 +1,313 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="studentAddModal.modalInstance.close({},'cancel')"
+            style="color: red" title="close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="modal-title" translate="ADD_STUDENT"><span translate="ADD_STUDENT"></span></h3>
+</div>
+
+<div class="modal-body">
+    <div class="registration-from col-lg-12 col-md-12 col-sm-12 sol-xs-12 animate" id="student-reg">
+
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 sol-xs-12">
+            <label for="UploadAvatar" id="preview">
+                <img src="images/avatar.png">
+            </label>
+            <vfile-upload-drct ng-model="studentAddModal.uploadConfig.model"
+                               style="display: none;"
+                               accept="image/jpeg, image/jpg, image/png"
+                               config="studentAddModal.uploadConfig" fsize="16000027"
+                               preview-class="img-thumbnail"
+                               preview-container="preview">
+            </vfile-upload-drct>
+        </div>
+
+
+        <vform name="studentsRegistrationForm" config="studentAddModal.formConfig"
+               class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0">
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="FIRST_NAME_JAP"></span>
+                            <span class="mandatory">*</span></span>
+                <vinput type="input"
+                        name="firstNameJap"
+                        capitalize=""
+                        form-config="studentAddModal.formConfig"
+                        required=""
+                        ng-model="studentAddModal.formModel.firstNameJap"
+                        placeholder="First Name (Japanese)"
+                        id="firstNameJap"
+                        ng-blur="studentAddModal.setUserName();studentAddModal.validateUserName()"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="LAST_NAME_JAP"></span>
+                            <span class="mandatory">*</span></span>
+                <vinput type="input"
+                        name="lastNameJap"
+                        capitalize=""
+                        form-config="studentAddModal.formConfig"
+                        required=""
+                        ng-model="studentAddModal.formModel.lastNameJap"
+                        placeholder="Last Name (Japanese)"
+                        id="lastNameJap"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="FIRST_NAME"></span>
+                            <span class="mandatory">*</span></span>
+                <vinput type="input"
+                        name="firstName"
+                        capitalize=""
+                        only-alphabets=""
+                        form-config="studentAddModal.formConfig"
+                        required=""
+                        ng-model="studentAddModal.formModel.firstName"
+                        placeholder="First Name"
+                        id="firstName"
+                        ng-blur="studentAddModal.setId();"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="LAST_NAME"></span>
+                            <span class="mandatory">*</span></span>
+                <vinput type="input"
+                        name="lastName"
+                        capitalize=""
+                        only-alphabets=""
+                        form-config="studentAddModal.formConfig"
+                        required=""
+                        ng-model="studentAddModal.formModel.lastName"
+                        placeholder="Last Name"
+                        id="lastName"
+                        ng-blur="studentAddModal.setId();studentAddModal.setUserName();studentAddModal.validateUserName()"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="STUDENT_ID"></span>(<span translate="ONLY_2_CHAR"></span>)
+                            <span class="mandatory">*</span></span>
+                <vinput type="input"
+                        name="studentId"
+                        capitalize=""
+                        upper-case-capital
+                        max-limit="2"
+                        charminlength="2"
+                        charmaxlength="2"
+                        form-config="studentAddModal.formConfig"
+                        required=""
+                        ng-disabled="true"
+                        ng-model="studentAddModal.formModel.studentId"
+                        placeholder="ID"
+                        id="studentId"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="GENDER"></span>
+                            <span class="mandatory">*</span></span>
+                <ul>
+                    <li>
+                        <input type="radio"
+                               value="Male"
+                               ng-model="studentAddModal.formModel.gender"
+                               id="f-option" name="selector-2">
+                        <label for="f-option"><span translate="MALE"></span></label>
+                        <div class="check"></div>
+                    </li>
+
+                    <li>
+                        <input type="radio"
+                               value="Female"
+                               ng-model="studentAddModal.formModel.gender"
+                               id="s-option" name="selector-2">
+                        <label for="s-option"><span translate="FEMALE"></span></label>
+                        <div class="check"><div class="inside"></div></div>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-600 font-12"><span translate="ENROLLMENT_DATE"></span>
+                            <span class="mandatory">*</span></span>
+                <div class="form-group">
+                    <p class="input-group ">
+                        <input type="text" name="enrollmentDate"
+                               ng-init="enroll = studentAddModal.createDateMap()"
+                               class="form-control date"
+                               uib-datepicker-popup="{{enroll.format}}"
+                               show-button-bar="false"
+                               readonly="true"
+                               ng-model="studentAddModal.enrollmentDate"
+                               form-config="studentAddModal.formConfig"
+                               is-open="enroll.popup.opened"
+                               placeholder="yyyy-mm-dd"
+                               datepicker-options="enroll.dateOptions"
+                               id="enrollmentDate"
+                               ng-click="enroll.open()"
+                               ng-required="true"
+                               ng-change="studentAddModal.dateFormat(studentAddModal.formModel.enrollmentDate);"/>
+                        <span class="input-group-btn ">
+                                <button type="button" class="btn btn-default calender" ng-click="enroll.open()">
+                                    <i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+
+            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-600 font-12"><span translate="DATE_OF_BIRTH"></span></span>
+                <div class="form-group">
+                    <p class="input-group ">
+                        <input type="text" name="dateOfBirth{{$index}}"
+                               ng-init="dobMap = studentAddModal.createDateMap()"
+                               class="form-control date"
+                               uib-datepicker-popup="{{dobMap.format}}"
+                               show-button-bar="false"
+                               readonly="true"
+                               ng-model="studentAddModal.dateOfBirth"
+                               is-open="dobMap.popup.opened"
+                               placeholder="yyyy-mm-dd"
+                               datepicker-options="dobMap.dateOptions"
+                               id="dateOfBirth{{$index}}"
+                               ng-click="dobMap.open()"
+                               ng-required="true"
+                               ng-change="studentAddModal.dateFormat(studentAddModal.formModel.dateOfBirth);"/>
+                        <span class="input-group-btn ">
+                                <button type="button" class="btn btn-default calender" ng-click="dobMap.open()">
+                                    <i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700 font-12"><span translate="PHONE"></span></span>
+                <vinput vtype="positiveirrational"
+                        only-numbers=""
+                        name="phone"
+                        ng-model="studentAddModal.formModel.phone"
+                        placeholder="Phone"
+                        id="phone"
+                        ng-disabled="studentAddModal.formModel.studentId == null || studentAddModal.formModel.studentId == ''"
+                        ng-change=""
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+                <span ng-if="studentAddModal.formModel.studentId == null || studentAddModal.formModel.studentId == ''"
+                      style="float: right; font-size: 11px">
+                    <span translate="ENTER_FIRST_AND_LAST_NAME_TO_ENABLE"></span>
+                </span>
+            </div>
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="USER_NAME"></span>
+                            <span class="mandatory">*</span></span>
+                <vinput type="input"
+                        name="userName"
+                        form-config="studentAddModal.formConfig"
+                        required=""
+                        ng-model="studentAddModal.formModel.userName"
+                        placeholder="User Name"
+                        id="userName"
+                        ng-blur="studentAddModal.validateUserName();"
+                        ng-disabled="true"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+                <!--<span ng-if="studentAddModal.formModel.studentId == null || studentAddModal.formModel.studentId == ''"
+                      style="float: right; font-size: 11px">
+                    Enter First & Last Name to enable
+                </span>
+
+                <span ng-if="studentAddModal.isUserName == false"
+                      style="float: right; font-size: 11px; color: red">
+                    This username is already taken
+                </span>-->
+            </div>
+
+            <!--max-limit="10"
+            charminlength="10"
+            charmaxlength="10"-->
+
+            <!--<div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700">
+                    <span translate="COURSE"></span><span class="mandatory">*</span></span>
+                <vselect type="input" name="course"id="course"
+                        class="input-box font-family font-700 font-14 col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                        ng-model="studentAddModal.formModel.course"
+                        form-config="studentAddModal.formConfig">
+                    <option value="" disabled>Select</option>
+                    <option value="{{d.primary_key}}" ng-repeat="d in studentAddModal.courseList">{{d.course_name}}</option>
+
+                </vselect>
+            </div>-->
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="MUSIC_AND_CATEGORY"></span>
+                            <span class="mandatory">*</span></span>
+                <div>
+                    <selectize config='studentAddModal.courseConfig' options='studentAddModal.courseList'
+                               class="contect input-box font-family font-700 font-14 col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                               ng-model="studentAddModal.formModel.courseArray">
+                    </selectize>
+                </div>
+            </div>
+
+            <!--<div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="MUSIC_TYPE"></span>
+                            <span class="mandatory">*</span></span>
+                <div>
+                    <selectize config='studentAddModal.musicCategoryConfig' options='studentAddModal.musicList'
+                               class="contect input-box font-family font-700 font-14 col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                               ng-model="studentAddModal.formModel.musicCategoryArray">
+                    </selectize>
+                </div>
+            </div>-->
+
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="EMAIL_ID"></span>
+                            </span>
+                <vinput type="input"
+                        name="email"
+                        ng-model="studentAddModal.formModel.email"
+                        placeholder="Email Id"
+                        id="email"
+                        ng-blur="studentAddModal.isValidEmail(studentAddModal.formModel.email)"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+            <div class="form-input col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 font-family font-700"><span translate="REGISTRATION_AMOUNT"></span>
+                            <span class="mandatory">*</span></span>
+                <vinput type="input"
+                        name="registrationAmount"
+                        capitalize=""
+                        form-config="studentAddModal.formConfig"
+                        required=""
+                        ng-model="studentAddModal.formModel.registrationAmount"
+                        placeholder="Registration Amount"
+                        id="registrationAmount"
+                        class="input-box font col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </vinput>
+            </div>
+        </vform>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <div class="center col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <button class="btn-custom btn-custom-success"
+                ng-click="studentAddModal.formSubmit($event );">
+            <span translate="SUBMIT"></span>
+        </button>
+    </div>
+</div>

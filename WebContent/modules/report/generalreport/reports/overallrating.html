@@ -1,0 +1,59 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="form-input col-md-2 col-sm-12 col-xs-12">
+                <select name="year" class="input-box font-family font-700 font-14 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                        ng-model="overallRating.year"
+                        ng-init="overallRating.getOverallRating()"
+                        ng-change="overallRating.getOverallRating()"
+                        id="year">
+                    <option value="" disabled>Select year</option>
+                    <option ng-repeat="d in overallRating.yearArray"
+                            value={{d}}>{{d}}
+                    </option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+    <div ng-show="overallRating.year">
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12" ng-show="overallRating.year">
+            <div class="col-md-6 padding-10">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            <span translate="STUDENT_OVERALL_RATING"></span>
+                        </h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <canvas id="studentRating" width="230px" height="150"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-md-6 padding-10">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            <span translate="TEACHER_OVERALL_RATING"></span>
+                        </h3>
+
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <canvas id="teacherRating" width="230px" height="150"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
